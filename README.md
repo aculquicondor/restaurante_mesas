@@ -7,3 +7,21 @@ Módulo de Mesas de Restaurante
 - Alejandro Delgado
 - Rudy Godoy
 - Paulo Ramirez
+
+## Instalación
+
+1. Instalar el driver de mongodb y añadirlo a `php.ini`
+
+    extension=mongo.so
+    
+2. Instalar composer
+
+    curl -sS https://getcomposer.org/installer | php
+    
+3. Actualizar dependencias
+
+    php composer.phar update
+
+## Estándares de codificación
+
+- Los documentos (entidades) serán mapeadas con el ODM de Doctrine usando YAML

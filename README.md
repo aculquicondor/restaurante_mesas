@@ -12,7 +12,7 @@ Módulo de Mesas de Restaurante
 
 ### IDE
 
-Por cuestiones de uniformidad emplearemos [PHPStorm|https://www.jetbrains.com/phpstorm/]
+Por cuestiones de uniformidad emplearemos [PHPStorm](https://www.jetbrains.com/phpstorm/)
 
 ### Identación
 

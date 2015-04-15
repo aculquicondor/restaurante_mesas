@@ -12,15 +12,15 @@ Módulo de Mesas de Restaurante
 
 1. Instalar el driver de mongodb y añadirlo a `php.ini`
 
-    extension=mongo.so
+        extension=mongo.so
     
 2. Instalar composer
 
-   curl -sS https://getcomposer.org/installer | php
+        curl -sS https://getcomposer.org/installer | php
     
 3. Actualizar dependencias
 
-   php composer.phar update
+        php composer.phar update
 
 ## Estándares de desarrollo
 

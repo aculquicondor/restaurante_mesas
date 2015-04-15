@@ -22,6 +22,17 @@ Módulo de Mesas de Restaurante
 
     php composer.phar update
 
-## Estándares de codificación
+## Estándares de desarrollo
 
-- Los documentos (entidades) serán mapeadas con el ODM de Doctrine usando YAML
+### IDE
+
+Por cuestiones de uniformidad emplearemos [PHPStorm](https://www.jetbrains.com/phpstorm/)
+
+### Identación
+
+Indentación a 4 espacios. No tabs.
+
+### ORM
+
+Los documentos (entidades) serán mapeadas con el ODM de Doctrine usando YAML
+

@@ -16,11 +16,11 @@ Módulo de Mesas de Restaurante
     
 2. Instalar composer
 
-    curl -sS https://getcomposer.org/installer | php
+   curl -sS https://getcomposer.org/installer | php
     
 3. Actualizar dependencias
 
-    php composer.phar update
+   php composer.phar update
 
 ## Estándares de desarrollo
 

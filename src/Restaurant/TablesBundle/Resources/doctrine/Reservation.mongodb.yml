@@ -1,0 +1,13 @@
+# src/Restaurant/TablesBundle/Resources/config/doctrine/Reservation.mongodb.yml
+Restaurant\TablesBundle\Document\Reservation:
+    fields:
+        id:
+            id: true
+    referenceMany:
+        tables:
+            targetDocument: Document\Table
+            cascade: all
+    referenceOne:
+        client:
+            targetDocument: Document\Client
+            cascade: all

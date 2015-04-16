@@ -3,6 +3,10 @@ Restaurant\TablesBundle\Document\Reservation:
     fields:
         id:
             id: true
+        date:
+            type: date
+        estimated_time:
+            type: timestamp
     referenceMany:
         tables:
             targetDocument: Document\Table

@@ -1,6 +1,6 @@
 <?php
 
-// src/Restaurant/TablesBundle/Document/Cliente.php
+// src/Restaurant/TablesBundle/Document/Reservation.php
 namespace Restaurant\TablesBundle\Document;
 
 class Reservation
@@ -8,4 +8,116 @@ class Reservation
     protected $id;
     protected $tables = array();
     protected $client;
+    protected $date;
+    protected $estimated_time;
+    public function __construct()
+    {
+        $this->tables = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
+    /**
+     * Get id
+     *
+     * @return id $id
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     * @return self
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return date $date
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set estimatedTime
+     *
+     * @param timestamp $estimatedTime
+     * @return self
+     */
+    public function setEstimatedTime($estimatedTime)
+    {
+        $this->estimated_time = $estimatedTime;
+        return $this;
+    }
+
+    /**
+     * Get estimatedTime
+     *
+     * @return timestamp $estimatedTime
+     */
+    public function getEstimatedTime()
+    {
+        return $this->estimated_time;
+    }
+
+    /**
+     * Set client
+     *
+     * @param Document\Client $client
+     * @return self
+     */
+    public function setClient(\Document\Client $client)
+    {
+        $this->client = $client;
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return Document\Client $client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Add table
+     *
+     * @param Document\Table $table
+     */
+    public function addTable(\Document\Table $table)
+    {
+        $this->tables[] = $table;
+    }
+
+    /**
+     * Remove table
+     *
+     * @param Document\Table $table
+     */
+    public function removeTable(\Document\Table $table)
+    {
+        $this->tables->removeElement($table);
+    }
+
+    /**
+     * Get tables
+     *
+     * @return \Doctrine\Common\Collections\Collection $tables
+     */
+    public function getTables()
+    {
+        return $this->tables;
+    }
 }

@@ -1,0 +1,13 @@
+# src/Restaurant/TablesBundle/Resources/config/doctrine/Client.mongodb.yml
+Restaurant\TablesBundle\Document\Client:
+    fields:
+        id:
+            id: true
+        dni:
+            type: string
+        ruc:
+            type: string
+        name:
+            type: string
+        address:
+            type: string

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: rudy
- * Date: 4/17/15
- * Time: 14:50
- */
 
 namespace Restaurant\TablesBundle\Document;
 

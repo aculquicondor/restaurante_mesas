@@ -6,11 +6,11 @@ namespace Restaurant\TablesBundle\Document;
 class Order {
 
     private $id;
-    /** @EmbedMany(targetDocument="Item") */
+    /** @Related(targetDocument="Item") */
     private $items = array();
     private $date;
     private $table_id;
-    /** @EmbedOne(targetDocument="Employee") */
+    /** @Related(targetDocument="Employee") */
     private $employee;
 
     /**

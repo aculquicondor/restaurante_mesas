@@ -77,20 +77,4 @@ class Order {
         $this->id = $id;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * @param mixed $items
-     */
-    public function setItems($items)
-    {
-        $this->items = $items;
-    }
-
 }

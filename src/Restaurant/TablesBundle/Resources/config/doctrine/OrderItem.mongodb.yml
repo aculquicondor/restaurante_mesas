@@ -5,3 +5,7 @@ Restaurant\TablesBundle\Document\OrderItem:
             id: true
         observations:
             type: string
+        referenceOne:
+            menu_item:
+              targetDocument: Document\MenuItem
+              cascade: all

@@ -1,0 +1,14 @@
+Restaurant\TablesBundle\Document\Order:
+  fields:
+    id:
+      id: true
+    date:
+      type: date
+  EmbedMany:
+    orderItems:
+      targetDocument: OrderItem
+  referenceOne:
+    employee:
+      targetDocument: Employee
+    table:
+      targetDocument: Table

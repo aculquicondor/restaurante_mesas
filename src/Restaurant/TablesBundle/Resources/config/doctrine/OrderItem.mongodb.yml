@@ -1,0 +1,4 @@
+Restaurant\TablesBundle\Document\OrderItem:
+  fields:
+    id:
+      id: true

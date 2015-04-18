@@ -1,0 +1,10 @@
+Restaurant\TablesBundle\Document\Store:
+    fields:
+        id:
+            id: true
+        address:
+            type: string
+    referenceOne:
+        manager:
+            targetDocument: Document\Employee
+            cascade: all

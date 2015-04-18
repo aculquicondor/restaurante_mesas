@@ -1,0 +1,7 @@
+# src/Restaurant/TablesBundle/Resources/config/doctrine/OrderItem.mongodb.yml
+Restaurant\TablesBundle\Document\OrderItem:
+    fields:
+        id:
+            id: true
+        observations:
+            type: string

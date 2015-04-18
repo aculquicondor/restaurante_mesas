@@ -1,19 +1,33 @@
 <?php
 
+// src/Restaurant/TablesBundle/Document/OrderItem.php
 namespace Restaurant\TablesBundle\Document;
 
-
-class OrderItem {
-
-    private $id;
+class OrderItem
+{
+    protected $id;
+    protected $menu_item;
+    protected $observations;
 
     /**
-     * Get id
+     * Set observations
      *
-     * @return id $id
+     * @param string $observations
+     * @return self
      */
-    public function getId()
+    public function setObservations($observations)
     {
-        return $this->id;
+        $this->observations = $observations;
+        return $this;
+    }
+
+    /**
+     * Get observations
+     *
+     * @return string $observations
+     */
+    public function getObservations()
+    {
+        return $this->observations;
     }
 }

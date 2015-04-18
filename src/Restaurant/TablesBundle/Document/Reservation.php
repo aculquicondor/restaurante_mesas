@@ -72,10 +72,10 @@ class Reservation
     /**
      * Set client
      *
-     * @param Document\Client $client
+     * @param \Restaurant\TablesBundle\Document\Client $client
      * @return self
      */
-    public function setClient(\Document\Client $client)
+    public function setClient(\Restaurant\TablesBundle\Document\Client $client)
     {
         $this->client = $client;
         return $this;
@@ -84,7 +84,7 @@ class Reservation
     /**
      * Get client
      *
-     * @return Document\Client $client
+     * @return \Restaurant\TablesBundle\Document\Client $client
      */
     public function getClient()
     {
@@ -94,9 +94,9 @@ class Reservation
     /**
      * Add table
      *
-     * @param Document\Table $table
+     * @param \Restaurant\TablesBundle\Document\Table $table
      */
-    public function addTable(\Document\Table $table)
+    public function addTable(\Restaurant\TablesBundle\Document\Table $table)
     {
         $this->tables[] = $table;
     }
@@ -104,9 +104,9 @@ class Reservation
     /**
      * Remove table
      *
-     * @param Document\Table $table
+     * @param \Restaurant\TablesBundle\Document\Table $table
      */
-    public function removeTable(\Document\Table $table)
+    public function removeTable(\Restaurant\TablesBundle\Document\Table $table)
     {
         $this->tables->removeElement($table);
     }

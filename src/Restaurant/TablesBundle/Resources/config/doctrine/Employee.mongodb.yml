@@ -1,0 +1,8 @@
+Restaurant\TablesBundle\Document\Employee:
+    fields:
+        id:
+            id: true
+        dni:
+            type: string
+        name:
+            type: string

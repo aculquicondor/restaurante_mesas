@@ -1,0 +1,11 @@
+# src/Restaurant/TablesBundle/Resources/config/doctrine/Table.mongodb.yml
+Restaurant\TablesBundle\Document\Table:
+    fields:
+        id:
+            id: true
+        available:
+            type: boolean
+        occupation_time:
+            type: timestamp
+        capacity:
+            type: int

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # src/Restaurant/TablesBundle/Resources/config/doctrine/OrderItem.mongodb.yml
 Restaurant\TablesBundle\Document\OrderItem:
     fields:

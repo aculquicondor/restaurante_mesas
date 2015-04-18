@@ -10,16 +10,6 @@ class OrderItem
     protected $observations;
 
     /**
-     * Get id
-     *
-     * @return id $id
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set observations
      *
      * @param string $observations

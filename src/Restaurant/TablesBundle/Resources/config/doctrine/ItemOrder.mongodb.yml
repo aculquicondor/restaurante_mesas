@@ -1,0 +1,9 @@
+# src/Restaurant/TablesBundle/Resources/config/doctrine/ItemOrder.mongodb.yml
+Restaurant\TablesBundle\Document\ItemOrder:
+    fields:
+        observations:
+            type: string
+        referenceOne:
+            menu_item:
+                targetDocument: Document\MenuItem
+                cascade: all

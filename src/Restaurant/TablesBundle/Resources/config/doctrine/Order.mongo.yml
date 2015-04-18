@@ -4,7 +4,7 @@ Restaurant\TablesBundle\Document\Order:
       id: true
     date:
       type: date
-  referenceMany:
+  EmbedMany:
     items:
       targetDocument: Document\ItemOrder
       cascade: all

@@ -1,0 +1,14 @@
+Restaurant\TablesBundle\Document\Order:
+  fields:
+    id:
+      id: true
+    date:
+      type: date
+  referenceMany:
+    items:
+      targetDocument: Document\ItemOrder
+      cascade: all
+  referenceOne:
+    employee:
+      targetDocument: Document\Employee
+      cascasde: all

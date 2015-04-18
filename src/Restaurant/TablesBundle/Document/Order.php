@@ -2,15 +2,12 @@
 
 namespace Restaurant\TablesBundle\Document;
 
-/* @Document */
 class Order {
 
     private $id;
-    /** @Related(targetDocument="Item") */
     private $items = array();
     private $date;
     private $table_id;
-    /** @Related(targetDocument="Employee") */
     private $employee;
 
     /**
@@ -75,6 +72,22 @@ class Order {
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return array
+     */
+    public function getItems()
+    {
+        return $this->items;
+    }
+
+    /**
+     * @param array $items
+     */
+    public function setItems(Document\OrderItems $items)
+    {
+        $this->items[] = $items;
     }
 
 }

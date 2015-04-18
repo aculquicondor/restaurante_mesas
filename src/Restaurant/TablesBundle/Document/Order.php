@@ -5,13 +5,17 @@ namespace Restaurant\TablesBundle\Document;
 class Order {
 
     private $id;
-    private $items = array();
+    private $orderItems = array();
     private $date;
-    private $table_id;
+    private $table;
     private $employee;
 
+
+
     /**
-     * @return mixed
+     * Get id
+     *
+     * @return id $id
      */
     public function getId()
     {
@@ -19,23 +23,21 @@ class Order {
     }
 
     /**
-     * @return mixed
+     * Set date
+     *
+     * @param date $date
+     * @return self
      */
-    public function getTableId()
+    public function setDate($date)
     {
-        return $this->table_id;
+        $this->date = $date;
+        return $this;
     }
 
     /**
-     * @param mixed $table_id
-     */
-    public function setTableId($table_id)
-    {
-        $this->table_id = $table_id;
-    }
-
-    /**
-     * @return mixed
+     * Get date
+     *
+     * @return date $date
      */
     public function getDate()
     {
@@ -43,15 +45,21 @@ class Order {
     }
 
     /**
-     * @param mixed $date
+     * Set employee
+     *
+     * @param Restaurant\TablesBundle\Document\Employee $employee
+     * @return self
      */
-    public function setDate($date)
+    public function setEmployee(\Restaurant\TablesBundle\Document\Employee $employee)
     {
-        $this->date = $date;
+        $this->employee = $employee;
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get employee
+     *
+     * @return Restaurant\TablesBundle\Document\Employee $employee
      */
     public function getEmployee()
     {
@@ -59,35 +67,24 @@ class Order {
     }
 
     /**
-     * @param mixed $employee
+     * Set table
+     *
+     * @param Restaurant\TablesBundle\Document\Table $table
+     * @return self
      */
-    public function setEmployee($employee)
+    public function setTable(\Restaurant\TablesBundle\Document\Table $table)
     {
-        $this->employee = $employee;
+        $this->table = $table;
+        return $this;
     }
 
     /**
-     * @param mixed $id
+     * Get table
+     *
+     * @return Restaurant\TablesBundle\Document\Table $table
      */
-    public function setId($id)
+    public function getTable()
     {
-        $this->id = $id;
+        return $this->table;
     }
-
-    /**
-     * @return array
-     */
-    public function getItems()
-    {
-        return $this->items;
-    }
-
-    /**
-     * @param array $items
-     */
-    public function setItems(Document\OrderItems $items)
-    {
-        $this->items[] = $items;
-    }
-
 }

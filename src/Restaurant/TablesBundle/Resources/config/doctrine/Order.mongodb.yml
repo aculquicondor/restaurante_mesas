@@ -5,10 +5,10 @@ Restaurant\TablesBundle\Document\Order:
     date:
       type: date
   EmbedMany:
-    items:
-      targetDocument: Document\ItemOrder
-      cascade: all
+    orderItems:
+      targetDocument: OrderItem
   referenceOne:
     employee:
-      targetDocument: Document\Employee
-      cascasde: all
+      targetDocument: Employee
+    table:
+      targetDocument: Table

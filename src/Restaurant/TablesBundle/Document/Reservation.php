@@ -72,10 +72,10 @@ class Reservation
     /**
      * Set client
      *
-     * @param \Restaurant\TablesBundle\Document\Client $client
+     * @param \Restaurant\CashBundle\Document\Client $client
      * @return self
      */
-    public function setClient(\Restaurant\TablesBundle\Document\Client $client)
+    public function setClient(\Restaurant\CashBundle\Document\Client $client)
     {
         $this->client = $client;
         return $this;
@@ -84,7 +84,7 @@ class Reservation
     /**
      * Get client
      *
-     * @return \Restaurant\TablesBundle\Document\Client $client
+     * @return \Restaurant\CashBundle\Document\Client $client
      */
     public function getClient()
     {

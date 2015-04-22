@@ -1,15 +1,25 @@
 <?php
 
-// src/Restaurant/TablesBundle/Document/Client.php
-namespace Restaurant\TablesBundle\Document;
+namespace Restaurant\CashBundle\Document;
 
-class Client
-{
+
+class Employee {
+
+    /**
+     * @var MongoId $id
+     */
     protected $id;
+
+    /**
+     * @var string $dni
+     */
     protected $dni;
-    protected $ruc;
+
+    /**
+     * @var string $name
+     */
     protected $name;
-    protected $address;
+
 
     /**
      * Get id
@@ -44,28 +54,6 @@ class Client
     }
 
     /**
-     * Set ruc
-     *
-     * @param string $ruc
-     * @return self
-     */
-    public function setRuc($ruc)
-    {
-        $this->ruc = $ruc;
-        return $this;
-    }
-
-    /**
-     * Get ruc
-     *
-     * @return string $ruc
-     */
-    public function getRuc()
-    {
-        return $this->ruc;
-    }
-
-    /**
      * Set name
      *
      * @param string $name
@@ -85,27 +73,5 @@ class Client
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set address
-     *
-     * @param string $address
-     * @return self
-     */
-    public function setAddress($address)
-    {
-        $this->address = $address;
-        return $this;
-    }
-
-    /**
-     * Get address
-     *
-     * @return string $address
-     */
-    public function getAddress()
-    {
-        return $this->address;
     }
 }

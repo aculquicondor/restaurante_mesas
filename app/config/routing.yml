@@ -1,3 +1,7 @@
+cash:
+    resource: "@CashBundle/Resources/config/routing.yml"
+    prefix:   /
+
 restaurant_tables:
     resource: "@RestaurantTablesBundle/Resources/config/routing.yml"
     prefix:   /

@@ -47,10 +47,10 @@ class Order {
     /**
      * Set employee
      *
-     * @param Restaurant\TablesBundle\Document\Employee $employee
+     * @param \Restaurant\CashBundle\Document\Employee $employee
      * @return self
      */
-    public function setEmployee(\Restaurant\TablesBundle\Document\Employee $employee)
+    public function setEmployee(\Restaurant\CashBundle\Document\Employee $employee)
     {
         $this->employee = $employee;
         return $this;
@@ -59,7 +59,7 @@ class Order {
     /**
      * Get employee
      *
-     * @return Restaurant\TablesBundle\Document\Employee $employee
+     * @return \Restaurant\CashBundle\Document\Employee $employee
      */
     public function getEmployee()
     {
@@ -69,7 +69,7 @@ class Order {
     /**
      * Set table
      *
-     * @param Restaurant\TablesBundle\Document\Table $table
+     * @param \Restaurant\TablesBundle\Document\Table $table
      * @return self
      */
     public function setTable(\Restaurant\TablesBundle\Document\Table $table)
@@ -81,7 +81,7 @@ class Order {
     /**
      * Get table
      *
-     * @return Restaurant\TablesBundle\Document\Table $table
+     * @return \Restaurant\TablesBundle\Document\Table $table
      */
     public function getTable()
     {

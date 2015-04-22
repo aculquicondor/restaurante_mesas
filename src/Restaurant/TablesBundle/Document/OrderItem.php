@@ -9,25 +9,4 @@ class OrderItem
     protected $menu_item;
     protected $observations;
 
-    /**
-     * Set observations
-     *
-     * @param string $observations
-     * @return self
-     */
-    public function setObservations($observations)
-    {
-        $this->observations = $observations;
-        return $this;
-    }
-
-    /**
-     * Get observations
-     *
-     * @return string $observations
-     */
-    public function getObservations()
-    {
-        return $this->observations;
-    }
 }

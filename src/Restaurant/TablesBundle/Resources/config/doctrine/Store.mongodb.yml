@@ -6,5 +6,5 @@ Restaurant\TablesBundle\Document\Store:
             type: string
     referenceOne:
         manager:
-            targetDocument: Document\Employee
+            targetDocument: CashBundle\Document\Employee
             cascade: all

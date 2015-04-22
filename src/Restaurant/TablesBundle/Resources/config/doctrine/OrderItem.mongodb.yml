@@ -7,5 +7,5 @@ Restaurant\TablesBundle\Document\OrderItem:
             type: string
         referenceOne:
             menu_item:
-              targetDocument: Document\MenuItem
+              targetDocument: TablesBundle\Document\MenuItem
               cascade: all

@@ -1,0 +1,10 @@
+Restaurant\TablesBundle\Document\MenuItem:
+    fields:
+        id:
+            id: true
+        name:
+            type: string
+        available:
+            type: boolean
+        price:
+            type: float

@@ -16,7 +16,7 @@ class Store {
     protected $address;
 
     /**
-     * @var \Restaurant\TablesBundle\Document\Employee
+     * @var \Restaurant\CashBundle\Document\Employee
      */
     protected $manager;
 
@@ -56,10 +56,10 @@ class Store {
     /**
      * Set manager
      *
-     * @param \Restaurant\TablesBundle\Document\Employee $manager
+     * @param \Restaurant\CashBundle\Document\Employee $manager
      * @return self
      */
-    public function setManager(\Restaurant\TablesBundle\Document\Employee $manager)
+    public function setManager(\Restaurant\CashBundle\Document\Employee $manager)
     {
         $this->manager = $manager;
         return $this;
@@ -68,7 +68,7 @@ class Store {
     /**
      * Get manager
      *
-     * @return \Restaurant\TablesBundle\Document\Employee $manager
+     * @return \Restaurant\CashBundle\Document\Employee $manager
      */
     public function getManager()
     {

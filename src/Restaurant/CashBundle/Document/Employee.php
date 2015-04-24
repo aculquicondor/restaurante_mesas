@@ -2,29 +2,20 @@
 
 namespace Restaurant\CashBundle\Document;
 
+use MongoId;
+
 
 class Employee {
 
-    /**
-     * @var MongoId $id
-     */
     protected $id;
-
-    /**
-     * @var string $dni
-     */
     protected $dni;
-
-    /**
-     * @var string $name
-     */
     protected $name;
 
 
     /**
      * Get id
      *
-     * @return id $id
+     * @return MongoId $id
      */
     public function getId()
     {

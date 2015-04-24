@@ -3,6 +3,11 @@
 // src/Restaurant/TablesBundle/Document/Reservation.php
 namespace Restaurant\TablesBundle\Document;
 
+use MongoId;
+use MongoTimestamp;
+use MongoDate;
+
+
 class Reservation
 {
     protected $id;
@@ -10,6 +15,7 @@ class Reservation
     protected $client;
     protected $date;
     protected $estimated_time;
+
     public function __construct()
     {
         $this->tables = new \Doctrine\Common\Collections\ArrayCollection();
@@ -18,7 +24,7 @@ class Reservation
     /**
      * Get id
      *
-     * @return id $id
+     * @return MongoId $id
      */
     public function getId()
     {
@@ -28,7 +34,7 @@ class Reservation
     /**
      * Set date
      *
-     * @param date $date
+     * @param MongoDate $date
      * @return self
      */
     public function setDate($date)
@@ -40,7 +46,7 @@ class Reservation
     /**
      * Get date
      *
-     * @return date $date
+     * @return MongoDate $date
      */
     public function getDate()
     {
@@ -50,7 +56,7 @@ class Reservation
     /**
      * Set estimatedTime
      *
-     * @param timestamp $estimatedTime
+     * @param MongoTimestamp $estimatedTime
      * @return self
      */
     public function setEstimatedTime($estimatedTime)
@@ -62,7 +68,7 @@ class Reservation
     /**
      * Get estimatedTime
      *
-     * @return timestamp $estimatedTime
+     * @return MongoTimestamp $estimatedTime
      */
     public function getEstimatedTime()
     {

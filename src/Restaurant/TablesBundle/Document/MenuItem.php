@@ -2,6 +2,9 @@
 
 namespace Restaurant\TablesBundle\Document;
 
+use MongoId;
+
+
 class MenuItem
 {
     protected $id;
@@ -13,7 +16,7 @@ class MenuItem
     /**
      * Get id
      *
-     * @return id $id
+     * @return MongoId $id
      */
     public function getId()
     {

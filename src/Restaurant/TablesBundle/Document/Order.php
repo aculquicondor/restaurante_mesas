@@ -2,6 +2,11 @@
 
 namespace Restaurant\TablesBundle\Document;
 
+use MongoId;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+
 class Order {
 
     private $id;
@@ -11,11 +16,15 @@ class Order {
     private $employee;
 
 
+    public function __construct()
+    {
+        $this->orderItems = new ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return id $id
+     * @return MongoId $id
      */
     public function getId()
     {
@@ -86,5 +95,35 @@ class Order {
     public function getTable()
     {
         return $this->table;
+    }
+
+    /**
+     * Add orderItem
+     *
+     * @param \Restaurant\TablesBundle\Document\OrderItem $orderItem
+     */
+    public function addOrderItem(\Restaurant\TablesBundle\Document\OrderItem $orderItem)
+    {
+        $this->orderItems[] = $orderItem;
+    }
+
+    /**
+     * Remove orderItem
+     *
+     * @param \Restaurant\TablesBundle\Document\OrderItem $orderItem
+     */
+    public function removeOrderItem(\Restaurant\TablesBundle\Document\OrderItem $orderItem)
+    {
+        $this->orderItems->removeElement($orderItem);
+    }
+
+    /**
+     * Get orderItems
+     *
+     * @return Collection $orderItems
+     */
+    public function getOrderItems()
+    {
+        return $this->orderItems;
     }
 }

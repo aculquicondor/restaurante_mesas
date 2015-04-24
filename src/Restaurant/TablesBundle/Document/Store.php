@@ -2,29 +2,19 @@
 
 namespace Restaurant\TablesBundle\Document;
 
+use MongoId;
 
 class Store {
 
-    /**
-     * @var MongoId $id
-     */
     protected $id;
-
-    /**
-     * @var string $address
-     */
     protected $address;
-
-    /**
-     * @var \Restaurant\CashBundle\Document\Employee
-     */
     protected $manager;
 
 
     /**
      * Get id
      *
-     * @return id $id
+     * @return MongoId $id
      */
     public function getId()
     {

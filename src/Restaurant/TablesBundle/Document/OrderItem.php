@@ -3,6 +3,9 @@
 // src/Restaurant/TablesBundle/Document/OrderItem.php
 namespace Restaurant\TablesBundle\Document;
 
+use MongoId;
+
+
 class OrderItem
 {
     protected $id;
@@ -13,7 +16,7 @@ class OrderItem
     /**
      * Get id
      *
-     * @return id $id
+     * @return MongoId $id
      */
     public function getId()
     {
@@ -45,10 +48,10 @@ class OrderItem
     /**
      * Set menuItem
      *
-     * @param TablesBundle\Document\MenuItem $menuItem
+     * @param \Restaurant\TablesBundle\Document\MenuItem $menuItem
      * @return self
      */
-    public function setMenuItem(\TablesBundle\Document\MenuItem $menuItem)
+    public function setMenuItem(\Restaurant\TablesBundle\Document\MenuItem $menuItem)
     {
         $this->menu_item = $menuItem;
         return $this;
@@ -57,7 +60,7 @@ class OrderItem
     /**
      * Get menuItem
      *
-     * @return TablesBundle\Document\MenuItem $menuItem
+     * @return \Restaurant\TablesBundle\Document\MenuItem $menuItem
      */
     public function getMenuItem()
     {

@@ -3,6 +3,9 @@
 // src/Restaurant/CashBundle/Document/Client.php
 namespace Restaurant\CashBundle\Document;
 
+use MongoId;
+
+
 class Client
 {
     protected $id;
@@ -14,7 +17,7 @@ class Client
     /**
      * Get id
      *
-     * @return id $id
+     * @return MongoId $id
      */
     public function getId()
     {

@@ -13,5 +13,5 @@ Restaurant\TablesBundle\Document\Reservation:
             cascade: all
     referenceOne:
         client:
-            targetDocument: Document\Client
+            targetDocument: CashBundle\Document\Client
             cascade: all

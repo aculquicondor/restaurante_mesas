@@ -1,6 +1,5 @@
 <?php
 
-// src/Restaurant/TablesBundle/Document/Table.php
 namespace Restaurant\TablesBundle\Document;
 
 class Table

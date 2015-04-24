@@ -6,9 +6,9 @@ Restaurant\TablesBundle\Document\Order:
       type: date
   EmbedMany:
     orderItems:
-      targetDocument: OrderItem
+      targetDocument: Document\OrderItem
   referenceOne:
     employee:
-      targetDocument: Employee
+      targetDocument: CashBundle\Document\Employee
     table:
       targetDocument: Table

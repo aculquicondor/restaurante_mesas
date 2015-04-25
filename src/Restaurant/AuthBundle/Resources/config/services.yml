@@ -1,0 +1,19 @@
+parameters:
+    platform.document.user.class: Restaurant\AuthBundle\Document\User
+    platform.user.provider.class: Restaurant\AuthBundle\Provider\UserProvider
+
+services:
+
+    platform.user.manager:
+        class: Doctrine\ODM\MongoDB\DocumentManager
+        factory: ["@doctrine_mongodb", getManagerForClass]
+        arguments: [%platform.document.user.class%]
+
+    platform.user.repository:
+        class: Restaurant\AuthBundle\Repository\UserRepository
+        factory: ["@platform.user.manager", getRepository]
+        arguments: [%platform.document.user.class%]
+
+    platform.user.provider:
+        class: %platform.user.provider.class%
+        arguments: ["@platform.user.repository"]

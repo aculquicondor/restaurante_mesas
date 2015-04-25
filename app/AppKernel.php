@@ -19,6 +19,7 @@ class AppKernel extends Kernel
 
             new Restaurant\TablesBundle\RestaurantTablesBundle(),
             new Restaurant\CashBundle\CashBundle(),
+            new Restaurant\AuthBundle\RestaurantAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

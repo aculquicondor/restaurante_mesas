@@ -2,7 +2,6 @@
 
 namespace Restaurant\TablesBundle\Document;
 
-use MongoId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -24,7 +23,7 @@ class Order {
     /**
      * Get id
      *
-     * @return MongoId $id
+     * @return \MongoId $id
      */
     public function getId()
     {
@@ -34,7 +33,7 @@ class Order {
     /**
      * Set date
      *
-     * @param date $date
+     * @param \MongoDate $date
      * @return self
      */
     public function setDate($date)
@@ -46,7 +45,7 @@ class Order {
     /**
      * Get date
      *
-     * @return date $date
+     * @return \MongoDate $date
      */
     public function getDate()
     {

@@ -2,9 +2,6 @@
 
 namespace Restaurant\TablesBundle\Document;
 
-use MongoId;
-use MongoTimestamp;
-
 
 class Table
 {
@@ -16,7 +13,7 @@ class Table
     /**
      * Get id
      *
-     * @return MongoId $id
+     * @return \MongoId $id
      */
     public function getId()
     {
@@ -48,7 +45,7 @@ class Table
     /**
      * Set occupationTime
      *
-     * @param MongoTimestamp $occupationTime
+     * @param \MongoTimestamp $occupationTime
      * @return self
      */
     public function setOccupationTime($occupationTime)
@@ -60,7 +57,7 @@ class Table
     /**
      * Get occupationTime
      *
-     * @return MongoTimestamp $occupationTime
+     * @return \MongoTimestamp $occupationTime
      */
     public function getOccupationTime()
     {

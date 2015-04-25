@@ -3,8 +3,6 @@
 // src/Restaurant/TablesBundle/Document/OrderItem.php
 namespace Restaurant\TablesBundle\Document;
 
-use MongoId;
-
 
 class OrderItem
 {
@@ -16,7 +14,7 @@ class OrderItem
     /**
      * Get id
      *
-     * @return MongoId $id
+     * @return \MongoId $id
      */
     public function getId()
     {

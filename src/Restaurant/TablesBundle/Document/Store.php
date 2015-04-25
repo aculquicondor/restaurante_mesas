@@ -2,7 +2,6 @@
 
 namespace Restaurant\TablesBundle\Document;
 
-use MongoId;
 
 class Store {
 
@@ -14,7 +13,7 @@ class Store {
     /**
      * Get id
      *
-     * @return MongoId $id
+     * @return \MongoId $id
      */
     public function getId()
     {

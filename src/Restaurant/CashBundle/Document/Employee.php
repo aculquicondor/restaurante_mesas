@@ -2,8 +2,6 @@
 
 namespace Restaurant\CashBundle\Document;
 
-use MongoId;
-
 
 class Employee {
 
@@ -15,7 +13,7 @@ class Employee {
     /**
      * Get id
      *
-     * @return MongoId $id
+     * @return \MongoId $id
      */
     public function getId()
     {

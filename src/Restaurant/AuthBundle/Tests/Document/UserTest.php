@@ -11,42 +11,81 @@ class UserTest extends KernelTestCase {
     /**
      * @var DocumentManager
      */
-    private $dm;
+    private static $dm;
+
+    /**
+     * @var User
+     */
+    private $user;
+
+    /**
+     * @inheritDoc
+     */
+    public static function setUpBeforeClass()
+    {
+        self::bootKernel();
+        self::$dm = static::$kernel->getContainer()
+            ->get('platform.user.manager');
+    }
 
     /**
      * @inheritDoc
      */
     public function setUp()
     {
-        self::bootKernel();
-        $this->dm = static::$kernel->getContainer()
-            ->get('platform.user.manager');
-        $this->assertNotNull($this->dm);
+        $this->user = new User;
+        $this->user->setUsername('testuser');
+        $this->user->setPassword('testpassword');
+        $this->user->setEmail('email@test.test');
     }
 
-    public function testCreation()
+    public function testPersistence()
     {
-        $user = new User;
-        $user->setUsername('testuser');
-        $user->setPassword('testpassword');
+        self::$dm->persist($this->user);
+        self::$dm->flush();
+        $this->assertNotNull($this->user->getId());
 
-        $this->dm->persist($user);
-        $this->dm->flush();
-        $this->assertNotNull($user->getId());
+        $repository = self::$dm->getRepository('RestaurantAuthBundle:User');
+        $f_user = $repository->find($this->user->getId());
+        $this->assertEquals($this->user, $f_user);
 
-        $this->dm->remove($user);
-        $this->dm->flush();
+        self::$dm->remove($this->user);
+        self::$dm->flush();
 
-        $repository = $this->dm->getRepository('RestaurantAuthBundle:User');
-        $this->assertNull($repository->find($user->getId()));
+        $this->assertNull($repository->find($this->user->getId()));
+    }
+
+    public function testRoles()
+    {
+        $role = 'ROLE_TEST';
+        $this->user->addRole($role);
+        $this->assertContains($role, $this->user->getRoles());
+        $this->user->removeRole($role);
+        $this->assertNotContains($role, $this->user->getRoles());
+    }
+
+    public function testSerialization()
+    {
+        $serialized = $this->user->serialize();
+        $d_user = new User;
+        $d_user->unserialize($serialized);
+
+        $this->assertEquals(
+            $this->user->getId(),$d_user->getId());
+        $this->assertEquals(
+            $this->user->getUsername(), $d_user->getUsername());
+        $this->assertEquals(
+            $this->user->getPassword(), $d_user->getPassword());
+        $this->assertEquals(
+            $this->user->getSalt(), $d_user->getSalt());
     }
 
     /**
      * @inheritDoc
      */
-    protected function tearDown()
+    public static function tearDownAfterClass()
     {
-        parent::tearDown();
-        $this->dm->close();
+        parent::tearDownAfterClass();
+        self::$dm->close();
     }
 }

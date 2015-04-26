@@ -32,7 +32,8 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->salt
+            $this->salt,
+            $this->roles
         ));
     }
 
@@ -45,7 +46,8 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->salt
+            $this->salt,
+            $this->roles
         ) = unserialize($serialized);
     }
 
@@ -54,7 +56,7 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return $this->getRoles();
+        return $this->roles;
     }
 
     /**
@@ -187,6 +189,29 @@ class User implements UserInterface, \Serializable
     public function setRoles($roles)
     {
         $this->roles = $roles;
+        return $this;
+    }
+
+    /**
+     * Add role
+     * @param string $role
+     * @return self
+     */
+    public function addRole($role)
+    {
+        if (!in_array($role, $this->roles))
+            $this->roles[] = $role;
+        return $this;
+    }
+
+    /**
+     * Remove role
+     * @param string $role
+     * @return self
+     */
+    public function removeRole($role)
+    {
+        $this->roles = array_diff($this->roles, array($role));
         return $this;
     }
 }

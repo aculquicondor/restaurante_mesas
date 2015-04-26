@@ -21,12 +21,37 @@ Módulo de Mesas de Restaurante
 3. Actualizar dependencias
 
         php composer.phar update
+        
+        
+## Ejecución de Pruebas
+
+1. Copiar configuración de PHPUnit
+
+        cp app/phpunit.xml.dist app/phpunit.xml
+        
+2. (Opcional) Para obtener cobertura:
+
+    a. Instalar xdebug (varía según el sistema operativo)
+    
+    b. Activar la extensión de xdebug en `php.init`
+    
+3. Obtener ejecutable de PHPUnit
+
+        wget https://phar.phpunit.de/phpunit.phar
+
+4. Ejecutar pruebas
+
+        php phpunit.phar -c app
+ 
+Opcionalmente, es posible
+[configurar PHPUnit en PhpStorm](https://confluence.jetbrains.com/display/PhpStorm/Debugging,+Profiling+and+Testing+Symfony2+-+Symfony+Development+using+PhpStorm#Debugging%2CProfilingandTestingSymfony2-SymfonyDevelopmentusingPhpStorm-UnitTestingSymfony2).
+PhpStorm trae el ejecutable de phpunit embebido.
 
 ## Estándares de desarrollo
 
 ### IDE
 
-Por cuestiones de uniformidad emplearemos [PHPStorm](https://www.jetbrains.com/phpstorm/)
+Por cuestiones de uniformidad emplearemos [PhpStorm](https://www.jetbrains.com/phpstorm/)
 
 ### Identación
 

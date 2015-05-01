@@ -58,6 +58,12 @@ class StoreTest extends KernelTestCase {
         $this->assertNotNull($this->store->getId());
     }
 
+    public function testRemove()
+    {
+        self::$dm->remove($this->employee);
+        self::$dm->remove($this->store);
+        $this->assertNull($this->store->getId());
+    }
     /**
      * @var inheritDoc
      */

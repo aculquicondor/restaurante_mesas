@@ -71,6 +71,15 @@ class OrderTest extends KernelTestCase {
         $this->assertNotNull($this->order->getId());
     }
 
+    public function testRemove()
+    {
+        self::$dm->remove($this->employee);
+        self::$dm->remove($this->table);
+        self::$dm->remove($this->order);
+        self::$dm->flush();
+        $this->assertNull($this->order->getId());
+    }
+
     /**
      * @var inheritDoc
      */

@@ -48,8 +48,8 @@ class TableTest extends KernelTestCase {
 
     public function testRemove()
     {
-        self::$dm->remove($this->table->getId());
-        self::$dm->flush();
+        self::$dm->remove($this->table);
+        $this->assertNull($this->table->getId());
     }
 
     /**

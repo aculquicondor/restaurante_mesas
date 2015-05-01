@@ -14,3 +14,13 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+doctrine_mongodb:
+    connections:
+        default:
+            server: %mongodb_server%
+            options: {}
+    default_database: %mongodb_test_database%
+    document_managers:
+        default:
+            auto_mapping: true

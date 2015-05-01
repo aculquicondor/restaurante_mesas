@@ -26,7 +26,7 @@ class TableTest extends KernelTestCase {
     {
         self::bootKernel();
         self::$dm = static::$kernel->getContainer()
-            ->get('platform.user.manager');
+            ->get('doctrine_mongodb')->getManager();
     }
 
     /**
@@ -44,16 +44,6 @@ class TableTest extends KernelTestCase {
     {
         self::$dm->persist($this->table);
         self::$dm->flush();
-    }
-
-    public function testFind(){
-        $qb = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
-            ->field('capacity')->equals(4);
-        $tables = $qb->getQuery()->execute();
-        foreach($tables as $table)
-        {
-            $this->assertEquals(4, $table->getCapacity());
-        }
     }
 
     public function testRemove()

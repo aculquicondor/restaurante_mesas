@@ -2,6 +2,7 @@
 parameters:
     mongodb_server:   mongodb://localhost:27017
     mongodb_database: restaurant
+    mongodb_test_database: restaurant_test
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1

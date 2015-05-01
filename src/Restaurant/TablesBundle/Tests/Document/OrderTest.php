@@ -28,11 +28,6 @@ class OrderTest extends KernelTestCase {
     private $employee;
 
     /**
-     * @var employeeDni
-     */
-    private $employeeDni;
-
-    /**
      * @var Table
      */
     private $table;

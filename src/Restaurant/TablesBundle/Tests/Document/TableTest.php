@@ -35,8 +35,8 @@ class TableTest extends KernelTestCase {
     public function setUp()
     {
         $this->table = new Table();
-        $this->table->setOccupationTime(30);
-        $this->table->setCapacity(4);
+        $this->table->setOccupationTime(20);
+        $this->table->setCapacity(2);
         $this->table->setAvailable(true);
     }
 
@@ -46,10 +46,33 @@ class TableTest extends KernelTestCase {
         self::$dm->flush();
     }
 
+    public function testUpdate()
+    {
+        $tables = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
+            ->findAndUpdate()
+            ->field("capacity")->lte(3)
+            ->field("capacity")->set(4)
+            ->getQuery()->execute();
+        foreach($tables as $t)
+        {
+            $this->assertNotEquals($this->table->getCapacity(), $t->getCapacity());
+        }
+
+    }
+
+
     public function testRemove()
     {
-        self::$dm->remove($this->table);
-        $this->assertNull($this->table->getId());
+        $tables = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
+            ->find()
+            ->field("capacity")->equals(4)
+            ->getQuery()->execute();
+        foreach($tables as $t)
+        {
+            $obj = self::$dm->remove($t);
+            $this->assertNull($obj);
+        }
+        self::$dm->flush();
     }
 
     /**

@@ -100,9 +100,9 @@ class OrderTest extends KernelTestCase {
         foreach($orders as $o)
         {
             $obj = self::$dm->remove($o);
-            self::$dm->flush();
             $this->assertNull($obj);
         }
+        self::$dm->flush();
     }
 
     /**

@@ -33,7 +33,7 @@ class StoreTest extends KernelTestCase {
     {
         self::bootKernel();
         self::$dm = static::$kernel->getContainer()
-            ->get('platform.user.manager');
+            ->get('doctrine_mongodb')->getManager();
     }
 
     /**
@@ -41,29 +41,48 @@ class StoreTest extends KernelTestCase {
      */
     public function setUp()
     {
-        $this->employee = new Employee();
-        $this->employee->setDni("10203040");
-        $this->employee->setName("Carlitos Way");
-
         $this->store = new Store();
         $this->store->setAddress("Av. Del Parque Sur 565");
-        $this->store->setManager($this->employee);
     }
 
     public function testPersistence()
     {
-        self::$dm->persist($this->employee);
+        $this->employee = new Employee();
+        $this->employee->setDni("10203040");
+        $this->employee->setName("Admin Carlitos Way");
+        $this->store->setManager($this->employee);
+
         self::$dm->persist($this->store);
         self::$dm->flush();
         $this->assertNotNull($this->store->getId());
     }
 
+    public function testUpdate()
+    {
+        $stores = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Store')
+            ->findAndUpdate()
+            ->field("address")->equals("Av. Del Parque Sur 565")
+            ->field("address")->set("Av. Larco 500")
+            ->getQuery()->execute();
+        foreach($stores as $s)
+        {
+            $this->assertNotEquals($this->store->getAddress(), $s->getAddress());
+        }
+    }
     public function testRemove()
     {
-        self::$dm->remove($this->employee);
-        self::$dm->remove($this->store);
-        $this->assertNull($this->store->getId());
+        $stores = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Store')
+            ->find()
+            ->field("address")->equals("Av. Larco 500")
+            ->getQuery()->execute();
+        foreach($stores as $s)
+        {
+            $obj = self::$dm->remove($s);
+            $this->assertNull($obj);
+        }
+        self::$dm->flush();
     }
+
     /**
      * @var inheritDoc
      */

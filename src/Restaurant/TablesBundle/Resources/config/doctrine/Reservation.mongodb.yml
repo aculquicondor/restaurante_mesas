@@ -1,5 +1,6 @@
 # src/Restaurant/TablesBundle/Resources/config/doctrine/Reservation.mongodb.yml
 Restaurant\TablesBundle\Document\Reservation:
+    repositoryClass: Restaurant\TablesBundle\Repository\ReservationRepository
     fields:
         id:
             id: true

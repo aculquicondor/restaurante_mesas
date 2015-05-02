@@ -9,9 +9,9 @@ Restaurant\TablesBundle\Document\Reservation:
             type: timestamp
     referenceMany:
         tables:
-            targetDocument: Document\Table
+            targetDocument: \Restaurant\TablesBundle\Document\Table
             cascade: all
     referenceOne:
         client:
-            targetDocument: CashBundle\Document\Client
+            targetDocument: \Restaurant\CashBundle\Document\Client
             cascade: all

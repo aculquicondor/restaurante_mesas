@@ -528,12 +528,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb-odm.git",
-                "reference": "683728eb0b4723dd5551686addc724f8f1b13afe"
+                "reference": "94bc60445c95f627228fa7e72cc9958f70c033eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/683728eb0b4723dd5551686addc724f8f1b13afe",
-                "reference": "683728eb0b4723dd5551686addc724f8f1b13afe",
+                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/94bc60445c95f627228fa7e72cc9958f70c033eb",
+                "reference": "94bc60445c95f627228fa7e72cc9958f70c033eb",
                 "shasum": ""
             },
             "require": {
@@ -598,7 +598,7 @@
                 "odm",
                 "persistence"
             ],
-            "time": "2015-04-07 14:09:54"
+            "time": "2015-04-17 14:05:34"
         },
         {
             "name": "doctrine/mongodb-odm-bundle",
@@ -606,24 +606,27 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineMongoDBBundle.git",
-                "reference": "1ac417f1e1374474778707f9f0d7d82b19d17922"
+                "reference": "428c21fd3bea9e27281784bcae2db9b7516b318e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/1ac417f1e1374474778707f9f0d7d82b19d17922",
-                "reference": "1ac417f1e1374474778707f9f0d7d82b19d17922",
+                "url": "https://api.github.com/repos/doctrine/DoctrineMongoDBBundle/zipball/428c21fd3bea9e27281784bcae2db9b7516b318e",
+                "reference": "428c21fd3bea9e27281784bcae2db9b7516b318e",
                 "shasum": ""
             },
             "require": {
                 "doctrine/mongodb-odm": "~1.0.0-beta10@dev",
                 "php": ">=5.3.2",
+                "symfony/config": "~2.2",
+                "symfony/console": "~2.1",
+                "symfony/dependency-injection": "~2.2",
                 "symfony/doctrine-bridge": "~2.1",
                 "symfony/framework-bundle": "~2.1",
                 "symfony/options-resolver": "~2.1"
             },
             "require-dev": {
                 "doctrine/data-fixtures": "@dev",
-                "symfony/form": "~2.1",
+                "symfony/form": "~2.3",
                 "symfony/yaml": "~2.1"
             },
             "suggest": {
@@ -665,7 +668,7 @@
                 "persistence",
                 "symfony"
             ],
-            "time": "2015-03-14 10:57:16"
+            "time": "2015-04-15 14:15:44"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -917,16 +920,16 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.4.0",
+            "version": "v1.4.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5"
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
-                "reference": "8724cd239f8ef4c046f55a3b18b4d91cc7f3e4c5",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
+                "reference": "3132b1f44c7bf2ec4c7eb2d3cb78fdeca760d373",
                 "shasum": ""
             },
             "require": {
@@ -973,7 +976,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-03-27 19:31:25"
+            "time": "2015-04-27 22:15:08"
         },
         {
             "name": "phpunit/php-code-coverage",

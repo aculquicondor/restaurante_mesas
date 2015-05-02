@@ -21,6 +21,11 @@ Módulo de Mesas de Restaurante
 3. Actualizar dependencias
 
         php composer.phar update
+
+4. Configurar proyecto
+
+        cp app/config/parameters.yml.dist app/config/parameters.yml
+        vi app/config/parameters.yml
         
         
 ## Ejecución de Pruebas

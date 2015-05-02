@@ -2,7 +2,7 @@
 
 namespace Restaurant\AuthBundle\Tests\Document;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Restaurant\TablesBundle\Tests\KernelTestCase;
 use Restaurant\AuthBundle\Document\User;
 use Doctrine\ODM\MongoDB\DocumentManager;
 

@@ -38,7 +38,7 @@ Módulo de Mesas de Restaurante
 
     a. Instalar xdebug (varía según el sistema operativo)
     
-    b. Activar la extensión de xdebug en `php.init`
+    b. Activar la extensión de xdebug en `php.ini`
     
 3. Obtener ejecutable de PHPUnit
 

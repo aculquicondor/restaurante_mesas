@@ -3,14 +3,18 @@
 namespace Restaurant\TablesBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
+use Restaurant\TablesBundle\Document\Table;
 
 class ReservationRepository extends DocumentRepository
 {
-    public function getAvailableReservationsForUse()
+    public function getReservationForTableNow(Table $table, \DateTime $now)
     {
-        return $this->createQueryBuilder()
-            ->field('date')->gt((new \DateTime())->add(new \DateInterval('P1H')))
+        $reservations = $this->createQueryBuilder()
+            ->field('date')->gte($now->sub(new \DateInterval('P1H')))
+            ->lte($now->add(new \DateInterval('P1H')))
+            ->field('tables')->includesReferenceTo($table)
             ->getQuery()
             ->execute();
+        return $reservations;
     }
 }

@@ -4,16 +4,17 @@ namespace Restaurant\TablesBundle\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentRepository;
 
-class ReservationRepository extends DocumentRepository
+class TableRepository extends DocumentRepository
 {
-    public function getReservationForTableNow(\Restaurant\TablesBundle\Document\Table $table, date $now)
-    {
-        $reservations = $this->createQueryBuilder()
-            ->field('date')->gte($now->sub(new \DateInterval('P1H')))
-            ->lte($now->add(new \DateInterval('P1H')))
-            ->field('tables')->includesReferenceTo($table)
-            ->getQuery()
-            ->execute();
-        return $reservations;
+    public function getAvailableTables(\DateTime $now){
+        $reservationsRepository = $this->dm->getRepository('RestaurantTablesBundle:Reservation');
+        $all_tables = $this->findBy(array('available' => 1));
+        $tables = array();
+        foreach($all_tables as $table) {
+            if(empty($reservationsRepository->getReservationForTableNow($table, $now))) {
+                $tables[] = $table;
+            }
+        }
+        return $tables;
     }
 }

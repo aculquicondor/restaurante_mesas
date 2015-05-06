@@ -14,12 +14,12 @@ class LoadReservationsData extends AbstractFixture implements DependentFixtureIn
     public function load(ObjectManager $manager)
     {
         $reservation = new Reservation();
-        $reservation->setDate(strtotime('2015-05-06'));
+        $reservation->addTable($this->getReference('table-reserve-now'));
         $reservation->setEstimatedTime(strtotime('2015-05-06 09:10'));
         $manager->persist($reservation);
 
         $reservation = new Reservation();
-        $reservation->setDate(strtotime('2015-05-06'));
+        $reservation->addTable($this->getReference('table-reserve-later'));
         $reservation->setEstimatedTime(strtotime('2015-05-06 11:01'));
         $manager->persist($reservation);
 

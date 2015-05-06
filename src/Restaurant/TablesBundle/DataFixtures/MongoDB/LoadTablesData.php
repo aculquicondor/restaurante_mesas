@@ -22,7 +22,7 @@ class LoadTablesData extends AbstractFixture
 
         $table = new Table();
         $table->setAvailable(false);
-        $table->setOccupationTime(strtotime('2015-05-06 09:00'));
+        $table->setOccupationTime(new \DateTime('2015-05-06 09:00'));
         $table->setCapacity(4);
         $manager->persist($table);
 

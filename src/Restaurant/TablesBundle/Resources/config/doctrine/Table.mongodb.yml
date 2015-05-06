@@ -6,7 +6,7 @@ Restaurant\TablesBundle\Document\Table:
             id: true
         available:
             type: boolean
-        occupation_time:
-            type: timestamp
+        occupationTime:
+            type: date
         capacity:
             type: int

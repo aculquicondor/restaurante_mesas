@@ -2,6 +2,7 @@
 
 namespace Restaurant\TablesBundle\Tests\Document;
 
+use Doctrine\ODM\MongoDB\Mapping\Annotations\Timestamp;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Restaurant\TablesBundle\Document\Order;
 use Restaurant\CashBundle\Document\Employee;
@@ -60,7 +61,7 @@ class OrderTest extends KernelTestCase {
         $this->table = new Table();
         $this->table->setAvailable(true);
         $this->table->setCapacity(4);
-        $this->table->setOccupationTime(30);
+        $this->table->setOccupationTime(new \DateTime());
 
         self::$dm->persist($this->employee);
         self::$dm->persist($this->table);

@@ -6,7 +6,7 @@ Restaurant\TablesBundle\Document\Reservation:
             id: true
         date:
             type: date
-        estimated_time:
+        estimatedTime:
             type: timestamp
     referenceMany:
         tables:

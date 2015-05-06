@@ -10,7 +10,7 @@ class Reservation
     protected $tables = array();
     protected $client;
     protected $date;
-    protected $estimated_time;
+    protected $estimatedTime;
 
     public function __construct()
     {
@@ -30,12 +30,15 @@ class Reservation
     /**
      * Set date
      *
-     * @param \MongoDate $date
+     * @param int|\MongoDate $date
      * @return self
      */
     public function setDate($date)
     {
-        $this->date = $date;
+        if ($date instanceof \MongoDate)
+            $this->date = $date;
+        else
+            $this->date = new \MongoDate($date);
         return $this;
     }
 
@@ -52,12 +55,15 @@ class Reservation
     /**
      * Set estimatedTime
      *
-     * @param \MongoTimestamp $estimatedTime
+     * @param int|\MongoTimestamp $estimatedTime
      * @return self
      */
     public function setEstimatedTime($estimatedTime)
     {
-        $this->estimated_time = $estimatedTime;
+        if ($estimatedTime instanceof \MongoTimestamp)
+            $this->estimatedTime = $estimatedTime;
+        else
+            $this->estimatedTime = new \MongoTimestamp($estimatedTime);
         return $this;
     }
 
@@ -68,7 +74,7 @@ class Reservation
      */
     public function getEstimatedTime()
     {
-        return $this->estimated_time;
+        return $this->estimatedTime;
     }
 
     /**

@@ -40,7 +40,7 @@ class ReservationTest extends KernelTestCase {
     public function setUp()
     {
         $this->reservation = new Reservation();
-        $this->reservation->setEstimatedTime(strtotime("2015-05-02 23:50:00"));
+        $this->reservation->setEstimatedTime(new \DateTime("2015-05-02 23:50:00"));
     }
 
     public function testPersistence()

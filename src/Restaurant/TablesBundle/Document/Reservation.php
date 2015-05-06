@@ -29,22 +29,22 @@ class Reservation
     /**
      * Set estimatedTime
      *
-     * @param int|\MongoDate $estimatedTime
+     * @param int|\DateTime $estimatedTime
      * @return self
      */
     public function setEstimatedTime($estimatedTime)
     {
-        if ($estimatedTime instanceof \MongoDate)
+        if ($estimatedTime instanceof \DateTime)
             $this->estimatedTime = $estimatedTime;
         else
-            $this->estimatedTime = new \MongoDate($estimatedTime);
+            $this->estimatedTime = new \DateTime($estimatedTime);
         return $this;
     }
 
     /**
      * Get estimatedTime
      *
-     * @return \MongoDate $estimatedTime
+     * @return \DateTime $estimatedTime
      */
     public function getEstimatedTime()
     {

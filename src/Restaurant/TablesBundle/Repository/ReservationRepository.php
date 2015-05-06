@@ -9,9 +9,14 @@ class ReservationRepository extends DocumentRepository
 {
     public function getReservationForTableNow(Table $table, \DateTime $now)
     {
+        $start = clone $now;
+        $start->sub(new \DateInterval('PT1H'));
+        $end = clone $now;
+        $end->add(new \DateInterval('PT1H'));
+
         $reservations = $this->createQueryBuilder()
-            ->field('date')->gte($now->sub(new \DateInterval('P1H')))
-            ->lte($now->add(new \DateInterval('P1H')))
+            ->field('estimatedTime')
+                ->range($start, $end)
             ->field('tables')->includesReferenceTo($table)
             ->getQuery()
             ->execute();

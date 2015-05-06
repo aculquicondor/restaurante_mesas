@@ -45,12 +45,15 @@ class Table
     /**
      * Set occupationTime
      *
-     * @param \MongoTimestamp $occupationTime
+     * @param int|\MongoTimestamp $occupationTime
      * @return self
      */
     public function setOccupationTime($occupationTime)
     {
-        $this->occupation_time = $occupationTime;
+        if ($occupationTime instanceof \MongoTimestamp)
+            $this->occupation_time = $occupationTime;
+        else
+            $this->occupation_time = new \MongoTimestamp($occupationTime);
         return $this;
     }
 

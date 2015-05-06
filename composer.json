@@ -20,6 +20,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "doctrine/mongodb-odm": "1.0.*@dev",
         "doctrine/mongodb-odm-bundle": "3.0.*@dev",
+        "doctrine/doctrine-fixtures-bundle": "2.2.*",
         "phpunit/phpunit": "4.6.4",
         "jms/serializer-bundle": "0.13.*",
         "friendsofsymfony/rest-bundle": "~1.5"

@@ -1,3 +1,8 @@
 restaurant_tables_homepage:
     path:     /hello/{name}
     defaults: { _controller: RestaurantTablesBundle:Default:index }
+
+restaurant_tables_Table:
+    type: rest
+    resource: "Restaurant\TablesBundle\Controller\TableController"
+

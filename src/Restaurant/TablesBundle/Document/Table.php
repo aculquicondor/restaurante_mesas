@@ -7,7 +7,7 @@ class Table
 {
     protected $id;
     protected $available;
-    protected $occupation_time;
+    protected $occupationTime;
     protected $capacity;
 
     /**
@@ -45,23 +45,26 @@ class Table
     /**
      * Set occupationTime
      *
-     * @param \MongoTimestamp $occupationTime
+     * @param int|\DateTime $occupationTime
      * @return self
      */
     public function setOccupationTime($occupationTime)
     {
-        $this->occupation_time = $occupationTime;
+        if ($occupationTime instanceof \DateTime)
+            $this->occupationTime = $occupationTime;
+        else
+            $this->occupationTime = new \DateTime($occupationTime);
         return $this;
     }
 
     /**
      * Get occupationTime
      *
-     * @return \MongoTimestamp $occupationTime
+     * @return \DateTime $occupationTime
      */
     public function getOccupationTime()
     {
-        return $this->occupation_time;
+        return $this->occupationTime;
     }
 
     /**

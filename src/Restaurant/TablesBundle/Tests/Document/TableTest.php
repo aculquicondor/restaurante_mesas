@@ -20,7 +20,7 @@ class TableTest extends KernelTestCase {
     private $table;
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function setUpBeforeClass()
     {
@@ -30,12 +30,12 @@ class TableTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public function setUp()
     {
         $this->table = new Table();
-        $this->table->setOccupationTime(20);
+        $this->table->setOccupationTime(new \DateTime());
         $this->table->setCapacity(2);
         $this->table->setAvailable(true);
     }
@@ -60,7 +60,6 @@ class TableTest extends KernelTestCase {
 
     }
 
-
     public function testRemove()
     {
         $tables = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
@@ -76,7 +75,7 @@ class TableTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function tearDownAfterClass()
     {

@@ -25,7 +25,7 @@ class ReservationTest extends KernelTestCase {
     private $client;
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function setUpBeforeClass()
     {
@@ -35,13 +35,12 @@ class ReservationTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public function setUp()
     {
         $this->reservation = new Reservation();
-        $this->reservation->setDate(new \MongoDate(strtotime("2015-05-02 22:00:00")));
-        $this->reservation->setEstimatedTime(new \MongoTimestamp(strtotime("2015-05-02 23:50:00")));
+        $this->reservation->setEstimatedArrivalTime(new \DateTime("2015-05-02 23:50:00"));
     }
 
     public function testPersistence()
@@ -62,11 +61,11 @@ class ReservationTest extends KernelTestCase {
     {
         $reservations = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Reservation')
             ->findAndUpdate()
-            ->field("estimated_time")->lte(new \MongoTimestamp(strtotime("2015-05-02 23:50:00")))
-            ->field("estimated_time")->set(new \MongoTimestamp(strtotime("2015-05-03 01:00:00")))
+            ->field("estimatedArrivalTime")->lte(new \DateTime("2015-05-02 23:50:00"))
+            ->field("estimatedArrivalTime")->set(new \DateTime("2015-05-03 01:00:00"))
             ->getQuery()->execute();
         foreach ($reservations as $r) {
-            $this->assertNotEquals($this->reservation->getEstimatedTime(), $r->getEstimatedTime());
+            $this->assertNotEquals($this->reservation->getEstimatedArrivalTime(), $r->getEstimatedTime());
         }
 
     }
@@ -74,7 +73,7 @@ class ReservationTest extends KernelTestCase {
     {
         $reservations = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Reservation')
             ->find()
-            ->field("estimated_time")->gte(new \MongoDate(strtotime("2015-05-03 01:00:00")))
+            ->field("estimatedArrivalTime")->gte(new \DateTime("2015-05-03 01:00:00"))
             ->getQuery()->execute();
         foreach($reservations as $r)
         {
@@ -85,7 +84,7 @@ class ReservationTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function tearDownAfterClass()
     {

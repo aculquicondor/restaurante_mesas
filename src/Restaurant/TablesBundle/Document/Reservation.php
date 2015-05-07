@@ -9,8 +9,7 @@ class Reservation
     protected $id;
     protected $tables = array();
     protected $client;
-    protected $date;
-    protected $estimated_time;
+    protected $estimatedArrivalTime;
 
     public function __construct()
     {
@@ -28,47 +27,28 @@ class Reservation
     }
 
     /**
-     * Set date
-     *
-     * @param \MongoDate $date
-     * @return self
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \MongoDate $date
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
      * Set estimatedTime
      *
-     * @param \MongoTimestamp $estimatedTime
+     * @param string|\DateTime $estimatedArrivalTime
      * @return self
      */
-    public function setEstimatedTime($estimatedTime)
+    public function setEstimatedArrivalTime($estimatedArrivalTime)
     {
-        $this->estimated_time = $estimatedTime;
+        if ($estimatedArrivalTime instanceof \DateTime)
+            $this->estimatedArrivalTime = $estimatedArrivalTime;
+        else
+            $this->estimatedArrivalTime = new \DateTime($estimatedArrivalTime);
         return $this;
     }
 
     /**
      * Get estimatedTime
      *
-     * @return \MongoTimestamp $estimatedTime
+     * @return \DateTime $estimatedTime
      */
-    public function getEstimatedTime()
+    public function getEstimatedArrivalTime()
     {
-        return $this->estimated_time;
+        return $this->estimatedArrivalTime;
     }
 
     /**

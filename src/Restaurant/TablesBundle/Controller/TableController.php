@@ -2,7 +2,6 @@
 
 namespace Restaurant\TablesBundle\Controller;
 
-//use FOS\RestBundle\Controller\FOSRestController;
 use Restaurant\TablesBundle\Document\Table;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;

@@ -4,7 +4,7 @@ Restaurant\TablesBundle\Document\Reservation:
     fields:
         id:
             id: true
-        estimatedTime:
+        estimatedArrivalTime:
             type: date
     referenceMany:
         tables:

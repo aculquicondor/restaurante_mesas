@@ -15,7 +15,7 @@ class ReservationRepository extends DocumentRepository
         $end->add(new \DateInterval('PT1H'));
 
         $reservations = $this->createQueryBuilder()
-            ->field('estimatedTime')
+            ->field('estimatedArrivalTime')
                 ->range($start, $end)
             ->field('tables')->includesReferenceTo($table)
             ->getQuery()

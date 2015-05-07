@@ -40,7 +40,7 @@ class ReservationTest extends KernelTestCase {
     public function setUp()
     {
         $this->reservation = new Reservation();
-        $this->reservation->setEstimatedTime(new \DateTime("2015-05-02 23:50:00"));
+        $this->reservation->setEstimatedArrivalTime(new \DateTime("2015-05-02 23:50:00"));
     }
 
     public function testPersistence()
@@ -61,11 +61,11 @@ class ReservationTest extends KernelTestCase {
     {
         $reservations = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Reservation')
             ->findAndUpdate()
-            ->field("estimatedTime")->lte(new \DateTime("2015-05-02 23:50:00"))
-            ->field("estimatedTime")->set(new \DateTime("2015-05-03 01:00:00"))
+            ->field("estimatedArrivalTime")->lte(new \DateTime("2015-05-02 23:50:00"))
+            ->field("estimatedArrivalTime")->set(new \DateTime("2015-05-03 01:00:00"))
             ->getQuery()->execute();
         foreach ($reservations as $r) {
-            $this->assertNotEquals($this->reservation->getEstimatedTime(), $r->getEstimatedTime());
+            $this->assertNotEquals($this->reservation->getEstimatedArrivalTime(), $r->getEstimatedTime());
         }
 
     }
@@ -73,7 +73,7 @@ class ReservationTest extends KernelTestCase {
     {
         $reservations = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Reservation')
             ->find()
-            ->field("estimatedTime")->gte(new \DateTime("2015-05-03 01:00:00"))
+            ->field("estimatedArrivalTime")->gte(new \DateTime("2015-05-03 01:00:00"))
             ->getQuery()->execute();
         foreach($reservations as $r)
         {

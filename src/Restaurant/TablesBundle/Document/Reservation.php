@@ -9,7 +9,7 @@ class Reservation
     protected $id;
     protected $tables = array();
     protected $client;
-    protected $estimatedTime;
+    protected $estimatedArrivalTime;
 
     public function __construct()
     {
@@ -29,15 +29,15 @@ class Reservation
     /**
      * Set estimatedTime
      *
-     * @param int|\DateTime $estimatedTime
+     * @param string|\DateTime $estimatedArrivalTime
      * @return self
      */
-    public function setEstimatedTime($estimatedTime)
+    public function setEstimatedArrivalTime($estimatedArrivalTime)
     {
-        if ($estimatedTime instanceof \DateTime)
-            $this->estimatedTime = $estimatedTime;
+        if ($estimatedArrivalTime instanceof \DateTime)
+            $this->estimatedArrivalTime = $estimatedArrivalTime;
         else
-            $this->estimatedTime = new \DateTime($estimatedTime);
+            $this->estimatedArrivalTime = new \DateTime($estimatedArrivalTime);
         return $this;
     }
 
@@ -46,9 +46,9 @@ class Reservation
      *
      * @return \DateTime $estimatedTime
      */
-    public function getEstimatedTime()
+    public function getEstimatedArrivalTime()
     {
-        return $this->estimatedTime;
+        return $this->estimatedArrivalTime;
     }
 
     /**

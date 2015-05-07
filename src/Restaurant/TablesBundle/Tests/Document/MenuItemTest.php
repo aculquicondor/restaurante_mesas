@@ -19,7 +19,7 @@ class MenuItemTest extends KernelTestCase {
     private $menuItem;
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function setUpBeforeClass()
     {
@@ -29,7 +29,7 @@ class MenuItemTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public function setUp()
     {
@@ -73,7 +73,7 @@ class MenuItemTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function tearDownAfterClass()
     {

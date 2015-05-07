@@ -27,7 +27,7 @@ class StoreTest extends KernelTestCase {
     private $employee;
 
     /*
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function setUpBeforeClass()
     {
@@ -37,7 +37,7 @@ class StoreTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public function setUp()
     {
@@ -84,7 +84,7 @@ class StoreTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function tearDownAfterClass()
     {

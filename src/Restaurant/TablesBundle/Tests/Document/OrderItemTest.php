@@ -25,7 +25,7 @@ class OrderItemTest extends KernelTestCase {
     private $menuItem;
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function setUpBeforeClass()
     {
@@ -35,7 +35,7 @@ class OrderItemTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public function setUp()
     {
@@ -83,7 +83,7 @@ class OrderItemTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function tearDownAfterClass()
     {

@@ -34,7 +34,7 @@ class OrderTest extends KernelTestCase {
     private $table;
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function setUpBeforeClass()
     {
@@ -44,7 +44,7 @@ class OrderTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public function setUp()
     {
@@ -102,7 +102,7 @@ class OrderTest extends KernelTestCase {
     }
 
     /**
-     * @var inheritDoc
+     * @inheritDoc
      */
     public static function tearDownAfterClass()
     {

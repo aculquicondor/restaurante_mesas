@@ -2,26 +2,39 @@
 
 namespace Restaurant\TablesBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations\Post;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+//use JMS\Serializer\Annotation\Type;
 use Restaurant\TablesBundle\Document\Table;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
+use Restaurant\TablesBundle\Form\Type\TableType;
+//use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Symfony\Component\HttpFoundation\Request;
+
 
 class TableController extends Controller
 {
     /**
-     * @param $capacity
-     * @return Table
+     * @param Request $request
+     * @return Table|\Symfony\Component\Form\FormErrorIterator
      * @View()
      */
-    public function newTableAction($capacity)
+    public function postTableAction(Request $request)
     {
         $table = new Table();
-        $table->setAvailable(true);
-        $table->setCapacity($capacity);
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $dm->persist($table);
-        $dm->flush();
-        return $table;
+        $form = $this->createForm(new TableType(), $table);
+        $form->submit($request->request->all());
+        if($form->isValid()){
+            $capacity = $request->request->get('capacity');
+            $table->setCapacity($capacity);
+            $table->setAvailable(true);
+            $dm = $this->get('doctrine_mongodb')->getManager();
+            $dm->persist($table);
+            $dm->flush();
+            return $table;
+        }
+        return $form->getErrors();
     }
 
     /**
@@ -68,7 +81,7 @@ class TableController extends Controller
      * @return array
      * @View()
      */
-    public function removeTableAction($id)
+    public function deleteTableAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $table = $dm->getRepository('RestaurantTablesBundle:Table')->findOneById($id);
@@ -78,18 +91,34 @@ class TableController extends Controller
     }
 
     /**
-     * @param $available
+     * @param Request $request
      * @param $id
-     * @return mixed
+     * @return \Symfony\Component\Form\FormErrorIterator
      * @View()
      */
-    public function updateTableAvailableAction($available, $id)
+    public function patchTableAction(Request $request, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $table = $dm->getRepository('RestaurantTablesBundle:Table')->findOneById($id);
-        $table->setAvailable($available);
-        $dm->flush();
-        return $table;
+        $form = $this->createForm(new TableType(), $table);
+        $form->submit($request->request->all());
+        if($form->isValid()){
+            $capacity = $request->request->get('capacity');
+            $available = $request->request->get('available');
+            $occupationTime = $request->request->get('occupationTime');
+            if($occupationTime){
+                $table->setOccupationTime($occupationTime);
+            }
+            if($available){
+                $table->setAvailable($available);
+            }
+            if($capacity){
+                $table->setCapacity($capacity);
+            }
+            $dm->flush();
+            return $table;
+        }
+        return $form->getErrors();
     }
 
 }

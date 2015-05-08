@@ -2,22 +2,19 @@
 
 namespace Restaurant\TablesBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Post;
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-//use JMS\Serializer\Annotation\Type;
 use Restaurant\TablesBundle\Document\Table;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\TableType;
-//use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
 class TableController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Symfony\Component\Form\FormErrorIterator
+     * @return \Symfony\Component\Form\FormErrorIterator|Table
      * @View()
      */
     public function postTableAction(Request $request)
@@ -39,15 +36,19 @@ class TableController extends Controller
 
     /**
      * @param $id
-     * @return mixed
+     * @return Table
+     * @throws NotFoundHttpException
      * @View()
      */
     public function getTableAction($id)
     {
-        return $this->get('doctrine_mongodb')
+        $table = $this->get('doctrine_mongodb')
             ->getManager()
             ->getRepository('RestaurantTablesBundle:Table')
             ->findOneById($id);
+        if (!$table)
+            throw new NotFoundHttpException();
+        return $table;
     }
 
     /**
@@ -67,7 +68,7 @@ class TableController extends Controller
      * @return array
      * @View()
      */
-    public function getAvailableTablesAction()
+    public function getTablesAvailableAction()
     {
         $availableTables = $this->get('doctrine_mongodb')
             ->getManager()
@@ -80,11 +81,14 @@ class TableController extends Controller
      * @param $id
      * @return array
      * @View()
+     * @throws NotFoundHttpException
      */
     public function deleteTableAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $table = $dm->getRepository('RestaurantTablesBundle:Table')->findOneById($id);
+        if (!$table)
+            throw new NotFoundHttpException();
         $dm->remove($table);
         $dm->flush();
         return array();
@@ -93,13 +97,16 @@ class TableController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\Form\FormErrorIterator
+     * @return \Symfony\Component\Form\FormErrorIterator|Table
      * @View()
+     * @throws NotFoundHttpException
      */
     public function patchTableAction(Request $request, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $table = $dm->getRepository('RestaurantTablesBundle:Table')->findOneById($id);
+        if (!$table)
+            throw new NotFoundHttpException();
         $form = $this->createForm(new TableType(), $table);
         $form->submit($request->request->all());
         if($form->isValid()){
@@ -120,5 +127,4 @@ class TableController extends Controller
         }
         return $form->getErrors();
     }
-
 }

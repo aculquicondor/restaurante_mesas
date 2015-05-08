@@ -17,7 +17,7 @@ class TableController extends Controller
 {
     /**
      * @param Request $request
-     * @return Table|\Symfony\Component\Form\FormErrorIterator
+     * @return \Symfony\Component\Form\FormErrorIterator
      * @View()
      */
     public function postTableAction(Request $request)

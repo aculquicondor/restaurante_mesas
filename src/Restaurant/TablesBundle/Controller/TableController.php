@@ -20,7 +20,7 @@ class TableController extends Controller
     public function postTableAction(Request $request)
     {
         $table = new Table();
-        $form = $this->createForm(new TableType(), $table);
+        $form = $this->createForm(new TableType());
         $form->submit($request->request->all());
         if($form->isValid()){
             $capacity = $request->request->get('capacity');
@@ -52,29 +52,25 @@ class TableController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return array
      * @View()
      */
-    public function getTablesAction()
+    public function getTablesAction(Request $request)
     {
-        $tables = $this->get('doctrine_mongodb')
-            ->getManager()
-            ->getRepository('RestaurantTablesBundle:Table')
-            ->findAll();
+        $available = $request->get('available');
+        if ($available) {
+            $tables = $this->get('doctrine_mongodb')
+                ->getManager()
+                ->getRepository('RestaurantTablesBundle:Table')
+                ->getAvailableTables(new \DateTime());
+        } else {
+            $tables = $this->get('doctrine_mongodb')
+                ->getManager()
+                ->getRepository('RestaurantTablesBundle:Table')
+                ->findAll();
+        }
         return array('tables' => $tables);
-    }
-
-    /**
-     * @return array
-     * @View()
-     */
-    public function getTablesAvailableAction()
-    {
-        $availableTables = $this->get('doctrine_mongodb')
-            ->getManager()
-            ->getRepository('RestaurantTablesBundle:Table')
-            ->getAvailableTables(new \DateTime());
-        return array('tables' => $availableTables);
     }
 
     /**
@@ -107,19 +103,19 @@ class TableController extends Controller
         $table = $dm->getRepository('RestaurantTablesBundle:Table')->findOneById($id);
         if (!$table)
             throw new NotFoundHttpException();
-        $form = $this->createForm(new TableType(), $table);
+        $form = $this->createForm(new TableType());
         $form->submit($request->request->all());
         if($form->isValid()){
             $capacity = $request->request->get('capacity');
             $available = $request->request->get('available');
             $occupationTime = $request->request->get('occupationTime');
-            if($occupationTime){
+            if (!is_null($occupationTime)) {
                 $table->setOccupationTime($occupationTime);
             }
-            if($available){
+            if (!is_null($available)) {
                 $table->setAvailable($available);
             }
-            if($capacity){
+            if (!is_null($capacity)) {
                 $table->setCapacity($capacity);
             }
             $dm->flush();

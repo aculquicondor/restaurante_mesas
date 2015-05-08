@@ -28,7 +28,7 @@ class Table
      */
     public function setAvailable($available)
     {
-        $this->available = $available;
+        $this->available = boolval($available);
         return $this;
     }
 

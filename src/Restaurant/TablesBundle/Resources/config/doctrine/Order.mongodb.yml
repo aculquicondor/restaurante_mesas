@@ -4,6 +4,8 @@ Restaurant\TablesBundle\Document\Order:
             id: true
         date:
             type: date
+        active:
+            type: boolean
     embedMany:
         orderItems:
             targetDocument: OrderItem

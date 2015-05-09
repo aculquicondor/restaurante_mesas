@@ -12,12 +12,14 @@ class Order {
     private $orderItems = array();
     private $date;
     private $table;
+    private $active;
     private $employee;
 
 
     public function __construct()
     {
         $this->orderItems = new ArrayCollection();
+        $this->active = true;
     }
 
     /**
@@ -124,5 +126,27 @@ class Order {
     public function getOrderItems()
     {
         return $this->orderItems;
+    }
+
+    /**
+     * Set active
+     *
+     * @param boolean $active
+     * @return self
+     */
+    public function setActive($active)
+    {
+        $this->active = boolval($active);
+        return $this;
+    }
+
+    /**
+     * Get active
+     *
+     * @return boolean $active
+     */
+    public function getActive()
+    {
+        return $this->active;
     }
 }

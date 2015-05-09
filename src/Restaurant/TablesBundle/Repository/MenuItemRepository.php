@@ -7,7 +7,7 @@ use Doctrine\ODM\MongoDB\DocumentRepository;
 class MenuItemRepository extends  DocumentRepository
 {
     public function getAvailable(){
-        $menusItemsAvailables = $this->findBy(array('avaiable' => true));
-        return $menusItemsAvailables;
+        $menusItemsAvailable = $this->findBy(array('available' => true));
+        return $menusItemsAvailable;
     }
 }

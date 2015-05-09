@@ -10,3 +10,6 @@ restaurant_tables_MenuItem:
     type: rest
     resource: "Restaurant\TablesBundle\Controller\TableController"
 
+restaurant_tables_Store:
+  type: rest
+  resource: "Restaurant\TablesBundle\Controller\StoreController"

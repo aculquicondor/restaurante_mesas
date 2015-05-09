@@ -21,8 +21,8 @@ class MenuItemController extends Controller
         $menuItem = new MenuItem();
         $form = $this->createForm(new MenuItemType());
         $form->submit($request->request->all());
-        //if($form->isValid())
-        //{
+        if($form->isValid())
+        {
             $name = $request->request->get('name');
             $price= $request->request->get('price');
             $menuItem->setName($name);
@@ -32,8 +32,8 @@ class MenuItemController extends Controller
             $dm->persist($menuItem);
             $dm->flush();
             return $menuItem;
-        //}
-        //return $form->getErrors();
+        }
+        return $form->getErrors();
     }
 
     /**
@@ -58,9 +58,9 @@ class MenuItemController extends Controller
      * @return array
      * @View()
      */
-    public function getMenuItemAction(Request $request)
+    public function getMenuItemsAction(Request $request)
     {
-        $available = $request->get('avaiable');
+        $available = $request->get('available');
         if($available)
         {
             $menuItems = $this->get('doctrine_mongodb')
@@ -86,7 +86,7 @@ class MenuItemController extends Controller
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $menuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')->findOneById($id);
-        if(!$menuItem)
+        if(is_null($menuItem))
             throw new NotFoundHttpException();
         $dm->remove($menuItem);
         $dm->flush();
@@ -104,7 +104,7 @@ class MenuItemController extends Controller
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $menuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')->findOneById($id);
-        if (!$menuItem)
+        if (is_null($menuItem))
             throw new NotFoundHttpException();
         $form = $this->createForm(new MenuItemType());
         $form->submit($request->request->all());

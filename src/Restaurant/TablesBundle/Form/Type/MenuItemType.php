@@ -12,7 +12,7 @@ class MenuItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name');
-        $builder->add('avaiable');
+        $builder->add('available');
         $builder->add('price');
     }
 

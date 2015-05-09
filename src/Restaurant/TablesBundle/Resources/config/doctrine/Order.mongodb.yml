@@ -1,4 +1,5 @@
 Restaurant\TablesBundle\Document\Order:
+    repositoryClass: Restaurant\TablesBundle\Repository\OrderRepository
     fields:
         id:
             id: true

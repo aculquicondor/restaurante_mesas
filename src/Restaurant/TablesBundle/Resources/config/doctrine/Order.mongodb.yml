@@ -1,14 +1,14 @@
 Restaurant\TablesBundle\Document\Order:
-  fields:
-    id:
-      id: true
-    date:
-      type: date
-  embedMany:
-    orderItems:
-      targetDocument: OrderItem
-  referenceOne:
-    employee:
-      targetDocument: Restaurant\CashBundle\Document\Employee
-    table:
-      targetDocument: Table
+    fields:
+        id:
+            id: true
+        date:
+            type: date
+    embedMany:
+        orderItems:
+            targetDocument: OrderItem
+    referenceOne:
+        employee:
+            targetDocument: Restaurant\CashBundle\Document\Employee
+        table:
+            targetDocument: Table

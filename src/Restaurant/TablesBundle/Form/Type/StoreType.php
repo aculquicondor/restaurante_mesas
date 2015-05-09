@@ -13,6 +13,7 @@ class StoreType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('address');
+        $builder->add('manager');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

@@ -12,6 +12,41 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ReservationController extends Controller
 {
+    public function postReservationAction(Request $request)
+    {
+        $reservation = new Reservation();
+        $form = $this->createForm(new ReservationType());
+        $form->submit($request->request->all());
+        if($form->isValid()){
+            $clientId = $request->request->get('client');
+            $tableId = $request->request->get('table');
+            $estimatedArrivalTime = $request->request->get('estimatedArrivalTime', 'now');
+            $dm = $this->get('doctrine_mongodb')->getManager();
+            if (!is_null($tableId)) {
+                $table = $dm->getRepository('RestaurantTablesBundle:Table')
+                    ->findOneById($tableId);
+                if(!$table)
+                    throw new NotFoundHttpException("Table not Found");
+                $reservation->addTable($table);
+            }
+            if (!is_null($clientId)) {
+                $client = $dm->getRepository('Restaurant\CashBundle\Document\Client')
+                    ->findOneById($clientId);
+                if (!$client)
+                    throw new NotFoundHttpException("Client not Found");
+                $reservation->setClient($client);
+            }
+            if (!is_null($estimatedArrivalTime)) {
+                if (\DateTime::createFromFormat('Y-m-d H:i', $estimatedArrivalTime) === false)
+                    throw new NotFoundHttpException("Invalid date format");
+                $reservation->setEstimatedArrivalTime(new \DateTime($estimatedArrivalTime));
+            }
+            $dm->flush();
+            return $reservation;
+        }
+        return $form->getErrors();
+    }
+
     /**
      * @param $id
      * @return mixed
@@ -68,17 +103,21 @@ class ReservationController extends Controller
         $form = $this->createForm(new ReservationType());
         $form->submit($request->request->all());
         if($form->isValid()){
-            $client = $request->request->get('client');
+            $clientId = $request->request->get('client');
             $tableId = $request->request->get('table');
             $estimatedArrivalTime = $request->request->get('estimatedArrivalTime');
             if (!is_null($tableId)) {
                 $table = $dm->getRepository('RestaurantTablesBundle:Table')
                     ->findOneById($tableId);
                 if(!$table)
-                    throw new NotFoundHttpException();
+                    throw new NotFoundHttpException("Table not Found");
                 $reservation->addTable($table);
             }
-            if (!is_null($client)) {
+            if (!is_null($clientId)) {
+                $client = $dm->getRepository('Restaurant\CashBundle\Document\Client')
+                    ->findOneById($clientId);
+                if(!$client)
+                    throw new NotFoundHttpException("Client not Found");
                 $reservation->setClient($client);
             }
             if (!is_null($estimatedArrivalTime)) {

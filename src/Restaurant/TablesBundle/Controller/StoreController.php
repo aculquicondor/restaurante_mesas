@@ -19,10 +19,14 @@ class StoreController extends Controller
      */
     function getStoreAction($id)
     {
-        return $this->get('doctrine_mongodb')
+        $store = $this->get('doctrine_mongodb')
             ->getManager()
             ->getRepository('RestaurantTablesBundle:Store')
             ->findOneById($id);
+        if(is_null($store))
+            throw new NotFoundHttpException();
+
+        return $store;
     }
 
     /**
@@ -35,6 +39,9 @@ class StoreController extends Controller
             ->getManager()
             ->getRepository('RestaurantTablesBundle:Store')
             ->findAll();
+        if(is_null($stores))
+            throw new NotFoundHttpException();
+
         return array('stores' => $stores);
     }
 
@@ -73,7 +80,7 @@ class StoreController extends Controller
         $store = $dm->getRepository('RestaurantTablesBundle:Store')
             ->findOneById($id);
         if (!$store)
-            throw NotFoundHttpException();
+            throw new NotFoundHttpException();
         $dm->remove($store);
         $dm->flush();
         return array();

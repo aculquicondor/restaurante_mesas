@@ -59,11 +59,16 @@ class TableController extends Controller
     public function getTablesAction(Request $request)
     {
         $available = $request->get('available');
+        $time = $request->get('time', 'now');
         if ($available) {
-            $tables = $this->get('doctrine_mongodb')
+            $repository = $this->get('doctrine_mongodb')
                 ->getManager()
                 ->getRepository('RestaurantTablesBundle:Table')
-                ->getAvailableTables(new \DateTime());
+            if(!$time){
+                $tables = $repository->getAvailableTables(new \DateTime());
+            } else {
+                $tables = $repository->getAvailableTables($time);
+            }
         } else {
             $tables = $this->get('doctrine_mongodb')
                 ->getManager()

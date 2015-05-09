@@ -8,4 +8,6 @@ restaurant_tables_Table:
 
 restaurant_tables_Reservation:
     type: rest
-    resource: "Restaurant\TablesBundle\Controller\ReservationController"
+    resource: "Restaurant\TablesBundle\Controller\ReservationController"restaurant_tables_Store:
+  type: rest
+  resource: "Restaurant\TablesBundle\Controller\StoreController"

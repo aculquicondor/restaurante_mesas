@@ -3,7 +3,6 @@
 namespace Restaurant\TablesBundle\Controller;
 
 use Restaurant\TablesBundle\Document\Store;
-use Restaurant\CashBundle\Document\Employee;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\StoreType;
@@ -53,7 +52,6 @@ class StoreController extends Controller
         {
             $address = $request->request->get('address');
             $store->setAddress($address);
-            $manager = $request->request->get('manager');
             $dm = $this->get('doctrine_mongodb')
                 ->getManager();
             $dm->persist($store);

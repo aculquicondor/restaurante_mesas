@@ -40,8 +40,6 @@ class StoreController extends Controller
             ->getManager()
             ->getRepository('RestaurantTablesBundle:Store')
             ->findAll();
-        if(is_null($stores))
-            throw new NotFoundHttpException();
 
         return array('stores' => $stores);
     }
@@ -86,7 +84,7 @@ class StoreController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $store = $dm->getRepository('RestaurantTablesBundle:Store')
             ->findOneById($id);
-        if (!$store)
+        if (is_null($store))
             throw new NotFoundHttpException();
         $dm->remove($store);
         $dm->flush();

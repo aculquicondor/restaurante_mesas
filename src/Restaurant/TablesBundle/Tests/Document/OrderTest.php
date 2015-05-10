@@ -49,11 +49,8 @@ class OrderTest extends KernelTestCase {
     public function setUp()
     {
         $this->order = new Order();
-        $this->order->setDate('2014-10-12 10:10');
-    }
+        $this->order->setDate('2015-04-29 10:10');
 
-    public function testPersistence()
-    {
         $this->employee = new Employee();
         $this->employee->setDni("20304050");
         $this->employee->setName("Mozo Carlitos Way");
@@ -62,7 +59,10 @@ class OrderTest extends KernelTestCase {
         $this->table->setAvailable(true);
         $this->table->setCapacity(4);
         $this->table->setOccupationTime(new \DateTime());
+    }
 
+    public function testPersistence()
+    {
         self::$dm->persist($this->employee);
         self::$dm->persist($this->table);
 
@@ -76,12 +76,21 @@ class OrderTest extends KernelTestCase {
 
     public function testUpdate()
     {
-        $orders = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Order')
-            ->findAndUpdate()
-            ->field("date")->lte(new \MongoDate(strtotime("2014-10-13 00:00:00")))
+
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
+        self::$dm->flush();
+
+        $docOrder = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Order')
+            ->findAndUpdate('\Restaurant\TablesBundle\Document\Order')
+            ->field("id")->equals($this->order->getId())
             ->field("date")->set(new \MongoDate(strtotime("2015-05-01 00:00:00")))
             ->getQuery()->execute();
-        foreach($orders as $o)
+        foreach($docOrder as $o)
         {
             $this->assertNotEquals($this->order->getDate(), $o->getDate());
         }
@@ -89,16 +98,17 @@ class OrderTest extends KernelTestCase {
 
     public function testRemove()
     {
-        $orders = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Order')
-            ->find()
-            ->field("date")->gte(new \MongoDate(strtotime("2015-05-01 00:00:00")))
-            ->getQuery()->execute();
-        foreach($orders as $o)
-        {
-            $obj = self::$dm->remove($o);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
         self::$dm->flush();
+
+        self::$dm->remove($this->order);
+        self::$dm->flush();
+        $docOrder = self::$dm->getRepository('RestaurantTablesBundle:Order')->findById($this->order->getId());
+        $this->assertEmpty($docOrder);
     }
 
     /**

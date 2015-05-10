@@ -2,7 +2,6 @@
 
 namespace Restaurant\TablesBundle\Tests\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations\Timestamp;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Restaurant\TablesBundle\Document\Order;
 use Restaurant\CashBundle\Document\Employee;

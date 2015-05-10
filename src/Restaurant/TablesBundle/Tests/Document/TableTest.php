@@ -3,7 +3,7 @@
 namespace Restaurant\TablesBundle\Tests\Document;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use \Restaurant\TablesBundle\Document\Table;
+use Restaurant\TablesBundle\Document\Table;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
 
@@ -44,13 +44,17 @@ class TableTest extends KernelTestCase {
     {
         self::$dm->persist($this->table);
         self::$dm->flush();
+        $this->assertNotNull($this->table->getId());
     }
 
     public function testUpdate()
     {
+        self::$dm->persist($this->table);
+        self::$dm->flush();
+
         $tables = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
             ->findAndUpdate()
-            ->field("capacity")->lte(3)
+            ->field("id")->equals($this->table->getId())
             ->field("capacity")->set(4)
             ->getQuery()->execute();
         foreach($tables as $t)
@@ -62,16 +66,14 @@ class TableTest extends KernelTestCase {
 
     public function testRemove()
     {
-        $tables = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
-            ->find()
-            ->field("capacity")->equals(4)
-            ->getQuery()->execute();
-        foreach($tables as $t)
-        {
-            $obj = self::$dm->remove($t);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->table);
         self::$dm->flush();
+
+        self::$dm->remove($this->table);
+        self::$dm->flush();
+
+        $docTable = self::$dm->getRepository('RestaurantTablesBundle:Table')->findById($this->table->getId());
+        $this->assertEmpty($docTable);
     }
 
     /**

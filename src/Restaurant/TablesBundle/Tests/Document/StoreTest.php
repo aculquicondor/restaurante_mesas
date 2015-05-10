@@ -43,13 +43,18 @@ class StoreTest extends KernelTestCase {
     {
         $this->store = new Store();
         $this->store->setAddress("Av. Del Parque Sur 565");
+
+        $this->employee = new Employee();
+        $this->employee->setDni("10203040");
+        $this->employee->setName("Admin Carlitos Way");
+
     }
 
     public function testPersistence()
     {
-        $this->employee = new Employee();
-        $this->employee->setDni("10203040");
-        $this->employee->setName("Admin Carlitos Way");
+        self::$dm->persist($this->employee);
+        self::$dm->flush();
+
         $this->store->setManager($this->employee);
 
         self::$dm->persist($this->store);
@@ -59,9 +64,16 @@ class StoreTest extends KernelTestCase {
 
     public function testUpdate()
     {
+        self::$dm->persist($this->employee);
+        self::$dm->flush();
+
+        $this->store->setManager($this->employee);
+        self::$dm->persist($this->store);
+        self::$dm->flush();
+
         $stores = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Store')
             ->findAndUpdate()
-            ->field("address")->equals("Av. Del Parque Sur 565")
+            ->field("id")->equals($this->store->getId())
             ->field("address")->set("Av. Larco 500")
             ->getQuery()->execute();
         foreach($stores as $s)
@@ -69,18 +81,20 @@ class StoreTest extends KernelTestCase {
             $this->assertNotEquals($this->store->getAddress(), $s->getAddress());
         }
     }
+
     public function testRemove()
     {
-        $stores = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Store')
-            ->find()
-            ->field("address")->equals("Av. Larco 500")
-            ->getQuery()->execute();
-        foreach($stores as $s)
-        {
-            $obj = self::$dm->remove($s);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->employee);
         self::$dm->flush();
+
+        $this->store->setManager($this->employee);
+        self::$dm->persist($this->store);
+        self::$dm->flush();
+
+        self::$dm->remove($this->store);
+        self::$dm->flush();
+        $docStore = self::$dm->getRepository('RestaurantTablesBundle:Store')->findById($this->store->getId());
+        $this->assertEmpty($docStore);
     }
 
     /**

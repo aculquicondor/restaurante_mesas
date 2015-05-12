@@ -43,33 +43,34 @@ class MenuItemTest extends KernelTestCase {
     {
         self::$dm->persist($this->menuItem);
         self::$dm->flush();
-        $this->assertNotNull($this->menuItem->getId(), "ID OK");
+        $this->assertNotNull($this->menuItem->getId());
     }
 
     public function testUpdate()
     {
+        self::$dm->persist($this->menuItem);
+        self::$dm->flush();
+
         $menuItems = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\MenuItem')
             ->findAndUpdate()
-            ->field("name")->equals("Falafel")
+            ->field("id")->equals($this->menuItem->getId())
             ->field("price")->set(3.00)
             ->getQuery()->execute();
+
         foreach ($menuItems as $m) {
             $this->assertNotEquals($this->menuItem->getPrice(), $m->getPrice());
         }
 
     }
+
     public function testRemove()
     {
-        $menuItems = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\MenuItem')
-            ->find()
-            ->field("name")->equals("Falafel")
-            ->getQuery()->execute();
-        foreach($menuItems as $mi)
-        {
-            $obj = self::$dm->remove($mi);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->menuItem);
         self::$dm->flush();
+        self::$dm->remove($this->menuItem);
+        self::$dm->flush();
+        $docMenuItem = self::$dm->getRepository('RestaurantTablesBundle:MenuItem')->findById($this->menuItem->getId());
+        $this->assertEmpty($docMenuItem);
     }
 
     /**

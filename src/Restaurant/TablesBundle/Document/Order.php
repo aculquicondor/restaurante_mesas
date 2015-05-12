@@ -35,19 +35,22 @@ class Order {
     /**
      * Set date
      *
-     * @param \MongoDate $date
+     * @param int|\DateTime $date
      * @return self
      */
     public function setDate($date)
     {
-        $this->date = $date;
+        if($date instanceof \DateTime)
+            $this->date = $date;
+        else
+            $this->date = new \DateTime($date);
         return $this;
     }
 
     /**
      * Get date
      *
-     * @return \MongoDate $date
+     * @return \DateTime $date
      */
     public function getDate()
     {

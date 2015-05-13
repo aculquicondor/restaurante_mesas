@@ -22,7 +22,7 @@ class AppKernel extends Kernel
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
 
             new Restaurant\TablesBundle\RestaurantTablesBundle(),
-            new Restaurant\CashBundle\CashBundle(),
+            new Restaurant\CashBundle\RestaurantCashBundle(),
             new Restaurant\AuthBundle\RestaurantAuthBundle(),
         );
 

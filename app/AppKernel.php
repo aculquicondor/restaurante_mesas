@@ -21,7 +21,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
 
             new Restaurant\TablesBundle\RestaurantTablesBundle(),
-            new Restaurant\CashBundle\CashBundle(),
+            new Restaurant\CashBundle\RestaurantCashBundle(),
             new Restaurant\AuthBundle\RestaurantAuthBundle(),
         );
 

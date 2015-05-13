@@ -1,0 +1,9 @@
+Restaurant\TablesBundle\Document\Order:
+    relations:
+        -
+            rel: self
+            href:
+                route: get_order
+                parameters:
+                    id: expr(object.getId())
+                absolute: true

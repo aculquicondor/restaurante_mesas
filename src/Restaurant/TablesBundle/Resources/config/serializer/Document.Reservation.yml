@@ -1,0 +1,9 @@
+Restaurant\TablesBundle\Document\Reservation:
+    relations:
+        -
+            rel: self
+            href:
+                route: get_reservation
+                parameters:
+                    id: expr(object.getId())
+                absolute: true

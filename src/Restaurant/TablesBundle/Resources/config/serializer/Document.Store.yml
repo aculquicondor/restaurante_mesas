@@ -1,0 +1,9 @@
+Restaurant\TablesBundle\Document\Store:
+    relations:
+        -
+            rel: self
+            href:
+                route: get_store
+                parameters:
+                    id: expr(object.getId())
+                absolute: true

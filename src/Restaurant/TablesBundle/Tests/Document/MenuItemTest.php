@@ -46,21 +46,39 @@ class MenuItemTest extends KernelTestCase {
         $this->assertNotNull($this->menuItem->getId());
     }
 
-    public function testUpdate()
+    public function testUpdatePrice()
     {
+        $oldPrice = $this->menuItem->getPrice();
+        $newPrice = 3.5;
         self::$dm->persist($this->menuItem);
         self::$dm->flush();
 
-        $menuItems = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\MenuItem')
-            ->findAndUpdate()
-            ->field("id")->equals($this->menuItem->getId())
-            ->field("price")->set(3.00)
-            ->getQuery()->execute();
+        $this->menuItem->setPrice($newPrice);
+        $docMenuItem = self::$dm->find("RestaurantTablesBundle:MenuItem", $this->menuItem->getId());
+        $this->assertNotEquals($oldPrice, $docMenuItem->getPrice());
+    }
 
-        foreach ($menuItems as $m) {
-            $this->assertNotEquals($this->menuItem->getPrice(), $m->getPrice());
-        }
+    public function testUpdateName()
+    {
+        $oldName = $this->menuItem->getName();
+        $newName = "Falafel verde";
+        self::$dm->persist($this->menuItem);
+        self::$dm->flush();
 
+        $this->menuItem->setName($newName);
+        $docMenuItem = self::$dm->find("RestaurantTablesBundle:MenuItem", $this->menuItem->getId());
+        $this->assertNotEquals($oldName, $docMenuItem->getName());
+    }
+
+    public function testUpdateAvailable()
+    {
+        $oldAvailable = $this->menuItem->getAvailable();
+        self::$dm->persist($this->menuItem);
+        self::$dm->flush();
+
+        $this->menuItem->setAvailable(false);
+        $docMenuItem = self::$dm->find("RestaurantTablesBundle:MenuItem", $this->menuItem->getId());
+        $this->assertNotEquals($oldAvailable, $docMenuItem->getAvailable());
     }
 
     public function testRemove()

@@ -6,6 +6,6 @@ Restaurant\TablesBundle\Document\OrderItem:
         observations:
             type: string
     referenceOne:
-        menu_item:
+        menuItem:
             targetDocument: MenuItem
             cascade: all

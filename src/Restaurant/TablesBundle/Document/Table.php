@@ -45,7 +45,7 @@ class Table
     /**
      * Set occupationTime
      *
-     * @param int|\DateTime $occupationTime
+     * @param string|\DateTime $occupationTime
      * @return self
      */
     public function setOccupationTime($occupationTime)

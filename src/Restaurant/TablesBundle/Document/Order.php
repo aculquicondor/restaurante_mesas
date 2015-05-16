@@ -35,7 +35,7 @@ class Order {
     /**
      * Set date
      *
-     * @param int|\DateTime $date
+     * @param string|\DateTime $date
      * @return self
      */
     public function setDate($date)

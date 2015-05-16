@@ -7,7 +7,7 @@ namespace Restaurant\TablesBundle\Document;
 class OrderItem
 {
     protected $id;
-    protected $menu_item;
+    protected $menuItem;
     protected $observations;
 
 
@@ -51,7 +51,7 @@ class OrderItem
      */
     public function setMenuItem(\Restaurant\TablesBundle\Document\MenuItem $menuItem)
     {
-        $this->menu_item = $menuItem;
+        $this->menuItem = $menuItem;
         return $this;
     }
 
@@ -62,6 +62,6 @@ class OrderItem
      */
     public function getMenuItem()
     {
-        return $this->menu_item;
+        return $this->menuItem;
     }
 }

@@ -71,7 +71,7 @@ class OrderItemTest extends KernelTestCase {
         self::$dm->flush();
 
         $this->orderItem->setObservations($newObservations);
-        $docOrderItem = self::$dm->find("RestaurantTablesBundle:OrderItem", $this->orderItem->getId());
+        $docOrderItem = self::$dm->getRepository("RestaurantTablesBundle:OrderItem")->find($this->orderItem->getId());
         $this->assertNotEquals($oldObservations, $docOrderItem->getObservations());
     }
 

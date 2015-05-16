@@ -74,7 +74,7 @@ class StoreTest extends KernelTestCase {
         self::$dm->flush();
 
         $this->store->setAddress($newAddress);
-        $docStore = self::$dm->find("RestaurantTablesBundle:Store", $this->store->getId());
+        $docStore = self::$dm->getRepository("RestaurantTablesBundle:Store")->find($this->store->getId());
         $this->assertNotEquals($oldAddress, $docStore->getAddress());
     }
 
@@ -88,7 +88,7 @@ class StoreTest extends KernelTestCase {
         self::$dm->persist($this->store);
         self::$dm->flush();
 
-        $docStore = self::$dm->find("RestaurantTablesBundle:Store", $this->store->getId());
+        $docStore = self::$dm->getRepository("RestaurantTablesBundle:Store")->find($this->store->getId());
         $this->assertEquals($managerId, $docStore->getManager()->getId());
     }
 

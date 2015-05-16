@@ -72,7 +72,7 @@ class ReservationTest extends KernelTestCase {
         $oldETA = $this->reservation->getEstimatedArrivalTime();
         $newETA = "2015-05-03 01:00:00";
         $this->reservation->setEstimatedArrivalTime($newETA);
-        $docReservation = self::$dm->find("RestaurantTablesBundle:Reservation", $this->reservation->getId());
+        $docReservation = self::$dm->getRepository("RestaurantTablesBundle:Reservation")->find($this->reservation->getId());
         $this->assertNotEquals($oldETA, $docReservation->getEstimatedArrivalTime());
     }
 
@@ -86,7 +86,7 @@ class ReservationTest extends KernelTestCase {
         self::$dm->flush();
 
         $clientId = $this->client->getId();
-        $docReservation = self::$dm->find("RestaurantTablesBundle:Reservation", $this->reservation->getId());
+        $docReservation = self::$dm->getRepository("RestaurantTablesBundle:Reservation")->find($this->reservation->getId());
         $this->assertEquals($clientId, $docReservation->getClient()->getId());
     }
 

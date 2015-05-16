@@ -54,7 +54,7 @@ class MenuItemTest extends KernelTestCase {
         self::$dm->flush();
 
         $this->menuItem->setPrice($newPrice);
-        $docMenuItem = self::$dm->find("RestaurantTablesBundle:MenuItem", $this->menuItem->getId());
+        $docMenuItem = self::$dm->getRepository("RestaurantTablesBundle:MenuItem")->find($this->menuItem->getId());
         $this->assertNotEquals($oldPrice, $docMenuItem->getPrice());
     }
 
@@ -66,7 +66,7 @@ class MenuItemTest extends KernelTestCase {
         self::$dm->flush();
 
         $this->menuItem->setName($newName);
-        $docMenuItem = self::$dm->find("RestaurantTablesBundle:MenuItem", $this->menuItem->getId());
+        $docMenuItem = self::$dm->getRepository("RestaurantTablesBundle:MenuItem")->find($this->menuItem->getId());
         $this->assertNotEquals($oldName, $docMenuItem->getName());
     }
 
@@ -77,7 +77,7 @@ class MenuItemTest extends KernelTestCase {
         self::$dm->flush();
 
         $this->menuItem->setAvailable(false);
-        $docMenuItem = self::$dm->find("RestaurantTablesBundle:MenuItem", $this->menuItem->getId());
+        $docMenuItem = self::$dm->getRepository("RestaurantTablesBundle:MenuItem")->find($this->menuItem->getId());
         $this->assertNotEquals($oldAvailable, $docMenuItem->getAvailable());
     }
 
@@ -87,7 +87,7 @@ class MenuItemTest extends KernelTestCase {
         self::$dm->flush();
         self::$dm->remove($this->menuItem);
         self::$dm->flush();
-        $docMenuItem = self::$dm->getRepository('RestaurantTablesBundle:MenuItem')->findById($this->menuItem->getId());
+        $docMenuItem = self::$dm->getRepository("RestaurantTablesBundle:MenuItem")->find($this->menuItem->getId());
         $this->assertEmpty($docMenuItem);
     }
 

@@ -89,7 +89,7 @@ class OrderTest extends KernelTestCase {
         $newDate = "2015-05-01 00:00:00";
 
         $this->order->setDate($newDate);
-        $docOrder = self::$dm->find("RestaurantTablesBundle:Order", $this->order->getId());
+        $docOrder = self::$dm->getRepository("RestaurantTablesBundle:Order")->find($this->order->getId());
         $this->assertNotEquals($oldDate, $docOrder->getDate());
     }
 
@@ -135,7 +135,7 @@ class OrderTest extends KernelTestCase {
 
         $oldActive = $this->order->getActive();
         $this->order->setActive(false);
-        $docOrder = self::$dm->find("RestaurantTablesBundle:Order", $this->order->getId());
+        $docOrder = self::$dm->getRepository("RestaurantTablesBundle:Order")->find($this->order->getId());
         $this->assertNotEquals($oldActive, $docOrder->getActive());
     }
 
@@ -162,7 +162,7 @@ class OrderTest extends KernelTestCase {
         self::$dm->persist($orderItem);
 
         $this->order->addOrderItem($orderItem);
-        $docOrder = self::$dm->find("RestaurantTablesBundle:Order", $this->order->getId());
+        $docOrder = self::$dm->getRepository("RestaurantTablesBundle:Order")->find($this->order->getId());
         $this->assertNotEquals($oldOrderItems, $docOrder->getOrderItems()->isEmpty());
     }
 

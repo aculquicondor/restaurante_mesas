@@ -141,7 +141,6 @@ class OrderTest extends KernelTestCase {
 
     public function testAddOrderItem()
     {
-
         self::$dm->persist($this->employee);
         self::$dm->persist($this->table);
 
@@ -149,7 +148,7 @@ class OrderTest extends KernelTestCase {
         $this->order->setTable($this->table);
         self::$dm->persist($this->order);
         self::$dm->flush();
-        $oldOrderItems = $this->order->getOrderItems();
+        $oldOrderItems = $this->order->getOrderItems()->isEmpty();
 
         $menuItem = new MenuItem();
         $menuItem->setAvailable(true);
@@ -163,8 +162,8 @@ class OrderTest extends KernelTestCase {
         self::$dm->persist($orderItem);
 
         $this->order->addOrderItem($orderItem);
-
-        $this->assertNotEquals($oldOrderItems->count(), $this->order->getOrderItems()->count());
+        $docOrder = self::$dm->find("RestaurantTablesBundle:Order", $this->order->getId());
+        $this->assertNotEquals($oldOrderItems, $docOrder->getOrderItems()->isEmpty());
     }
 
 

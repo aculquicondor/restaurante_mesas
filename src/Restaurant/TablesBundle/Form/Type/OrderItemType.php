@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ajax
- * Date: 09/05/15
- * Time: 07:32 AM
- */
 
 namespace Restaurant\TablesBundle\Form\Type;
 

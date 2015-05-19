@@ -6,6 +6,14 @@ restaurant_tables_Table:
     type: rest
     resource: "Restaurant\TablesBundle\Controller\TableController"
 
-restaurant_tables_OrderItem:
+restaurant_tables_MenuItem:
     type: rest
-    resource: "Restaurant\TablesBundle\Controller\OrderItemController"
+    resource: "Restaurant\TablesBundle\Controller\MenuItemController"
+
+restaurant_tables_Store:
+    type: rest
+    resource: "Restaurant\TablesBundle\Controller\StoreController"
+    
+restaurant_tables_Reservation:
+    type: rest
+    resource: "Restaurant\TablesBundle\Controller\ReservationController"

@@ -41,14 +41,17 @@ class OrderItemTest extends KernelTestCase {
     {
         $this->orderItem = new OrderItem();
         $this->orderItem->setObservations("Sin sal");
-    }
 
-    public function testPersistence()
-    {
         $this->menuItem = new MenuItem();
         $this->menuItem->setName("Rocoto");
         $this->menuItem->setPrice(0.50);
         $this->menuItem->setAvailable(true);
+    }
+
+    public function testPersistence()
+    {
+        self::$dm->persist($this->menuItem);
+        self::$dm->flush();
 
         $this->orderItem->setMenuItem($this->menuItem);
         self::$dm->persist($this->orderItem);
@@ -56,30 +59,47 @@ class OrderItemTest extends KernelTestCase {
         $this->assertNotNull($this->orderItem->getId());
     }
 
-    public function testUpdate()
+    public function testUpdateObservations()
     {
-        $orderItems = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\OrderItem')
-            ->findAndUpdate()
-            ->field("observations")->equals("Sin sal")
-            ->field("observations")->set("Sin sal y aceite")
-            ->getQuery()->execute();
-        foreach ($orderItems as $oi) {
-            $this->assertNotEquals($this->orderItem->getObservations(), $oi->getObservations());
-        }
+        $oldObservations = $this->orderItem->getObservations();
+        $newObservations = "Sin sal y picante";
+        self::$dm->persist($this->menuItem);
+        self::$dm->flush();
 
+        $this->orderItem->setMenuItem($this->menuItem);
+        self::$dm->persist($this->orderItem);
+        self::$dm->flush();
+
+        $this->orderItem->setObservations($newObservations);
+        $docOrderItem = self::$dm->getRepository("RestaurantTablesBundle:OrderItem")->find($this->orderItem->getId());
+        $this->assertNotEquals($oldObservations, $docOrderItem->getObservations());
     }
+
+    public function testMenuItem()
+    {
+        self::$dm->persist($this->menuItem);
+        self::$dm->flush();
+
+        $this->orderItem->setMenuItem($this->menuItem);
+        self::$dm->persist($this->orderItem);
+        self::$dm->flush();
+
+        $menuItemId = $this->menuItem->getId();
+        $this->assertEquals($menuItemId, $this->orderItem->getMenuItem()->getId());
+    }
+
     public function testRemove()
     {
-        $orderItems = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\OrderItem')
-            ->find()
-            ->field("observations")->equals("Sin sal y aceite")
-            ->getQuery()->execute();
-        foreach($orderItems as $oi)
-        {
-            $obj = self::$dm->remove($oi);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->menuItem);
         self::$dm->flush();
+
+        $this->orderItem->setMenuItem($this->menuItem);
+        self::$dm->persist($this->orderItem);
+        self::$dm->flush();
+        self::$dm->remove($this->orderItem);
+        self::$dm->flush();
+        $docOrder = self::$dm->getRepository('RestaurantTablesBundle:OrderItem')->findById($this->orderItem->getId());
+        $this->assertEmpty($docOrder);
     }
 
     /**

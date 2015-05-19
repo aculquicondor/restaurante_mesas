@@ -1,5 +1,6 @@
 # src/Restaurant/CashBundle/Resources/config/doctrine/Client.mongodb.yml
 Restaurant\CashBundle\Document\Client:
+    repositoryClass: Restaurant\CashBundle\Repository\ClientRepository
     fields:
         id:
             id: true

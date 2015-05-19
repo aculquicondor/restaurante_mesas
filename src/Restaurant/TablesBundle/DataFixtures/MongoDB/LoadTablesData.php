@@ -15,31 +15,40 @@ class LoadTablesData extends AbstractFixture
      */
     public function load(ObjectManager $manager)
     {
-        $table = new Table();
-        $table->setAvailable(true);
-        $table->setCapacity(4);
-        $manager->persist($table);
-
-        $table = new Table();
-        $table->setAvailable(false);
-        $table->setOccupationTime(new \DateTime('2015-05-06 09:00'));
-        $table->setCapacity(4);
-        $manager->persist($table);
-
         $table1 = new Table();
         $table1->setAvailable(true);
         $table1->setCapacity(4);
         $manager->persist($table1);
 
         $table2 = new Table();
-        $table2->setAvailable(true);
+        $table2->setAvailable(false);
+        $table2->setOccupationTime(new \DateTime('2015-05-06 09:00'));
         $table2->setCapacity(4);
         $manager->persist($table2);
 
+        $table3 = new Table();
+        $table3->setAvailable(false);
+        $table3->setOccupationTime(new \DateTime('2015-05-08 10:00'));
+        $table3->setCapacity(4);
+        $manager->persist($table3);
+
+        $table4 = new Table();
+        $table4->setAvailable(true);
+        $table4->setCapacity(4);
+        $manager->persist($table4);
+
+        $table5 = new Table();
+        $table5->setAvailable(true);
+        $table5->setCapacity(4);
+        $manager->persist($table5);
+
         $manager->flush();
 
-        $this->addReference('table-reserve-now', $table1);
-        $this->addReference('table-reserve-later', $table2);
+        $this->addReference('table-reserve-now', $table4);
+        $this->addReference('table-reserve-later', $table5);
+        $this->addReference('occupied-table1', $table2);
+        $this->addReference('occupied-table2', $table3);
+
     }
 
 }

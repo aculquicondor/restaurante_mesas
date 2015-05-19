@@ -5,7 +5,8 @@ Restaurant\TablesBundle\Document\OrderItem:
             id: true
         observations:
             type: string
+    type: embeddedDocument
     referenceOne:
-        menu_item:
+        menuItem:
             targetDocument: MenuItem
             cascade: all

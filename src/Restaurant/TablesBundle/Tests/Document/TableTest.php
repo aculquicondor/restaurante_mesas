@@ -3,7 +3,7 @@
 namespace Restaurant\TablesBundle\Tests\Document;
 
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
-use \Restaurant\TablesBundle\Document\Table;
+use Restaurant\TablesBundle\Document\Table;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
 
@@ -35,7 +35,7 @@ class TableTest extends KernelTestCase {
     public function setUp()
     {
         $this->table = new Table();
-        $this->table->setOccupationTime(new \DateTime());
+        $this->table->setOccupationTime("2015-05-13 20:00:00");
         $this->table->setCapacity(2);
         $this->table->setAvailable(true);
     }
@@ -44,34 +44,58 @@ class TableTest extends KernelTestCase {
     {
         self::$dm->persist($this->table);
         self::$dm->flush();
+        $this->assertNotNull($this->table->getId());
     }
 
-    public function testUpdate()
+    public function testUpdateCapacity()
     {
-        $tables = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
-            ->findAndUpdate()
-            ->field("capacity")->lte(3)
-            ->field("capacity")->set(4)
-            ->getQuery()->execute();
-        foreach($tables as $t)
-        {
-            $this->assertNotEquals($this->table->getCapacity(), $t->getCapacity());
-        }
+        $oldCapacity = $this->table->getCapacity();
+        $newCapacity = 4;
 
+        self::$dm->persist($this->table);
+        self::$dm->flush();
+
+        $this->table->setCapacity($newCapacity);
+        $docTable = self::$dm->getRepository("RestaurantTablesBundle:Table")->find($this->table->getId());
+        $this->assertNotEquals($oldCapacity, $docTable->getCapacity());
+    }
+
+    public function testUpdateAvailable()
+    {
+        $oldAvailable = $this->table->getAvailable();
+        $newAvailable = false;
+
+        self::$dm->persist($this->table);
+        self::$dm->flush();
+
+        $this->table->setAvailable($newAvailable);
+        $docTable = self::$dm->getRepository("RestaurantTablesBundle:Table")->find($this->table->getId());
+        $this->assertNotEquals($oldAvailable, $docTable->getAvailable());
+    }
+
+    public function testUpdateOccupationTime()
+    {
+        $oldOccupationTime = $this->table->getOccupationTime();
+        $newOccupationTime = "2015-05-13 23:00:00";
+
+        self::$dm->persist($this->table);
+        self::$dm->flush();
+
+        $this->table->setOccupationTime($newOccupationTime);
+        $docTable = self::$dm->getRepository("RestaurantTablesBundle:Table")->find($this->table->getId());
+        $this->assertNotEquals($oldOccupationTime, $docTable->getOccupationTime());
     }
 
     public function testRemove()
     {
-        $tables = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Table')
-            ->find()
-            ->field("capacity")->equals(4)
-            ->getQuery()->execute();
-        foreach($tables as $t)
-        {
-            $obj = self::$dm->remove($t);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->table);
         self::$dm->flush();
+
+        self::$dm->remove($this->table);
+        self::$dm->flush();
+
+        $docTable = self::$dm->getRepository('RestaurantTablesBundle:Table')->findById($this->table->getId());
+        $this->assertEmpty($docTable);
     }
 
     /**

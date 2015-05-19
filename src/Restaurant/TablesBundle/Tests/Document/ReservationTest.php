@@ -41,15 +41,18 @@ class ReservationTest extends KernelTestCase {
     {
         $this->reservation = new Reservation();
         $this->reservation->setEstimatedArrivalTime(new \DateTime("2015-05-02 23:50:00"));
-    }
 
-    public function testPersistence()
-    {
         $this->client = new Client();
         $this->client->setName("Astro Boy");
         $this->client->setDni("40506070");
         $this->client->setRuc("10405060701");
         $this->client->setAddress("Av. Benavides 201");
+    }
+
+    public function testPersistence()
+    {
+        self::$dm->persist($this->client);
+        self::$dm->flush();
 
         $this->reservation->setClient($this->client);
         self::$dm->persist($this->reservation);
@@ -57,30 +60,49 @@ class ReservationTest extends KernelTestCase {
         $this->assertNotNull($this->reservation->getId());
     }
 
-    public function testUpdate()
+    public function testUpdateEstimatedArrivalTime()
     {
-        $reservations = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Reservation')
-            ->findAndUpdate()
-            ->field("estimatedArrivalTime")->lte(new \DateTime("2015-05-02 23:50:00"))
-            ->field("estimatedArrivalTime")->set(new \DateTime("2015-05-03 01:00:00"))
-            ->getQuery()->execute();
-        foreach ($reservations as $r) {
-            $this->assertNotEquals($this->reservation->getEstimatedArrivalTime(), $r->getEstimatedTime());
-        }
+        self::$dm->persist($this->client);
+        self::$dm->flush();
 
+        $this->reservation->setClient($this->client);
+        self::$dm->persist($this->reservation);
+        self::$dm->flush();
+
+        $oldETA = $this->reservation->getEstimatedArrivalTime();
+        $newETA = "2015-05-03 01:00:00";
+        $this->reservation->setEstimatedArrivalTime($newETA);
+        $docReservation = self::$dm->getRepository("RestaurantTablesBundle:Reservation")->find($this->reservation->getId());
+        $this->assertNotEquals($oldETA, $docReservation->getEstimatedArrivalTime());
     }
+
+    public function testClient()
+    {
+        self::$dm->persist($this->client);
+        self::$dm->flush();
+
+        $this->reservation->setClient($this->client);
+        self::$dm->persist($this->reservation);
+        self::$dm->flush();
+
+        $clientId = $this->client->getId();
+        $docReservation = self::$dm->getRepository("RestaurantTablesBundle:Reservation")->find($this->reservation->getId());
+        $this->assertEquals($clientId, $docReservation->getClient()->getId());
+    }
+
     public function testRemove()
     {
-        $reservations = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Reservation')
-            ->find()
-            ->field("estimatedArrivalTime")->gte(new \DateTime("2015-05-03 01:00:00"))
-            ->getQuery()->execute();
-        foreach($reservations as $r)
-        {
-            $obj = self::$dm->remove($r);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->client);
         self::$dm->flush();
+
+        $this->reservation->setClient($this->client);
+        self::$dm->persist($this->reservation);
+        self::$dm->flush();
+
+        self::$dm->remove($this->reservation);
+        self::$dm->flush();
+        $docOrder = self::$dm->getRepository('RestaurantTablesBundle:Reservation')->findById($this->reservation->getId());
+        $this->assertEmpty($docOrder);
     }
 
     /**

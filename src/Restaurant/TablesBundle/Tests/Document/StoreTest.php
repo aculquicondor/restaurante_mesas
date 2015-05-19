@@ -43,13 +43,18 @@ class StoreTest extends KernelTestCase {
     {
         $this->store = new Store();
         $this->store->setAddress("Av. Del Parque Sur 565");
+
+        $this->employee = new Employee();
+        $this->employee->setDni("10203040");
+        $this->employee->setName("Admin Carlitos Way");
+
     }
 
     public function testPersistence()
     {
-        $this->employee = new Employee();
-        $this->employee->setDni("10203040");
-        $this->employee->setName("Admin Carlitos Way");
+        self::$dm->persist($this->employee);
+        self::$dm->flush();
+
         $this->store->setManager($this->employee);
 
         self::$dm->persist($this->store);
@@ -57,30 +62,49 @@ class StoreTest extends KernelTestCase {
         $this->assertNotNull($this->store->getId());
     }
 
-    public function testUpdate()
+    public function testUpdateAddress()
     {
-        $stores = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Store')
-            ->findAndUpdate()
-            ->field("address")->equals("Av. Del Parque Sur 565")
-            ->field("address")->set("Av. Larco 500")
-            ->getQuery()->execute();
-        foreach($stores as $s)
-        {
-            $this->assertNotEquals($this->store->getAddress(), $s->getAddress());
-        }
+        $oldAddress = $this->store->getAddress();
+        $newAddress = "Av. Larco 500";
+        self::$dm->persist($this->employee);
+        self::$dm->flush();
+
+        $this->store->setManager($this->employee);
+        self::$dm->persist($this->store);
+        self::$dm->flush();
+
+        $this->store->setAddress($newAddress);
+        $docStore = self::$dm->getRepository("RestaurantTablesBundle:Store")->find($this->store->getId());
+        $this->assertNotEquals($oldAddress, $docStore->getAddress());
     }
+
+    public function testManager()
+    {
+        self::$dm->persist($this->employee);
+        self::$dm->flush();
+        $managerId = $this->employee->getId();
+
+        $this->store->setManager($this->employee);
+        self::$dm->persist($this->store);
+        self::$dm->flush();
+
+        $docStore = self::$dm->getRepository("RestaurantTablesBundle:Store")->find($this->store->getId());
+        $this->assertEquals($managerId, $docStore->getManager()->getId());
+    }
+
     public function testRemove()
     {
-        $stores = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Store')
-            ->find()
-            ->field("address")->equals("Av. Larco 500")
-            ->getQuery()->execute();
-        foreach($stores as $s)
-        {
-            $obj = self::$dm->remove($s);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->employee);
         self::$dm->flush();
+
+        $this->store->setManager($this->employee);
+        self::$dm->persist($this->store);
+        self::$dm->flush();
+
+        self::$dm->remove($this->store);
+        self::$dm->flush();
+        $docStore = self::$dm->getRepository('RestaurantTablesBundle:Store')->findById($this->store->getId());
+        $this->assertEmpty($docStore);
     }
 
     /**

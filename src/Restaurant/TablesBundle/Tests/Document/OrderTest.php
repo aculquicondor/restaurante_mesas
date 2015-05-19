@@ -2,11 +2,12 @@
 
 namespace Restaurant\TablesBundle\Tests\Document;
 
-use Doctrine\ODM\MongoDB\Mapping\Annotations\Timestamp;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Restaurant\TablesBundle\Document\Order;
 use Restaurant\CashBundle\Document\Employee;
 use Restaurant\TablesBundle\Document\Table;
+use Restaurant\TablesBundle\Document\OrderItem;
+use Restaurant\TablesBundle\Document\MenuItem;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
 
@@ -49,11 +50,8 @@ class OrderTest extends KernelTestCase {
     public function setUp()
     {
         $this->order = new Order();
-        $this->order->setDate('2014-10-12 10:10');
-    }
+        $this->order->setDate('2015-04-29 10:10');
 
-    public function testPersistence()
-    {
         $this->employee = new Employee();
         $this->employee->setDni("20304050");
         $this->employee->setName("Mozo Carlitos Way");
@@ -62,7 +60,10 @@ class OrderTest extends KernelTestCase {
         $this->table->setAvailable(true);
         $this->table->setCapacity(4);
         $this->table->setOccupationTime(new \DateTime());
+    }
 
+    public function testPersistence()
+    {
         self::$dm->persist($this->employee);
         self::$dm->persist($this->table);
 
@@ -74,31 +75,111 @@ class OrderTest extends KernelTestCase {
         $this->assertNotNull($this->order->getId());
     }
 
-    public function testUpdate()
+    public function testUpdateDate()
     {
-        $orders = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Order')
-            ->findAndUpdate()
-            ->field("date")->lte(new \MongoDate(strtotime("2014-10-13 00:00:00")))
-            ->field("date")->set(new \MongoDate(strtotime("2015-05-01 00:00:00")))
-            ->getQuery()->execute();
-        foreach($orders as $o)
-        {
-            $this->assertNotEquals($this->order->getDate(), $o->getDate());
-        }
+
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
+        self::$dm->flush();
+        $oldDate = $this->order->getDate();
+        $newDate = "2015-05-01 00:00:00";
+
+        $this->order->setDate($newDate);
+        $docOrder = self::$dm->getRepository("RestaurantTablesBundle:Order")->find($this->order->getId());
+        $this->assertNotEquals($oldDate, $docOrder->getDate());
     }
+
+    public function testTable()
+    {
+
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
+        self::$dm->flush();
+        $tableId = $this->table->getId();
+
+        $this->assertEquals($tableId, $this->order->getTable()->getId());
+    }
+
+    public function testEmployee()
+    {
+
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
+        self::$dm->flush();
+        $employeeId = $this->employee->getId();
+        $this->assertEquals($employeeId, $this->order->getEmployee()->getId());
+    }
+
+    public function testActive()
+    {
+
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
+        self::$dm->flush();
+
+        $oldActive = $this->order->getActive();
+        $this->order->setActive(false);
+        $docOrder = self::$dm->getRepository("RestaurantTablesBundle:Order")->find($this->order->getId());
+        $this->assertNotEquals($oldActive, $docOrder->getActive());
+    }
+
+    public function testAddOrderItem()
+    {
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
+        self::$dm->flush();
+        $oldOrderItems = $this->order->getOrderItems()->isEmpty();
+
+        $menuItem = new MenuItem();
+        $menuItem->setAvailable(true);
+        $menuItem->setName("Café");
+        $menuItem->setPrice(5.87);
+        self::$dm->persist($menuItem);
+
+        $orderItem = new OrderItem();
+        $orderItem->setMenuItem($menuItem);
+        $orderItem->setObservations("Poca sal");
+        self::$dm->persist($orderItem);
+
+        $this->order->addOrderItem($orderItem);
+        $docOrder = self::$dm->getRepository("RestaurantTablesBundle:Order")->find($this->order->getId());
+        $this->assertNotEquals($oldOrderItems, $docOrder->getOrderItems()->isEmpty());
+    }
+
 
     public function testRemove()
     {
-        $orders = self::$dm->createQueryBuilder('\Restaurant\TablesBundle\Document\Order')
-            ->find()
-            ->field("date")->gte(new \MongoDate(strtotime("2015-05-01 00:00:00")))
-            ->getQuery()->execute();
-        foreach($orders as $o)
-        {
-            $obj = self::$dm->remove($o);
-            $this->assertNull($obj);
-        }
+        self::$dm->persist($this->employee);
+        self::$dm->persist($this->table);
+        $this->order->setEmployee($this->employee);
+        $this->order->setTable($this->table);
+        self::$dm->persist($this->order);
         self::$dm->flush();
+
+        self::$dm->remove($this->order);
+        self::$dm->flush();
+        $docOrder = self::$dm->getRepository('RestaurantTablesBundle:Order')->findById($this->order->getId());
+        $this->assertEmpty($docOrder);
     }
 
     /**

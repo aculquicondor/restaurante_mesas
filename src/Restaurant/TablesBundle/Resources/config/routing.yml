@@ -17,3 +17,8 @@ restaurant_tables_Store:
 restaurant_tables_Reservation:
     type: rest
     resource: "Restaurant\TablesBundle\Controller\ReservationController"
+
+restaurant_tables_OrderItem:
+    type: rest
+    resource: "Restaurant\TablesBundle\Controller\OrderItemController"
+

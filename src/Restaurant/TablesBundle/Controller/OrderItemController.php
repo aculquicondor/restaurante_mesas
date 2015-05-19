@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class OrderItemController extends Controller
 {
-    /*
+    /**
      * @param Request $request
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @View()
@@ -23,17 +23,23 @@ class OrderItemController extends Controller
         $form = $this->createForm(new OrderItemType());
         $form ->submit($request->request->all());
         if($form->isValid()){
+            $dm = $this->get('doctrine_mongodb')->getManager();
             $menuItem = $request->request->get('menuItem');
             $observations = $request->request->get('observations');
-
-            $dm = $this->get('doctrine_mongodb')->getManager();
+            if (!is_null($menuItem))
+            {
+                $docMenuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')->find($menuItem);
+                if (!is_null($docMenuItem))
+                    $orderItem->setMenuItem($docMenuItem);
+            }
+            $orderItem->setObservations($observations);
             $dm->persist($orderItem);
             $dm->flush();
             return $orderItem;
         }
     }
 
-    /*
+    /**
      * @param Request $request
      * @return OrderItem
      * @throws NotFoundHttpException
@@ -45,12 +51,12 @@ class OrderItemController extends Controller
             ->getManager()
             ->getRepository('RestaurantTablesBundle:OrderItem')
             ->findOneById($id);
-        if(!$orderItem)
+        if (is_null($orderItem))
             throw new NotFoundHttpException();
         return $orderItem;
     }
 
-    /*
+    /**
      * @param $id
      * @return array()
      * @view()
@@ -60,14 +66,14 @@ class OrderItemController extends Controller
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $orderItem = $dm->getRepository('RestaurantTablesBundle:OrderItem')->findOneById($id);
-        if(!$orderItem)
+        if (is_null($orderItem))
             throw new NotFoundHttpException();
         $dm->remove($orderItem);
         $dm->flush();
         return array();
     }
 
-    /*
+    /**
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
@@ -85,7 +91,7 @@ class OrderItemController extends Controller
         if($form->isValid()){
             $menuItem = $request->request->get('menuItem');
             $observations = $request->request->get('observations');
-            if(is_null(!$menuItem)){
+            if(!is_null($menuItem)){
                 $orderItem->setMenuItem($menuItem);
             }
             if(!is_null($observations)){

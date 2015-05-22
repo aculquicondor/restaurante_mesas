@@ -24,6 +24,7 @@
         "phpunit/phpunit": "4.6.4",
         "jms/serializer-bundle": "0.13.*",
         "friendsofsymfony/rest-bundle": "~1.5",
+        "nelmio/api-doc-bundle": "2.9.0",
         "willdurand/hateoas-bundle": "1.0.*@dev"
     },
     "require-dev": {

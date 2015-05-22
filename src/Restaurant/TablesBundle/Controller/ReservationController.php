@@ -76,6 +76,24 @@ class ReservationController extends Controller
 
     /**
      * @param $id
+     * @return mixed
+     */
+    public function getReservationTablesAction($id)
+    {
+        $reservation = $this->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository('RestaurantTablesBundle:Reservation')
+            ->findOneById($id);
+        if (!$reservation)
+            throw new NotFoundHttpException();
+        $tables = $reservation->getTables();
+        if (!$tables)
+            throw new NotFoundHttpException("Tables not found");
+        return $tables;
+    }
+
+    /**
+     * @param $id
      * @return array
      */
     public function deleteReservationAction($id)

@@ -1,6 +1,10 @@
 Restaurant\TablesBundle\Document\Reservation:
-    exclusion:
-        groups: [tables]
+    exclusion_policy: ALL
+    properties:
+        estimatedArrivalTime:
+          expose: true
+        client:
+          expose: true
     relations:
         -
             rel: self

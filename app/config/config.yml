@@ -74,3 +74,5 @@ fos_rest:
         default_format: json
     view:
         view_response_listener: 'force'
+
+nelmio_api_doc: ~

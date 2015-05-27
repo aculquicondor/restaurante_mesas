@@ -75,7 +75,7 @@ class Table
      */
     public function setCapacity($capacity)
     {
-        $this->capacity = $capacity;
+        $this->capacity = (int)$capacity;
         return $this;
     }
 

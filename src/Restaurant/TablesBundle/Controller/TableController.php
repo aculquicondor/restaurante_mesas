@@ -8,13 +8,21 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\TableType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
 class TableController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Symfony\Component\Form\FormErrorIterator|Table
+     * @return mixed
+     * @ApiDoc(
+     *   description="Create a Table",
+     *   section="Table",
+     *   parameters={
+     *     {"name"="capacity", "dataType"="integer", "required"=false, "description"="Capacity"}
+     *   }
+     * )
      * @View()
      */
     public function postTableAction(Request $request)
@@ -35,9 +43,12 @@ class TableController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return Table
-     * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View a Table",
+     *   section="Table"
+     * )
      * @View()
      */
     public function getTableAction($id)
@@ -54,6 +65,16 @@ class TableController extends Controller
     /**
      * @param Request $request
      * @return array
+     * @ApiDoc(
+     *   description="View all Tables",
+     *   section="Table",
+     *   filters={
+     *     {"name"="available", "dataType"="boolean"}
+     *   },
+     *   parameters={
+     *     {"name"="time", "dataType"="date", "required"=false, "description"="Custom time"}
+     *   }
+     * )
      * @View()
      */
     public function getTablesAction(Request $request)
@@ -75,10 +96,13 @@ class TableController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return array
+     * @ApiDoc(
+     *   description="Delete a Table",
+     *   section="Table"
+     * )
      * @View()
-     * @throws NotFoundHttpException
      */
     public function deleteTableAction($id)
     {
@@ -93,10 +117,18 @@ class TableController extends Controller
 
     /**
      * @param Request $request
-     * @param $id
-     * @return \Symfony\Component\Form\FormErrorIterator|Table
+     * @param int $id
+     * @return mixed
+     * @ApiDoc(
+     *   description="Modify a Table",
+     *   section="Table",
+     *   parameters={
+     *     {"name"="capacity", "dataType"="integer", "required"=false, "description"="Capacity"},
+     *     {"name"="available", "dataType"="boolean", "required"=false, "description"="Availability"},
+     *     {"name"="occupationTime", "dataType"="date", "required"=false, "description"="Occupation time"}
+     *   }
+     * )
      * @View()
-     * @throws NotFoundHttpException
      */
     public function patchTableAction(Request $request, $id)
     {

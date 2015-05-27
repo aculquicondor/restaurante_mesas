@@ -29,11 +29,20 @@ class OrderController extends Controller
             $orderItems = $request->request->get('orderItems');
             $employee = $request->request->get('employee');
             $table = $request->request->get('table');
-            $order->setDate($date);
-            $order->setEmployee($employee);
-            $order->setTable($table);
-            $order->addOrderItem($orderItems);
             $dm = $this->get('doctrine_mongodb')->getManager();
+            $order->setDate($date);
+            $docEmployee = $this->get('doctrine_mongodb')
+                ->getManager()
+                ->getRepository('RestaurantCashBundle:Employee')
+                ->findOneById($employee);
+            $order->setEmployee($docEmployee);
+            $docTable = $this->get('doctrine_mongodb')
+                ->getManager()
+                ->getRepository('RestaurantTablesBundle:Table')
+                ->findOneById($table);
+            $order->setTable($docTable);
+//            $order->addOrderItem($orderItems);
+            $order->setActive(true);
             $dm->persist($order);
             $dm->flush();
             return $order;

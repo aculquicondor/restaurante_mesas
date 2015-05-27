@@ -17,6 +17,13 @@ class OrderType extends AbstractType
         $builder->add('employee');
     }
 
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'csrf_protection' => false,
+        ));
+    }
+
     public function getName()
     {
         return 'order';

@@ -26,4 +26,3 @@ restaurant_tables_OrderItem:
     type: rest
     parent: restaurant_tables_Order
     resource: "Restaurant\TablesBundle\Controller\OrderItemController"
-

@@ -13,12 +13,12 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class OrderItemController extends Controller
 {
     /**
-     * @param Request $request
      * @param $orderId
+     * @param Request $request
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @View()
      */
-    public function postItemAction(Request $request, $orderId)
+    public function postItemAction($orderId, Request $request)
     {
         $orderItem = new OrderItem();
         $form = $this->createForm(new OrderItemType());
@@ -29,12 +29,17 @@ class OrderItemController extends Controller
             $observations = $request->request->get('observations');
             if (!is_null($menuItem))
             {
-                $docMenuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')->find($menuItem);
+                $docMenuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')
+                    ->find($menuItem);
                 if (!is_null($docMenuItem))
                     $orderItem->setMenuItem($docMenuItem);
             }
             $orderItem->setObservations($observations);
+            $docOrder = $dm->getRepository('RestaurantTablesBundle:Order')
+                ->find($orderId);
+            $docOrder->addOrderItem($orderItem);
             $dm->persist($orderItem);
+            $dm->persist($docOrder);
             $dm->flush();
             return $orderItem;
         }

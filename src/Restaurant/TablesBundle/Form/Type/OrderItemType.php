@@ -11,7 +11,7 @@ class OrderItemType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('menuItem');
-        $builder->add('observation');
+        $builder->add('observations');
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

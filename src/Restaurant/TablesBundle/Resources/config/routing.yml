@@ -8,6 +8,7 @@ restaurant_tables_Table:
 
 restaurant_tables_MenuItem:
     type: rest
+    prefix: /menu
     resource: "Restaurant\TablesBundle\Controller\MenuItemController"
 
 restaurant_tables_Store:
@@ -18,7 +19,11 @@ restaurant_tables_Reservation:
     type: rest
     resource: "Restaurant\TablesBundle\Controller\ReservationController"
 
+restaurant_tables_Order:
+    type: rest
+    resource: "Restaurant\TablesBundle\Controller\OrderController"
+
 restaurant_tables_OrderItem:
     type: rest
+    parent: restaurant_tables_Order
     resource: "Restaurant\TablesBundle\Controller\OrderItemController"
-

@@ -1,4 +1,10 @@
 Restaurant\TablesBundle\Document\Reservation:
+    exclusion_policy: ALL
+    properties:
+        estimatedArrivalTime:
+          expose: true
+        client:
+          expose: true
     relations:
         -
             rel: self
@@ -7,3 +13,5 @@ Restaurant\TablesBundle\Document\Reservation:
                 parameters:
                     id: expr(object.getId())
                 absolute: true
+            exclusion:
+                groups: [tables]

@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "479c3053735d8acefcc8f501737492a3",
+    "hash": "7d47e68add72ec6afde3a3976787d506",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -875,12 +875,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/mongodb-odm.git",
-                "reference": "91239639b5b5c91a75ac2a07dbbfe4be0fd177d9"
+                "reference": "f9d26e2839c657659dc129fe5b4aaa7f87d0ea55"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/91239639b5b5c91a75ac2a07dbbfe4be0fd177d9",
-                "reference": "91239639b5b5c91a75ac2a07dbbfe4be0fd177d9",
+                "url": "https://api.github.com/repos/doctrine/mongodb-odm/zipball/f9d26e2839c657659dc129fe5b4aaa7f87d0ea55",
+                "reference": "f9d26e2839c657659dc129fe5b4aaa7f87d0ea55",
                 "shasum": ""
             },
             "require": {
@@ -935,6 +935,10 @@
                 {
                     "name": "Maciej Malarz",
                     "email": "malarzm@gmail.com"
+                },
+                {
+                    "name": "Andreas Braun",
+                    "email": "alcaeus@alcaeus.org"
                 }
             ],
             "description": "Doctrine MongoDB Object Document Mapper",
@@ -945,7 +949,7 @@
                 "odm",
                 "persistence"
             ],
-            "time": "2015-05-14 16:54:33"
+            "time": "2015-05-22 07:35:15"
         },
         {
             "name": "doctrine/mongodb-odm-bundle",
@@ -1019,50 +1023,56 @@
         },
         {
             "name": "friendsofsymfony/rest-bundle",
-            "version": "1.5.3",
+            "version": "1.6.0",
             "target-dir": "FOS/RestBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSRestBundle.git",
-                "reference": "fdd21c4c0cb6222ae37efc9362c6a96bd1432412"
+                "reference": "832d08199cadf1770ec43c2cba68b42b4d5e7f9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/fdd21c4c0cb6222ae37efc9362c6a96bd1432412",
-                "reference": "fdd21c4c0cb6222ae37efc9362c6a96bd1432412",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSRestBundle/zipball/832d08199cadf1770ec43c2cba68b42b4d5e7f9f",
+                "reference": "832d08199cadf1770ec43c2cba68b42b4d5e7f9f",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "~1.0",
                 "php": ">=5.3.9",
                 "psr/log": "~1.0",
-                "symfony/framework-bundle": "~2.2",
+                "symfony/framework-bundle": "~2.3",
+                "symfony/http-kernel": "~2.3,>=2.3.24",
                 "willdurand/jsonp-callback-validator": "~1.0",
                 "willdurand/negotiation": "~1.2"
             },
             "conflict": {
                 "jms/serializer": "<0.12",
-                "jms/serializer-bundle": "<0.11"
+                "jms/serializer-bundle": "<0.11",
+                "symfony/validator": ">=2.5.0,<2.5.5"
             },
             "require-dev": {
+                "jms/serializer": "~0.13",
                 "jms/serializer-bundle": "~0.12",
-                "sensio/framework-extra-bundle": "~2.2",
-                "symfony/form": "~2.2",
-                "symfony/security": "~2.2",
-                "symfony/serializer": "~2.2",
-                "symfony/validator": "~2.2",
-                "symfony/yaml": "~2.2"
+                "phpoption/phpoption": "~1.1.0",
+                "sensio/framework-extra-bundle": "~3.0",
+                "symfony/browser-kit": "~2.3",
+                "symfony/dependency-injection": "~2.3",
+                "symfony/form": "~2.3",
+                "symfony/security": "~2.3",
+                "symfony/serializer": "~2.3",
+                "symfony/validator": "~2.3",
+                "symfony/yaml": "~2.3"
             },
             "suggest": {
                 "jms/serializer-bundle": "Add support for advanced serialization capabilities, recommended, requires ~0.12",
-                "sensio/framework-extra-bundle": "Add support for route annotations and the view response listener",
-                "symfony/serializer": "Add support for basic serialization capabilities and xml decoding, requires ~2.2",
-                "symfony/validator": "Add support for validation capabilities in the ParamFetcher, requires ~2.2"
+                "sensio/framework-extra-bundle": "Add support for route annotations and the view response listener, requires ~3.0",
+                "symfony/serializer": "Add support for basic serialization capabilities and xml decoding, requires ~2.3",
+                "symfony/validator": "Add support for validation capabilities in the ParamFetcher, requires ~2.3"
             },
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.5-dev"
+                    "dev-master": "1.6-dev"
                 }
             },
             "autoload": {
@@ -1093,7 +1103,7 @@
             "keywords": [
                 "rest"
             ],
-            "time": "2015-02-16 15:26:12"
+            "time": "2015-05-22 20:17:35"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1499,6 +1509,57 @@
             "time": "2014-12-12 05:04:05"
         },
         {
+            "name": "michelf/php-markdown",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/michelf/php-markdown.git",
+                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/michelf/php-markdown/zipball/e1aabe18173231ebcefc90e615565742fc1c7fd9",
+                "reference": "e1aabe18173231ebcefc90e615565742fc1c7fd9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-lib": "1.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Michelf": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "John Gruber",
+                    "homepage": "http://daringfireball.net/"
+                },
+                {
+                    "name": "Michel Fortin",
+                    "email": "michel.fortin@michelf.ca",
+                    "homepage": "https://michelf.ca/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Markdown",
+            "homepage": "https://michelf.ca/projects/php-markdown/",
+            "keywords": [
+                "markdown"
+            ],
+            "time": "2015-03-01 12:03:08"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.13.1",
             "source": {
@@ -1570,6 +1631,84 @@
                 "psr-3"
             ],
             "time": "2015-03-09 09:58:04"
+        },
+        {
+            "name": "nelmio/api-doc-bundle",
+            "version": "2.9.0",
+            "target-dir": "Nelmio/ApiDocBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nelmio/NelmioApiDocBundle.git",
+                "reference": "de31760fd84a45fadbb4fe24db050b5e29ea70d1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nelmio/NelmioApiDocBundle/zipball/de31760fd84a45fadbb4fe24db050b5e29ea70d1",
+                "reference": "de31760fd84a45fadbb4fe24db050b5e29ea70d1",
+                "shasum": ""
+            },
+            "require": {
+                "michelf/php-markdown": "~1.4",
+                "symfony/console": "~2.1",
+                "symfony/framework-bundle": "~2.1",
+                "symfony/twig-bundle": "~2.1"
+            },
+            "conflict": {
+                "jms/serializer": "<0.12",
+                "jms/serializer-bundle": "<0.11"
+            },
+            "require-dev": {
+                "dunglas/api-bundle": "dev-master",
+                "friendsofsymfony/rest-bundle": "~1.0",
+                "jms/serializer-bundle": ">=0.11",
+                "sensio/framework-extra-bundle": "~3.0",
+                "symfony/browser-kit": "~2.1",
+                "symfony/css-selector": "~2.1",
+                "symfony/form": "~2.1",
+                "symfony/serializer": "~2.7@dev",
+                "symfony/validator": "~2.1",
+                "symfony/yaml": "~2.1"
+            },
+            "suggest": {
+                "dunglas/api-bundle": "For making use of resources definitions of DunglasApiBundle.",
+                "friendsofsymfony/rest-bundle": "For making use of REST information in the doc.",
+                "jms/serializer": "For making use of serializer information in the doc.",
+                "symfony/form": "For using form definitions as input.",
+                "symfony/validator": "For making use of validator information in the doc."
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.9.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Nelmio\\ApiDocBundle": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nelmio",
+                    "homepage": "http://nelm.io"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://github.com/nelmio/NelmioApiDocBundle/contributors"
+                }
+            ],
+            "description": "Generates documentation for your REST API from annotations",
+            "keywords": [
+                "api",
+                "doc",
+                "documentation",
+                "rest"
+            ],
+            "time": "2015-05-16 17:16:14"
         },
         {
             "name": "phpcollection/phpcollection",
@@ -1781,16 +1920,16 @@
         },
         {
             "name": "phpunit/php-code-coverage",
-            "version": "2.0.16",
+            "version": "2.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "934fd03eb6840508231a7f73eb8940cf32c3b66c"
+                "reference": "c4e8e7725e351184a76544634855b8a9c405a6e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/934fd03eb6840508231a7f73eb8940cf32c3b66c",
-                "reference": "934fd03eb6840508231a7f73eb8940cf32c3b66c",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/c4e8e7725e351184a76544634855b8a9c405a6e3",
+                "reference": "c4e8e7725e351184a76544634855b8a9c405a6e3",
                 "shasum": ""
             },
             "require": {
@@ -1839,7 +1978,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-04-11 04:35:00"
+            "time": "2015-05-25 05:11:59"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -2563,17 +2702,17 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v3.0.22",
+            "version": "v3.0.24",
             "target-dir": "Sensio/Bundle/DistributionBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c"
+                "reference": "79b820aee1f1daeb2717fa9471ee19275cc1d638"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
-                "reference": "0fe4ec86db57c232becb694e01cdabe3c4d9af7c",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/79b820aee1f1daeb2717fa9471ee19275cc1d638",
+                "reference": "79b820aee1f1daeb2717fa9471ee19275cc1d638",
                 "shasum": ""
             },
             "require": {
@@ -2619,7 +2758,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2015-05-02 16:23:08"
+            "time": "2015-05-16 12:57:08"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -2678,16 +2817,16 @@
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v2.0.2",
+            "version": "v2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "cecb1397087dc9c733796eda6e9d121336039cdc"
+                "reference": "cde03c48d490d805ef1349e5108f8b3085981ead"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/cecb1397087dc9c733796eda6e9d121336039cdc",
-                "reference": "cecb1397087dc9c733796eda6e9d121336039cdc",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/cde03c48d490d805ef1349e5108f8b3085981ead",
+                "reference": "cde03c48d490d805ef1349e5108f8b3085981ead",
                 "shasum": ""
             },
             "require": {
@@ -2719,7 +2858,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2015-04-21 07:52:05"
+            "time": "2015-05-22 14:21:04"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2956,16 +3095,16 @@
         },
         {
             "name": "symfony/symfony",
-            "version": "v2.6.7",
+            "version": "v2.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "0449d0e1178bc8e934520b20432d1705c3b25e7e"
+                "reference": "7ae1934082d9ac299303b146e4a999274a723e94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/0449d0e1178bc8e934520b20432d1705c3b25e7e",
-                "reference": "0449d0e1178bc8e934520b20432d1705c3b25e7e",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/7ae1934082d9ac299303b146e4a999274a723e94",
+                "reference": "7ae1934082d9ac299303b146e4a999274a723e94",
                 "shasum": ""
             },
             "require": {
@@ -3056,20 +3195,20 @@
             ],
             "authors": [
                 {
-                    "name": "Symfony Community",
-                    "homepage": "http://symfony.com/contributors"
-                },
-                {
                     "name": "Fabien Potencier",
                     "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
                 }
             ],
             "description": "The Symfony PHP framework",
-            "homepage": "http://symfony.com",
+            "homepage": "https://symfony.com",
             "keywords": [
                 "framework"
             ],
-            "time": "2015-05-11 01:58:49"
+            "time": "2015-05-27 00:17:10"
         },
         {
             "name": "twig/extensions",

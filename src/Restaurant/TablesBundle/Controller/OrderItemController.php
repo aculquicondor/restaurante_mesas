@@ -14,10 +14,11 @@ class OrderItemController extends Controller
 {
     /**
      * @param Request $request
+     * @param $orderId
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @View()
      */
-    public function postOrderItemAction(Request $request)
+    public function postItemAction(Request $request, $orderId)
     {
         $orderItem = new OrderItem();
         $form = $this->createForm(new OrderItemType());
@@ -40,12 +41,13 @@ class OrderItemController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param $orderId
+     * @param $id
      * @return OrderItem
      * @throws NotFoundHttpException
      * @View()
      */
-    public function getOrderItemAction($id)
+    public function getItemAction($orderId, $id)
     {
         $orderItem = $this->get('doctrine_mongodb')
             ->getManager()
@@ -57,12 +59,13 @@ class OrderItemController extends Controller
     }
 
     /**
+     * @param $orderId
      * @param $id
      * @return array()
-     * @view()
+     * @View()
      * @throws NotFoundHttpException
      */
-    public function deleteOrderItemAction($id)
+    public function deleteItemAction($orderId, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $orderItem = $dm->getRepository('RestaurantTablesBundle:OrderItem')->findOneById($id);
@@ -75,12 +78,13 @@ class OrderItemController extends Controller
 
     /**
      * @param Request $request
+     * @param $orderId
      * @param $id
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @View()
      * @throws NotFoundHttpException
      */
-    public function patchOrderItemAction(Request $request, $id)
+    public function patchItemAction(Request $request, $orderId, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $orderItem = $dm->getRespository('RestaurantTablesBundle:OrderItem')->findOneById($id);

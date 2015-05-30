@@ -16,7 +16,7 @@ class MenuItemController extends Controller
      * @return \Symfony\Component\Form\FormErrorIterator|MenuItem
      * @View()
      */
-    public function postMenuItemAction(Request $request)
+    public function postItemAction(Request $request)
     {
         $menuItem = new MenuItem();
         $form = $this->createForm(new MenuItemType());
@@ -42,7 +42,7 @@ class MenuItemController extends Controller
      * @throws NotFoundHttpException
      * @View()
      */
-    public function getMenuItemAction($id)
+    public function getItemAction($id)
     {
         $menuItem = $this->get('doctrine_mongodb')
             ->getManager()
@@ -58,7 +58,7 @@ class MenuItemController extends Controller
      * @return array
      * @View()
      */
-    public function getMenuItemsAction(Request $request)
+    public function getItemsAction(Request $request)
     {
         $available = $request->get('available');
         if($available)
@@ -82,7 +82,7 @@ class MenuItemController extends Controller
      * @View()
      * @throws NotFoundHttpException
      */
-    public function deleteMenuItemAction($id)
+    public function deleteItemsAction($id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $menuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')->findOneById($id);
@@ -100,7 +100,7 @@ class MenuItemController extends Controller
      * @View()
      * @throws NotFoundHttpException
      */
-    public function patchMenuItem(Request $request, $id)
+    public function patchItemAction(Request $request, $id)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $menuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')->findOneById($id);
@@ -126,6 +126,5 @@ class MenuItemController extends Controller
         }
         return $form->getErrors();
     }
-
 
 }

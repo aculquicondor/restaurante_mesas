@@ -8,10 +8,24 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\ReservationType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
 class ReservationController extends Controller
 {
+    /**
+     * @param Request $request
+     * @return mixed
+     * @ApiDoc(
+     *   description="Create a Reservation",
+     *   section="Reservation",
+     *   parameters={
+     *     {"name"="client", "dataType"="string", "required"=false, "description"="Client id"},
+     *     {"name"="table", "dataType"="string", "required"=false, "description"="Table id"}
+     *   }
+     * )
+     * @View()
+     */
     public function postReservationAction(Request $request)
     {
         $reservation = new Reservation();
@@ -48,8 +62,13 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param $id
-     * @return mixed
+     * @param int $id
+     * @return Reservation
+     * @ApiDoc(
+     *   description="View a Reservation",
+     *   section="Reservation"
+     * )
+     * @View()
      */
     public function getReservationAction($id)
     {
@@ -64,6 +83,11 @@ class ReservationController extends Controller
 
     /**
      * @return array
+     * @ApiDoc(
+     *   description="View all Reservations",
+     *   section="Reservation"
+     * )
+     * @View()
      */
     public function getReservationsAction()
     {
@@ -75,8 +99,13 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return mixed
+     * @ApiDoc(
+     *   description="View tables of a reservation",
+     *   section="Reservation"
+     * )
+     * @View()
      */
     public function getReservationTablesAction($id)
     {
@@ -93,8 +122,13 @@ class ReservationController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return array
+     * @ApiDoc(
+     *   description="Delete a Reservation",
+     *   section="Reservation"
+     * )
+     * @View()
      */
     public function deleteReservationAction($id)
     {
@@ -110,7 +144,16 @@ class ReservationController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\Form\FormErrorIterator
+     * @return mixed
+     * @ApiDoc(
+     *   description="Modify a Reservation",
+     *   section="Reservation",
+     *   parameters={
+     *     {"name"="client", "dataType"="string", "required"=false, "description"="Client id"},
+     *     {"name"="table", "dataType"="string", "required"=false, "description"="Table id"}
+     *   }
+     * )
+     * @View()
      */
     public function patchReservationAction(Request $request, $id)
     {

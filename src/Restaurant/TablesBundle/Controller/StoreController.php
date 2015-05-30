@@ -9,13 +9,19 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\StoreType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+
 
 class StoreController extends Controller
 {
 
     /**
-     * @param $id
+     * @param int $id
      * @return mixed
+     * @ApiDoc(
+     *   description="View a Store",
+     *   section="Store"
+     * )
      * @View()
      */
     function getStoreAction($id)
@@ -32,6 +38,10 @@ class StoreController extends Controller
 
     /**
      * @return array
+     * @ApiDoc(
+     *   description="View all Stores",
+     *   section="Store"
+     * )
      * @View()
      */
     function getStoresAction()
@@ -46,7 +56,15 @@ class StoreController extends Controller
 
     /**
      * @param Request $request
-     * @return \Symfony\Component\Form\FormErrorIterator|Store
+     * @return mixed
+     * @ApiDoc(
+     *   description="Create a Store",
+     *   section="Store",
+     *   parameters={
+     *     {"name"="address", "dataType"="string", "required"=false, "description"="Address"},
+     *     {"name"="manager", "dataType"="string", "required"=false, "description"="Manager id"}
+     *   }
+     * )
      * @View()
      */
     function postStoreAction(Request $request)
@@ -61,7 +79,7 @@ class StoreController extends Controller
             $manager = $request->request->get('manager');
             $dm = $this->get('doctrine_mongodb')
                 ->getManager();
-            if(!is_null($manager)){
+            if(!is_null($manager)) {
                 $employee = $dm->getRepository('RestaurantCashBundle:Employee')->find($manager);
                 if(!is_null($employee))
                     $store->setManager($employee);
@@ -74,10 +92,13 @@ class StoreController extends Controller
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return array
+     * @ApiDoc(
+     *   description="Delete a Store",
+     *   section="Store"
+     * )
      * @View()
-     * @throws NotFoundHttpException
      */
     public function deleteStoreAction($id)
     {
@@ -94,9 +115,16 @@ class StoreController extends Controller
     /**
      * @param Request $request
      * @param $id
-     * @return \Symfony\Component\Form\FormErrorIterator|Store
+     * @return string
+     * @ApiDoc(
+     *   description="Modify a Store",
+     *   section="Store",
+     *   parameters={
+     *     {"name"="address", "dataType"="string", "required"=false, "description"="Address"},
+     *     {"name"="manager", "dataType"="string", "required"=false, "description"="Manager id"}
+     *   }
+     * )
      * @View()
-     * @throws NotFoundHttpException
      */
     public function patchStoreAction(Request $request, $id)
     {
@@ -111,7 +139,11 @@ class StoreController extends Controller
             $address = $request->request->get('address');
             if ($address)
                 $store->setAddress($address);
-
+            if(!is_null($manager)) {
+                $employee = $dm->getRepository('RestaurantCashBundle:Employee')->find($manager);
+                if(!is_null($employee))
+                    $store->setManager($employee);
+            }
             $dm->flush();
         }
         return $form->getErrors();

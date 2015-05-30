@@ -3,7 +3,7 @@ Restaurant\TablesBundle\Document\MenuItem:
         -
             rel: self
             href:
-                route: get_menu_item
+                route: get_item
                 parameters:
                     id: expr(object.getId())
                 absolute: true

@@ -5,7 +5,6 @@ namespace Restaurant\TablesBundle\Tests\Controller;
 use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Restaurant\TablesBundle\Tests\WebTestCase;
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Restaurant\TablesBundle\Repository\MenuItemRepository;
 use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadMenuItemsData;
 use Doctrine\Common\DataFixtures\Loader;
@@ -13,16 +12,6 @@ use Restaurant\TablesBundle\Document\MenuItem;
 
 
 class MenuItemControllerTest extends WebTestCase {
-
-    /**
-     * @var DocumentManager
-     */
-    private $dm;
-
-    /**
-     * @var MenuItemRepository
-     */
-    private $menuRepository;
 
     /**
      * @var LoadMenuItemsData
@@ -33,16 +22,14 @@ class MenuItemControllerTest extends WebTestCase {
     {
         parent::setUp();
         self::bootKernel();
-        $this->dm = static::$kernel->getContainer()
+        $dm = static::$kernel->getContainer()
             ->get('doctrine_mongodb')->getManager();
-        $this->menuRepository = $this->dm
-            ->getRepository('RestaurantTablesBundle:MenuItem');
 
         $loader = new Loader();
         $this->menuFixture = new LoadMenuItemsData();
         $loader->addFixture($this->menuFixture);
         $purger = new MongoDBPurger();
-        $executor = new MongoDBExecutor($this->dm, $purger);
+        $executor = new MongoDBExecutor($dm, $purger);
         $executor->execute($loader->getFixtures());
     }
 
@@ -95,6 +82,9 @@ class MenuItemControllerTest extends WebTestCase {
     public function testPost()
     {
         $client = static::createClient();
+        /** @var MenuItemRepository $repository */
+        $repository = $client->getContainer()->get('doctrine_mongodb')
+            ->getManager()->getRepository('RestaurantTablesBundle:MenuItem');
         $url = '/api/menu/items.json';
 
         $menuItemData = array('name' => 'Cebiche', 'price' => 12.5);
@@ -107,8 +97,26 @@ class MenuItemControllerTest extends WebTestCase {
         $this->assertEquals($menuItemData['name'], $menuItem['name']);
         $this->assertEquals($menuItemData['price'], $menuItem['price']);
 
-        $this->assertNotNull($this->menuRepository->find($menuItem['id']));
-        $this->assertEquals(5, count($this->menuRepository->findAll()));
+        $this->assertNotNull($repository->find($menuItem['id']));
+        $this->assertEquals(5, count($repository->findAll()));
+    }
+
+    public function testDelete()
+    {
+        $client = static::createClient();
+        /** @var MenuItemRepository $repository */
+        $repository = $client->getContainer()->get('doctrine_mongodb')
+            ->getManager()->getRepository('RestaurantTablesBundle:MenuItem');
+
+        /** @var $menuItem MenuItem */
+        $menuItem = $this->menuFixture->getReference('lomo-saltado');
+        $route = '/api/menu/items/' . $menuItem->getId() . '.json';
+        $client->request('DELETE', $route);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertEquals(3, count($repository->findAll()));
+        $this->assertNull($other = $repository->find($menuItem->getId()));
     }
 
 }

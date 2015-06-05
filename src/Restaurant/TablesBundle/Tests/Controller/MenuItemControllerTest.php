@@ -119,4 +119,31 @@ class MenuItemControllerTest extends WebTestCase {
         $this->assertNull($other = $repository->find($menuItem->getId()));
     }
 
+    public function testPatch()
+    {
+        $client = static::createClient();
+        /** @var MenuItemRepository $repository */
+        $repository = $client->getContainer()->get('doctrine_mongodb')
+            ->getManager()->getRepository('RestaurantTablesBundle:MenuItem');
+
+        /** @var $menuItem MenuItem */
+        $menuItem = $this->menuFixture->getReference('lomo-saltado');
+        $route = '/api/menu/items/' . $menuItem->getId() . '.json';
+        $menuItemData = array('price' => 12.5, 'available' => false);
+        $client->request('PATCH', $route, $menuItemData);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $received = json_decode($response->getContent(), true);
+        $this->assertEquals($menuItem->getName(), $received['name']);
+        $this->assertEquals($menuItemData['price'], $received['price']);
+        $this->assertEquals($menuItemData['available'], $received['available']);
+
+        $stored = $repository->find($menuItem->getId());
+        $this->assertEquals($menuItem->getName(), $stored->getName());
+        $this->assertEquals($menuItemData['price'], $stored->getPrice());
+        $this->assertEquals($menuItemData['available'], $stored->getAvailable());
+    }
+
 }

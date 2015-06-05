@@ -59,6 +59,19 @@ class MenuItemControllerTest extends WebTestCase {
         $this->assertEquals(4, count($content['menuItems']));
     }
 
+    public function testGetAllAvailable()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/api/menu/items.json?available=1');
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(3, count($content['menuItems']));
+    }
+
     public function testGetOne()
     {
         $client = static::createClient();
@@ -77,6 +90,25 @@ class MenuItemControllerTest extends WebTestCase {
         $this->assertEquals($menuItem->getName(), $content['name']);
         $this->assertEquals($menuItem->getPrice(), $content['price']);
         $this->assertEquals($menuItem->getAvailable(), $content['available']);
+    }
+
+    public function testPost()
+    {
+        $client = static::createClient();
+        $url = '/api/menu/items.json';
+
+        $menuItemData = array('name' => 'Cebiche', 'price' => 12.5);
+        $client->request('POST', $url, $menuItemData);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $menuItem = json_decode($response->getContent(), true);
+        $this->assertEquals($menuItemData['name'], $menuItem['name']);
+        $this->assertEquals($menuItemData['price'], $menuItem['price']);
+
+        $this->assertNotNull($this->menuRepository->find($menuItem['id']));
+        $this->assertEquals(5, count($this->menuRepository->findAll()));
     }
 
 }

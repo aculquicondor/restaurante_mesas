@@ -3,6 +3,7 @@
 
 namespace Restaurant\TablesBundle\Controller;
 
+use Doctrine\Common\Collections\Criteria;
 use Restaurant\TablesBundle\Document\OrderItem;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -43,40 +44,67 @@ class OrderItemController extends Controller
             $dm->flush();
             return $orderItem;
         }
+        return $form->getErrors();
     }
 
     /**
      * @param $orderId
-     * @param $id
+     * @param $itemId
      * @return OrderItem
      * @throws NotFoundHttpException
      * @View()
      */
-    public function getItemAction($orderId, $id)
+    public function getItemAction($orderId, $itemId)
     {
-        $orderItem = $this->get('doctrine_mongodb')
+        $docOrder = $this->get('doctrine_mongodb')
             ->getManager()
-            ->getRepository('RestaurantTablesBundle:OrderItem')
-            ->findOneById($id);
-        if (is_null($orderItem))
+            ->getRepository('RestaurantTablesBundle:Order')
+            ->findOneById($orderId);
+
+        if (is_null($docOrder))
             throw new NotFoundHttpException();
-        return $orderItem;
+        $orderItems = $docOrder->getOrderitems();
+        foreach($orderItems as $item)
+        {
+            if($item->getId() == $itemId)
+            {
+                return $item;
+            }
+        }
     }
 
     /**
      * @param $orderId
-     * @param $id
+     * @return OrderItems
+     * @throws NotFoundHttpException
+     * @View()
+     */
+    public function getItemsAction($orderId)
+    {
+        $docOrder = $this->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository('RestaurantTablesBundle:Order')
+            ->findOneById($orderId);
+        if (is_null($docOrder))
+            throw new NotFoundHttpException();
+        return $docOrder->getOrderItems();
+    }
+
+    /**
+     * @param $orderId
+     * @param $itemId
      * @return array()
      * @View()
      * @throws NotFoundHttpException
      */
-    public function deleteItemAction($orderId, $id)
+    public function deleteItemAction($orderId, $itemId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $orderItem = $dm->getRepository('RestaurantTablesBundle:OrderItem')->findOneById($id);
-        if (is_null($orderItem))
-            throw new NotFoundHttpException();
-        $dm->remove($orderItem);
+        $docOrder = $dm->getRepository('RestaurantTablesBundle:Order')
+            ->findOneById($orderId);
+        $docOrder->removeOrderItem($itemId);
+//        $dm->remove($orderItem);
+        $dm->persist($docOrder);
         $dm->flush();
         return array();
     }
@@ -89,10 +117,10 @@ class OrderItemController extends Controller
      * @View()
      * @throws NotFoundHttpException
      */
-    public function patchItemAction(Request $request, $orderId, $id)
+    public function patchItemAction(Request $request, $orderId, $itemId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $orderItem = $dm->getRespository('RestaurantTablesBundle:OrderItem')->findOneById($id);
+        $orderItem = $dm->getRespository('RestaurantTablesBundle:OrderItem')->findOneById($itemId);
         if(!$orderItem)
             throw new NotFoundHttpException();
         $form = $this->createForm(new OrderItemType());

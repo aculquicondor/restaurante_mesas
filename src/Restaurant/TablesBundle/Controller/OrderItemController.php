@@ -63,6 +63,7 @@ class OrderItemController extends Controller
 
         if (is_null($docOrder))
             throw new NotFoundHttpException();
+
         $orderItems = $docOrder->getOrderitems();
         foreach($orderItems as $item)
         {
@@ -102,8 +103,9 @@ class OrderItemController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $docOrder = $dm->getRepository('RestaurantTablesBundle:Order')
             ->findOneById($orderId);
+        if (is_null($docOrder))
+            throw new NotFoundHttpException();
         $docOrder->removeOrderItem($itemId);
-//        $dm->remove($orderItem);
         $dm->persist($docOrder);
         $dm->flush();
         return array();

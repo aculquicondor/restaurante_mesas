@@ -36,20 +36,23 @@ class LoadOrdersData extends AbstractFixture implements DependentFixtureInterfac
     {
         $this->loadOrderItems();
 
-        $order = new Order();
-        $order->setDate('2015-05-06');
-        $order->setTable($this->getReference('occupied-table1'));
-        $order->addOrderItem($this->orderItems['lomo-saltado']);
-        $manager->persist($order);
+        $order1 = new Order();
+        $order1->setDate('2015-05-06');
+        $order1->setTable($this->getReference('occupied-table1'));
+        $order1->addOrderItem($this->orderItems['lomo-saltado']);
+        $manager->persist($order1);
 
-        $order = new Order();
-        $order->setDate('2015-05-08');
-        $order->setTable($this->getReference('occupied-table2'));
-        $order->addOrderItem($this->orderItems['aji-gallina']);
-        $order->addOrderItem($this->orderItems['chupe-camaron']);
-        $manager->persist($order);
+        $order2 = new Order();
+        $order2->setDate('2015-05-08');
+        $order2->setTable($this->getReference('occupied-table2'));
+        $order2->addOrderItem($this->orderItems['aji-gallina']);
+        $order2->addOrderItem($this->orderItems['chupe-camaron']);
+        $manager->persist($order2);
 
         $manager->flush();
+
+        $this->addReference('order1', $order1);
+        $this->addReference('order2', $order2);
     }
 
     public function getDependencies()

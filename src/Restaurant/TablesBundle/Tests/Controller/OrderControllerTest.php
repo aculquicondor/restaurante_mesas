@@ -4,13 +4,14 @@ namespace Restaurant\TablesBundle\Tests\Controller;
 
 use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
-use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadMenuItemsData;
+use Restaurant\CashBundle\Repository\EmployeeRepository;
+use Restaurant\CashBundle\DataFixtures\MongoDB\LoadEmployeesData;
 use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadOrdersData;
+use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadTablesData;
 use Restaurant\TablesBundle\Tests\WebTestCase;
 use Doctrine\Common\DataFixtures\Loader;
 use Restaurant\TablesBundle\Repository\OrderRepository;
 use Restaurant\TablesBundle\Document\Order;
-
 
 class OrderControllerTest extends WebTestCase {
 
@@ -18,6 +19,14 @@ class OrderControllerTest extends WebTestCase {
      * @var LoadOrdersData
      */
     private $orderFixture;
+    /**
+     * @var LoadTablesData
+     */
+    private $tableFixture;
+    /**
+     * @var LoadEmployeesData
+     */
+    private $employeeFixture;
 
     public function setUp()
     {
@@ -25,10 +34,13 @@ class OrderControllerTest extends WebTestCase {
         self::bootKernel();
         $dm = static::$kernel->getContainer()
             ->get('doctrine_mongodb')->getManager();
-
         $loader = new Loader();
-        $this->orderFixture = new LoadOrdersData();
+        $this->orderFixture    = new LoadOrdersData();
+        $this->employeeFixture = new LoadEmployeesData();
+        $this->tableFixture    = new LoadTablesData();
         $loader->addFixture($this->orderFixture);
+        $loader->addFixture($this->employeeFixture);
+        $loader->addFixture($this->tableFixture);
         $purger = new MongoDBPurger();
         $executor = new MongoDBExecutor($dm, $purger);
         $executor->execute($loader->getFixtures());
@@ -66,29 +78,32 @@ class OrderControllerTest extends WebTestCase {
         $this->assertEquals($order->getActive(), $content['active']);
     }
 
-//    public function testPost()
-//    {
-//        $client = static::createClient();
-//        /** @var OrderRepository $repository */
-//        $repository = $client->getContainer()->get('doctrine_mongodb')
-//            ->getManager()->getRepository('RestaurantTablesBundle:Order');
-//        $url = '/api/orders.json';
-//
-//        $orderData = array('date' => new \DateTime('now'),
-//            'table' => $this->tableFixture->getReference('table-reserve-now'),
-//            'active' => true,
-//            'employee' => null); // Debe user EmployeeFixture
-//        $client->request('POST', $url, $orderData);
-//        $response = $client->getResponse();
-//
-//        $this->assertEquals(200, $response->getStatusCode());
-//        $this->assertJson($response->getContent());
-//        $order = json_decode($response->getContent(), true);
-//        $this->assertEquals($orderData['date'], $order['date']);
-//
-//        $this->assertNotNull($repository->find($order['id']));
-//        $this->assertEquals(3, count($repository->findAll()));
-//    }
+    public function testPost()
+    {
+        $client = static::createClient();
+
+        /** @var OrderRepository $repository */
+        $repository = $client->getContainer()->get('doctrine_mongodb')
+            ->getManager()->getRepository('RestaurantTablesBundle:Order');
+        $url = '/api/orders.json';
+
+        $employee = $this->orderFixture->getReference('scarlet-johanson');
+        $table = $this->orderFixture->getReference('table-reserve-now');
+        $orderData = array('date' => new \DateTime('now'),
+            'table' => $table->getId(),
+            'employee' => $employee->getId()
+        );
+        $client->request('POST', $url, $orderData);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $order = json_decode($response->getContent(), true);
+        $this->assertEquals($orderData['date'], new \DateTime($order['date']));
+
+        $this->assertNotNull($repository->find($order['id']));
+        $this->assertEquals(3, count($repository->findAll()));
+    }
 
     public function testDelete()
     {

@@ -5,7 +5,6 @@ namespace Restaurant\TablesBundle\Tests\Controller;
 use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Restaurant\CashBundle\Repository\EmployeeRepository;
-use Restaurant\CashBundle\DataFixtures\MongoDB\LoadEmployeesData;
 use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadOrdersData;
 use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadTablesData;
 use Restaurant\TablesBundle\Tests\WebTestCase;
@@ -19,14 +18,6 @@ class OrderControllerTest extends WebTestCase {
      * @var LoadOrdersData
      */
     private $orderFixture;
-    /**
-     * @var LoadTablesData
-     */
-    private $tableFixture;
-    /**
-     * @var LoadEmployeesData
-     */
-    private $employeeFixture;
 
     public function setUp()
     {
@@ -36,11 +27,7 @@ class OrderControllerTest extends WebTestCase {
             ->get('doctrine_mongodb')->getManager();
         $loader = new Loader();
         $this->orderFixture    = new LoadOrdersData();
-        $this->employeeFixture = new LoadEmployeesData();
-        $this->tableFixture    = new LoadTablesData();
         $loader->addFixture($this->orderFixture);
-        $loader->addFixture($this->employeeFixture);
-        $loader->addFixture($this->tableFixture);
         $purger = new MongoDBPurger();
         $executor = new MongoDBExecutor($dm, $purger);
         $executor->execute($loader->getFixtures());

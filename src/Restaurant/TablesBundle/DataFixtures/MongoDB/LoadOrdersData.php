@@ -58,7 +58,7 @@ class LoadOrdersData extends AbstractFixture implements DependentFixtureInterfac
     public function getDependencies()
     {
         return array('Restaurant\TablesBundle\DataFixtures\MongoDB\LoadTablesData',
-            'Restaurant\TablesBundle\DataFixtures\MongoDB\LoadMenuItemsData');
-
+            'Restaurant\TablesBundle\DataFixtures\MongoDB\LoadMenuItemsData',
+            'Restaurant\CashBundle\DataFixtures\MongoDB\LoadEmployeesData');
     }
 }

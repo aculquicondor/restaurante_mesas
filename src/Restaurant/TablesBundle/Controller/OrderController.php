@@ -61,7 +61,7 @@ class OrderController extends Controller
             ->findAll();
         if(!$orders)
             throw new NotFoundHttpException();
-        return $orders;
+        return array("orders" => $orders);
     }
 
     /**

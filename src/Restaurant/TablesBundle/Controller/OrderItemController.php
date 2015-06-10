@@ -88,7 +88,7 @@ class OrderItemController extends Controller
             ->findOneById($orderId);
         if (is_null($docOrder))
             throw new NotFoundHttpException();
-        return array('orders' => $docOrder->getOrderItems());
+        return array('items' => $docOrder->getOrderItems());
     }
 
     /**

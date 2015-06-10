@@ -10,9 +10,6 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations\EmbedMany;
 class Order {
 
     private $id;
-    /**
-     * @EmbedMany(targetDocument="OrderItem")
-     */
     private $orderItems = array();
     private $date;
     private $table;

@@ -1,4 +1,5 @@
 Restaurant\TablesBundle\Document\MenuItem:
+    repositoryClass: Restaurant\TablesBundle\Repository\MenuItemRepository
     fields:
         id:
             id: true

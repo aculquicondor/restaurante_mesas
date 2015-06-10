@@ -36,7 +36,7 @@ class LoadMenuItemsData extends AbstractFixture
         $menuItem4 = new MenuItem();
         $menuItem4->setName('Causa de Pollo');
         $menuItem4->setPrice(15.50);
-        $menuItem4->setAvailable(true);
+        $menuItem4->setAvailable(false);
         $manager->persist($menuItem4);
 
         $manager->flush();

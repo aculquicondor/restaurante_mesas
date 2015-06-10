@@ -49,6 +49,22 @@ class OrderController extends Controller
     }
 
     /**
+     * @return Collection Order
+     * @throws NotFoundHttpException
+     * @View()
+     */
+    public function getOrdersAction()
+    {
+        $orders = $this->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository('RestaurantTablesBundle:Order')
+            ->findAll();
+        if(!$orders)
+            throw new NotFoundHttpException();
+        return $orders;
+    }
+
+    /**
      * @param $id
      * @return Order
      * @throws NotFoundHttpException

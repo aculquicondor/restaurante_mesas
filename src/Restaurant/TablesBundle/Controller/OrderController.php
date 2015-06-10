@@ -26,7 +26,6 @@ class OrderController extends Controller
         if($form->isValid())
         {
             $date = $request->request->get('date');
-            $orderItems = $request->request->get('orderItems');
             $employee = $request->request->get('employee');
             $table = $request->request->get('table');
             $dm = $this->get('doctrine_mongodb')->getManager();
@@ -41,13 +40,28 @@ class OrderController extends Controller
                 ->getRepository('RestaurantTablesBundle:Table')
                 ->findOneById($table);
             $order->setTable($docTable);
-//            $order->addOrderItem($orderItems);
             $order->setActive(true);
             $dm->persist($order);
             $dm->flush();
             return $order;
         }
         return $form->getErrors();
+    }
+
+    /**
+     * @return Collection Order
+     * @throws NotFoundHttpException
+     * @View()
+     */
+    public function getOrdersAction()
+    {
+        $orders = $this->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository('RestaurantTablesBundle:Order')
+            ->findAll();
+        if(!$orders)
+            throw new NotFoundHttpException();
+        return $orders;
     }
 
     /**

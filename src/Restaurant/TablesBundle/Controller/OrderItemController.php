@@ -76,7 +76,7 @@ class OrderItemController extends Controller
 
     /**
      * @param $orderId
-     * @return OrderItems
+     * @return array
      * @throws NotFoundHttpException
      * @View()
      */
@@ -88,7 +88,7 @@ class OrderItemController extends Controller
             ->findOneById($orderId);
         if (is_null($docOrder))
             throw new NotFoundHttpException();
-        return $docOrder->getOrderItems();
+        return array('orders' => $docOrder->getOrderItems());
     }
 
     /**

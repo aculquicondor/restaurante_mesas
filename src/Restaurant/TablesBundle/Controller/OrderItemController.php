@@ -126,22 +126,32 @@ class OrderItemController extends Controller
     public function patchItemAction(Request $request, $orderId, $itemId)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
-        $orderItem = $dm->getRespository('RestaurantTablesBundle:OrderItem')->findOneById($itemId);
-        if(!$orderItem)
+        $docOrder = $dm->getRepository('RestaurantTablesBundle:Order')->findOneById($orderId);
+        if(!$docOrder)
             throw new NotFoundHttpException();
         $form = $this->createForm(new OrderItemType());
         $form->submit($request->request->all());
         if($form->isValid()){
+            $orderItems = $docOrder->getOrderitems();
             $menuItem = $request->request->get('menuItem');
             $observations = $request->request->get('observations');
-            if(!is_null($menuItem)){
-                $orderItem->setMenuItem($menuItem);
+            foreach($orderItems as $item)
+            {
+                if($item->getId() == $itemId)
+                {
+                    if(!is_null($menuItem)){
+                        $docMenuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')
+                            ->findOneById($menuItem);
+                        $item->setMenuItem($docMenuItem);
+                    }
+
+                    if(!is_null($observations)){
+                        $item->setObservations($observations);
+                    }
+                    $dm->flush();
+                    return $item;
+                }
             }
-            if(!is_null($observations)){
-                $orderItem->setObservations($observations);
-            }
-            $dm->flush();
-            return $orderItem;
         }
         return $form->getErrors();
     }

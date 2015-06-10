@@ -118,9 +118,9 @@ class Order {
     /**
      * Remove orderItem
      *
-     * @param $orderItem
+     * @param \Restaurant\TablesBundle\Document\OrderItem $orderItem
      */
-    public function removeOrderItem($orderItem)
+    public function removeOrderItem(\Restaurant\TablesBundle\Document\OrderItem $orderItem)
     {
         $this->orderItems->removeElement($orderItem);
     }

@@ -105,7 +105,11 @@ class OrderItemController extends Controller
             ->findOneById($orderId);
         if (is_null($docOrder))
             throw new NotFoundHttpException();
-        $docOrder->removeOrderItem($itemId);
+        foreach($docOrder->getOrderItems() as $item)
+        {
+            if($item->getId() == $itemId)
+                $docOrder->removeOrderItem($item);
+        }
         $dm->persist($docOrder);
         $dm->flush();
         return array();

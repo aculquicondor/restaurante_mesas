@@ -2,7 +2,13 @@
 
 // src/Restaurant/TablesBundle/Document/OrderItem.php
 namespace Restaurant\TablesBundle\Document;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\EmbeddedDocument;
 
+/**
+ * Class OrderItem
+ * @package Restaurant\TablesBundle\Document
+ * @EmbeddedDocument()
+ */
 
 class OrderItem
 {

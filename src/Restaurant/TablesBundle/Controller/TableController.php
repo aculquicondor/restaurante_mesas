@@ -125,7 +125,7 @@ class TableController extends Controller
      *   parameters={
      *     {"name"="capacity", "dataType"="integer", "required"=false, "description"="Capacity"},
      *     {"name"="available", "dataType"="boolean", "required"=false, "description"="Availability"},
-     *     {"name"="occupationTime", "dataType"="date", "required"=false, "description"="Occupation time"}
+     *     {"name"="occupation_time", "dataType"="date", "required"=false, "description"="Occupation time"}
      *   }
      * )
      * @View()
@@ -141,7 +141,7 @@ class TableController extends Controller
         if($form->isValid()){
             $capacity = $request->request->get('capacity');
             $available = $request->request->get('available');
-            $occupationTime = $request->request->get('occupationTime');
+            $occupationTime = $request->request->get('occupation_time');
             if (!is_null($occupationTime)) {
                 $table->setOccupationTime($occupationTime);
             }

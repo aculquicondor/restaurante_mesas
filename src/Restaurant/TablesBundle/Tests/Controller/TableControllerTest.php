@@ -43,7 +43,7 @@ class TableControllerTest extends WebTestCase {
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(5, count($content));
+        $this->assertEquals(5, count($content['tables']));
     }
 
     public function testGetAllAvailable()
@@ -56,7 +56,7 @@ class TableControllerTest extends WebTestCase {
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(3, count($content));
+        $this->assertEquals(3, count($content['tables']));
     }
 
     public function testGetOne()
@@ -76,7 +76,7 @@ class TableControllerTest extends WebTestCase {
         $this->assertEquals($table->getId(), $content['id']);
         $this->assertEquals($table->getAvailable(), $content['available']);
         $this->assertEquals($table->getCapacity(), $content['capacity']);
-        $this->assertEquals($table->getOccupationTime(), $content['occupation_time']);
+        $this->assertEquals($table->getOccupationTime(), new \DateTime($content['occupation_time']));
     }
 
     public function testPost()
@@ -129,7 +129,8 @@ class TableControllerTest extends WebTestCase {
         /** @var $table Table */
         $table = $this->tableFixture->getReference('occupied-table1');
         $route = '/api/tables/' . $table->getId() . '.json';
-        $tableData = array('capacity' => 8, 'occupation_time' => '2015-06-09 11:00');
+        $tableData = array('capacity' => 8,
+            'occupation_time' => new \DateTime('2015-06-09 11:00'));
         $client->request('PATCH', $route, $tableData);
         $response = $client->getResponse();
 
@@ -138,12 +139,14 @@ class TableControllerTest extends WebTestCase {
         $received = json_decode($response->getContent(), true);
         $this->assertEquals($table->getId(), $received['id']);
         $this->assertEquals($tableData['capacity'], $received['capacity']);
-        $this->assertEquals($tableData['occupation_time'], $received['occupation_time']);
+        $this->assertEquals($tableData['occupation_time'],
+            new \DateTime($received['occupation_time']));
 
         $stored = $repository->find($table->getId());
         $this->assertEquals($table->getId(), $stored->getId());
         $this->assertEquals($tableData['capacity'], $stored->getCapacity());
-        $this->assertEquals($tableData['occupation_time'], $stored->getOccupationTime());
+        $this->assertEquals($tableData['occupation_time'],
+            $stored->getOccupationTime());
     }
 
 }

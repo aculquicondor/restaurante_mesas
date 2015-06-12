@@ -13,5 +13,10 @@ Restaurant\TablesBundle\Document\Reservation:
                 parameters:
                     id: expr(object.getId())
                 absolute: true
-            exclusion:
-                groups: [tables]
+        -
+            rel: tables
+            href:
+                route: get_reservation_tables
+                parameters:
+                    id: expr(object.getId())
+                absolute: true

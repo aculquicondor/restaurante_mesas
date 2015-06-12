@@ -5,6 +5,8 @@ Restaurant\TablesBundle\Document\OrderItem:
             id: true
         observations:
             type: string
+        delivered:
+            type: boolean
     type: embeddedDocument
     referenceOne:
         menuItem:

@@ -26,7 +26,7 @@ class OrderItemController extends Controller
         $form ->submit($request->request->all());
         if($form->isValid()){
             $dm = $this->get('doctrine_mongodb')->getManager();
-            $menuItem = $request->request->get('menuItem');
+            $menuItem = $request->request->get('menu_item');
             $observations = $request->request->get('observations');
             if (!is_null($menuItem))
             {
@@ -35,6 +35,7 @@ class OrderItemController extends Controller
                 if (!is_null($docMenuItem))
                     $orderItem->setMenuItem($docMenuItem);
             }
+            $orderItem->setDelivered(false);
             $orderItem->setObservations($observations);
             $docOrder = $dm->getRepository('RestaurantTablesBundle:Order')
                 ->find($orderId);
@@ -118,7 +119,7 @@ class OrderItemController extends Controller
     /**
      * @param Request $request
      * @param $orderId
-     * @param $id
+     * @param $itemId
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @View()
      * @throws NotFoundHttpException
@@ -133,19 +134,22 @@ class OrderItemController extends Controller
         $form->submit($request->request->all());
         if($form->isValid()){
             $orderItems = $docOrder->getOrderitems();
-            $menuItem = $request->request->get('menuItem');
+            $menuItem = $request->request->get('menu_item');
+            $delivered = $request->request->get('delivered');
             $observations = $request->request->get('observations');
             foreach($orderItems as $item)
             {
                 if($item->getId() == $itemId)
                 {
-                    if(!is_null($menuItem)){
+                    if (!is_null($menuItem)) {
                         $docMenuItem = $dm->getRepository('RestaurantTablesBundle:MenuItem')
                             ->findOneById($menuItem);
                         $item->setMenuItem($docMenuItem);
                     }
-
-                    if(!is_null($observations)){
+                    if (!is_null($delivered)) {
+                        $item->setDelivered($delivered);
+                    }
+                    if (!is_null($observations)) {
                         $item->setObservations($observations);
                     }
                     $dm->flush();

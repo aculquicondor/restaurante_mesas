@@ -15,6 +15,7 @@ class OrderItem
     protected $id;
     protected $menuItem;
     protected $observations;
+    protected $delivered;
 
 
     /**
@@ -69,5 +70,27 @@ class OrderItem
     public function getMenuItem()
     {
         return $this->menuItem;
+    }
+
+    /**
+     * Set delivered
+     *
+     * @param bool $delivered
+     * @return self
+     */
+    public function setDelivered($delivered)
+    {
+        $this->delivered = $delivered;
+        return $this;
+    }
+
+    /**
+     * Get delivered
+     *
+     * @return bool $delivered
+     */
+    public function getDelivered()
+    {
+        return $this->delivered;
     }
 }

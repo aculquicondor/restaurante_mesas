@@ -17,16 +17,20 @@ class LoadOrdersData extends AbstractFixture implements DependentFixtureInterfac
     private function loadOrderItems() {
 
         $orderItem1 = new OrderItem();
+        $orderItem1->setDelivered(false);
         $orderItem1->setMenuItem($this->getReference('lomo-saltado'));
         $orderItem1->setObservations('Sin cebolla.');
         $this->orderItems['lomo-saltado'] = $orderItem1;
 
         $orderItem2 = new OrderItem();
+        $orderItem1->setDelivered(false);
         $orderItem2->setMenuItem($this->getReference('aji-gallina'));
         $orderItem2->setObservations('Sin gallina XD.');
         $this->orderItems['aji-gallina'] = $orderItem2;
 
         $orderItem3 = new OrderItem();
+        $orderItem1->setDelivered(true);
+        $orderItem2->setMenuItem($this->getReference('aji-gallina'));
         $orderItem3->setMenuItem($this->getReference('chupe-camaron'));
         $orderItem3->setObservations('Sin camaron XD.');
         $this->orderItems['chupe-camaron'] = $orderItem3;

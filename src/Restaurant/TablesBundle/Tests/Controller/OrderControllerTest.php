@@ -6,7 +6,6 @@ use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Restaurant\CashBundle\Repository\EmployeeRepository;
 use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadOrdersData;
-use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadTablesData;
 use Restaurant\TablesBundle\Tests\WebTestCase;
 use Doctrine\Common\DataFixtures\Loader;
 use Restaurant\TablesBundle\Repository\OrderRepository;

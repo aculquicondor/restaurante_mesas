@@ -2,7 +2,7 @@
 
 namespace Restaurant\TablesBundle\Tests\Document;
 
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Restaurant\TablesBundle\Tests\KernelTestCase;
 use Restaurant\TablesBundle\Document\OrderItem;
 use Restaurant\TablesBundle\Document\MenuItem;
 use Doctrine\ODM\MongoDB\DocumentManager;
@@ -40,6 +40,7 @@ class OrderItemTest extends KernelTestCase {
     public function setUp()
     {
         $this->orderItem = new OrderItem();
+        $this->orderItem->setDelivered(false);
         $this->orderItem->setObservations("Sin sal");
 
         $this->menuItem = new MenuItem();
@@ -57,6 +58,18 @@ class OrderItemTest extends KernelTestCase {
         self::$dm->persist($this->orderItem);
         self::$dm->flush();
         $this->assertNotNull($this->orderItem->getId());
+    }
+
+    public function testUpdateDelivered()
+    {
+        self::$dm->persist($this->menuItem);
+        self::$dm->persist($this->orderItem);
+        self::$dm->flush();
+
+        $this->orderItem->setDelivered(true);
+        $docOrderItem = self::$dm->getRepository("RestaurantTablesBundle:OrderItem")
+            ->find($this->orderItem->getId());
+        $this->assertTrue($docOrderItem->getDelivered());
     }
 
     public function testUpdateObservations()

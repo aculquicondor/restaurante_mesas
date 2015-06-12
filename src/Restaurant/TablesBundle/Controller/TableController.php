@@ -32,9 +32,10 @@ class TableController extends Controller
         $form = $this->createForm(new TableType());
         $form->submit($request->request->all());
         if($form->isValid()){
-            $number = $request->request->get('number', 1);
-            $table->setNumber($number);
-            $capacity = $request->request->get('capacity', 4);
+            $number = $request->request->get('number');
+            if (!is_null($number))
+                $table->setNumber($number);
+            $capacity = $request->request->get('capacity');
             $table->setCapacity($capacity);
             $table->setAvailable(true);
             $dm = $this->get('doctrine_mongodb')->getManager();

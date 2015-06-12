@@ -6,6 +6,7 @@ namespace Restaurant\TablesBundle\Document;
 class Table
 {
     protected $id;
+    protected $number;
     protected $available;
     protected $occupationTime;
     protected $capacity;
@@ -18,6 +19,28 @@ class Table
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set number
+     *
+     * @param int $number
+     * @return self
+     */
+    public function setNumber($number)
+    {
+        $this->number = (int)$number;
+        return $this;
+    }
+
+    /**
+     * Get number
+     *
+     * @return int $number
+     */
+    public function getNumber()
+    {
+        return $this->number;
     }
 
     /**

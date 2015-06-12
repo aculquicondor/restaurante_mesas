@@ -20,6 +20,7 @@ class TableController extends Controller
      *   description="Create a Table",
      *   section="Table",
      *   parameters={
+     *     {"name"="number", "dataType"="integer", "required"=false, "description"="Number"},
      *     {"name"="capacity", "dataType"="integer", "required"=false, "description"="Capacity"}
      *   }
      * )
@@ -31,6 +32,9 @@ class TableController extends Controller
         $form = $this->createForm(new TableType());
         $form->submit($request->request->all());
         if($form->isValid()){
+            $number = $request->request->get('number');
+            if (!is_null($number))
+                $table->setNumber($number);
             $capacity = $request->request->get('capacity');
             $table->setCapacity($capacity);
             $table->setAvailable(true);
@@ -123,6 +127,7 @@ class TableController extends Controller
      *   description="Modify a Table",
      *   section="Table",
      *   parameters={
+     *     {"name"="number", "dataType"="integer", "required"=false, "description"="Number"},
      *     {"name"="capacity", "dataType"="integer", "required"=false, "description"="Capacity"},
      *     {"name"="available", "dataType"="boolean", "required"=false, "description"="Availability"},
      *     {"name"="occupation_time", "dataType"="date", "required"=false, "description"="Occupation time"}
@@ -139,9 +144,13 @@ class TableController extends Controller
         $form = $this->createForm(new TableType());
         $form->submit($request->request->all());
         if($form->isValid()){
+            $number = $request->request->get('number');
             $capacity = $request->request->get('capacity');
             $available = $request->request->get('available');
             $occupationTime = $request->request->get('occupation_time');
+            if (!is_null($number)) {
+                $table->setNumber($number);
+            }
             if (!is_null($occupationTime)) {
                 $table->setOccupationTime($occupationTime);
             }

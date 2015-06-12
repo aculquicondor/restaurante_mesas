@@ -26,7 +26,7 @@ class OrderItemController extends Controller
         $form ->submit($request->request->all());
         if($form->isValid()){
             $dm = $this->get('doctrine_mongodb')->getManager();
-            $menuItem = $request->request->get('menuItem');
+            $menuItem = $request->request->get('menu_item');
             $observations = $request->request->get('observations');
             if (!is_null($menuItem))
             {
@@ -134,7 +134,7 @@ class OrderItemController extends Controller
         $form->submit($request->request->all());
         if($form->isValid()){
             $orderItems = $docOrder->getOrderitems();
-            $menuItem = $request->request->get('menuItem');
+            $menuItem = $request->request->get('menu_item');
             $delivered = $request->request->get('delivered');
             $observations = $request->request->get('observations');
             foreach($orderItems as $item)

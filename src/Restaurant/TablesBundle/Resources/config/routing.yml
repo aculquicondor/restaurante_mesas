@@ -8,7 +8,6 @@ restaurant_tables_Table:
 
 restaurant_tables_MenuItem:
     type: rest
-    prefix: /menu
     resource: "Restaurant\TablesBundle\Controller\MenuItemController"
 
 restaurant_tables_Store:

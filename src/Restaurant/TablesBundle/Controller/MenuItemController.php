@@ -4,11 +4,15 @@ namespace Restaurant\TablesBundle\Controller;
 use Restaurant\TablesBundle\Document\MenuItem;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
+use FOS\RestBundle\Controller\Annotations\Prefix;
 use Restaurant\TablesBundle\Form\Type\MenuItemType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 
+/**
+ * @Prefix("menu")
+ */
 class MenuItemController extends Controller
 {
     /**

@@ -61,6 +61,14 @@ class ReservationRepositoryTest extends KernelTestCase
         $this->assertEquals(0, count($result));
     }
 
+    public function testReservationForNowOn()
+    {
+        $now = new \DateTime('2015-05-06 09:05');
+        $result = $this->reservationRepository->getReservationForTableNowOn(
+            $this->reservationsFixture->getReference('table-reserve-later'), $now);
+        $this->assertEquals(1, count($result));
+    }
+
     public function tearDown()
     {
         parent::tearDown();

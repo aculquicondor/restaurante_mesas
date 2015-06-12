@@ -22,4 +22,17 @@ class ReservationRepository extends DocumentRepository
             ->execute();
         return $reservations;
     }
+
+    public function getReservationForTableNowOn(Table $table, \DateTime $now)
+    {
+        $start = $now->sub(new \DateInterval('PT1H'));
+
+        $reservations = $this->createQueryBuilder()
+            ->field('estimatedArrivalTime')
+                ->gte($start)
+            ->field('tables')->includesReferenceTo($table)
+            ->getQuery()
+            ->execute();
+        return $reservations;
+    }
 }

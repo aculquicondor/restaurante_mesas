@@ -7,7 +7,7 @@ use Restaurant\TablesBundle\Document\Table;
 
 class ReservationRepository extends DocumentRepository
 {
-    public function getReservationForTableNow(Table $table, \DateTime $now)
+    public function getReservationsForTableNow(Table $table, \DateTime $now)
     {
         $start = clone $now;
         $start->sub(new \DateInterval('PT1H'));
@@ -23,7 +23,7 @@ class ReservationRepository extends DocumentRepository
         return $reservations;
     }
 
-    public function getReservationForTableNowOn(Table $table, \DateTime $now)
+    public function getReservationsForTableNowOn(Table $table, \DateTime $now)
     {
         $start = $now->sub(new \DateInterval('PT1H'));
 

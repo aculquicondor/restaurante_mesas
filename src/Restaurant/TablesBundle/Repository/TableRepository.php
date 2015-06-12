@@ -11,7 +11,7 @@ class TableRepository extends DocumentRepository
         $all_tables = $this->findBy(array('available' => true));
         $tables = array();
         foreach ($all_tables as $table) {
-            if (count($reservationsRepository->getReservationForTableNow($table, $now)) == 0) {
+            if (count($reservationsRepository->getReservationsForTableNow($table, $now)) == 0) {
                 $tables[] = $table;
             }
         }

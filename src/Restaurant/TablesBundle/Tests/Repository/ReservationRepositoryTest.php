@@ -48,7 +48,7 @@ class ReservationRepositoryTest extends KernelTestCase
     public function testNoReservationForNow()
     {
         $now = new \DateTime('2015-05-06 09:05');
-        $result = $this->reservationRepository->getReservationForTableNow(
+        $result = $this->reservationRepository->getReservationsForTableNow(
             $this->reservationsFixture->getReference('table-reserve-now'), $now);
         $this->assertEquals(1, count($result));
     }
@@ -56,9 +56,17 @@ class ReservationRepositoryTest extends KernelTestCase
     public function testReservationForNow()
     {
         $now = new \DateTime('2015-05-06 09:05');
-        $result = $this->reservationRepository->getReservationForTableNow(
+        $result = $this->reservationRepository->getReservationsForTableNow(
             $this->reservationsFixture->getReference('table-reserve-later'), $now);
         $this->assertEquals(0, count($result));
+    }
+
+    public function testReservationForNowOn()
+    {
+        $now = new \DateTime('2015-05-06 09:05');
+        $result = $this->reservationRepository->getReservationsForTableNowOn(
+            $this->reservationsFixture->getReference('table-reserve-later'), $now);
+        $this->assertEquals(1, count($result));
     }
 
     public function tearDown()

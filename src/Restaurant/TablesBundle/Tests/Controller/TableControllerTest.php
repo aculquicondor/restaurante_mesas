@@ -6,7 +6,8 @@ use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
 use Restaurant\TablesBundle\Tests\WebTestCase;
 use Restaurant\TablesBundle\Repository\TableRepository;
-use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadTablesData;
+use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadReservationsData;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\Loader;
 use Restaurant\TablesBundle\Document\Table;
 
@@ -14,9 +15,9 @@ use Restaurant\TablesBundle\Document\Table;
 class TableControllerTest extends WebTestCase {
 
     /**
-     * @var LoadTablesData
+     * @var AbstractFixture
      */
-    private $tableFixture;
+    private $fixture;
 
     public function setUp()
     {
@@ -26,8 +27,8 @@ class TableControllerTest extends WebTestCase {
             ->get('doctrine_mongodb')->getManager();
 
         $loader = new Loader();
-        $this->tableFixture = new LoadTablesData();
-        $loader->addFixture($this->tableFixture);
+        $this->fixture = new LoadReservationsData();
+        $loader->addFixture($this->fixture);
         $purger = new MongoDBPurger();
         $executor = new MongoDBExecutor($dm, $purger);
         $executor->execute($loader->getFixtures());
@@ -64,8 +65,8 @@ class TableControllerTest extends WebTestCase {
         $client = static::createClient();
 
         /** @var $table Table */
-        $table = $this->tableFixture->getReference('occupied-table1');
-        $route = '/api/tables/'.$table->getId().'.json';
+        $table = $this->fixture->getReference('occupied-table1');
+        $route = '/api/tables/' . $table->getId() . '.json';
         $client->request('GET', $route);
         $response = $client->getResponse();
 
@@ -80,16 +81,32 @@ class TableControllerTest extends WebTestCase {
         $this->assertEquals($table->getOccupationTime(), new \DateTime($content['occupation_time']));
     }
 
+    public function testGetReservations()
+    {
+        $client = static::createClient();
+
+        /** @var $table Table */
+        $table = $this->fixture->getReference('table-reserve-later');
+        $route = '/api/tables/' . $table->getId() . '/reservations.json';
+        $client->request('GET', $route, array('time' => '2015-05-06 09:05'));
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $content = json_decode($response->getContent(), true);
+
+        $this->assertEquals(1, count($content['reservations']));
+    }
+
     public function testPost()
     {
         $client = static::createClient();
         /** @var TableRepository $repository */
         $repository = $client->getContainer()->get('doctrine_mongodb')
             ->getManager()->getRepository('RestaurantTablesBundle:Table');
-        $url = '/api/tables.json';
 
         $tableData = array('available' => true, 'capacity' => 5);
-        $client->request('POST', $url, $tableData);
+        $client->request('POST', '/api/tables.json', $tableData);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -110,7 +127,7 @@ class TableControllerTest extends WebTestCase {
             ->getManager()->getRepository('RestaurantTablesBundle:Table');
 
         /** @var $table Table */
-        $table = $this->tableFixture->getReference('occupied-table2');
+        $table = $this->fixture->getReference('occupied-table2');
         $route = '/api/tables/' . $table->getId() . '.json';
         $client->request('DELETE', $route);
         $response = $client->getResponse();
@@ -128,7 +145,7 @@ class TableControllerTest extends WebTestCase {
             ->getManager()->getRepository('RestaurantTablesBundle:Table');
 
         /** @var $table Table */
-        $table = $this->tableFixture->getReference('occupied-table1');
+        $table = $this->fixture->getReference('occupied-table1');
         $route = '/api/tables/' . $table->getId() . '.json';
         $tableData = array('number' => 6, 'capacity' => 8,
             'occupation_time' => new \DateTime('2015-06-09 11:00'));

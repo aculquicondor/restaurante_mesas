@@ -100,7 +100,7 @@ class ReservationController extends Controller
 
     /**
      * @param int $id
-     * @return mixed
+     * @return array
      * @ApiDoc(
      *   description="View tables of a reservation",
      *   section="Reservation"
@@ -118,7 +118,7 @@ class ReservationController extends Controller
         $tables = $reservation->getTables();
         if (!$tables)
             throw new NotFoundHttpException("Tables not found");
-        return $tables;
+        return array('tables' => $tables);
     }
 
     /**

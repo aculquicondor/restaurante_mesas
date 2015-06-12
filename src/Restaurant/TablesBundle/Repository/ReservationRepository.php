@@ -7,7 +7,7 @@ use Restaurant\TablesBundle\Document\Table;
 
 class ReservationRepository extends DocumentRepository
 {
-    public function getReservationForTableNow(Table $table, \DateTime $now)
+    public function getReservationsForTableNow(Table $table, \DateTime $now)
     {
         $start = clone $now;
         $start->sub(new \DateInterval('PT1H'));
@@ -17,6 +17,19 @@ class ReservationRepository extends DocumentRepository
         $reservations = $this->createQueryBuilder()
             ->field('estimatedArrivalTime')
                 ->range($start, $end)
+            ->field('tables')->includesReferenceTo($table)
+            ->getQuery()
+            ->execute();
+        return $reservations;
+    }
+
+    public function getReservationsForTableNowOn(Table $table, \DateTime $now)
+    {
+        $start = $now->sub(new \DateInterval('PT1H'));
+
+        $reservations = $this->createQueryBuilder()
+            ->field('estimatedArrivalTime')
+                ->gte($start)
             ->field('tables')->includesReferenceTo($table)
             ->getQuery()
             ->execute();

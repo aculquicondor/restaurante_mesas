@@ -2,6 +2,7 @@
 
 namespace Restaurant\TablesBundle\Controller;
 
+use Doctrine\ODM\MongoDB\DocumentManager;
 use Restaurant\TablesBundle\Document\Table;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -47,7 +48,7 @@ class TableController extends Controller
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return Table
      * @ApiDoc(
      *   description="View a Table",
@@ -60,10 +61,40 @@ class TableController extends Controller
         $table = $this->get('doctrine_mongodb')
             ->getManager()
             ->getRepository('RestaurantTablesBundle:Table')
-            ->findOneById($id);
+            ->find($id);
         if (!$table)
             throw new NotFoundHttpException();
         return $table;
+    }
+
+    /**
+     * @param Request $request
+     * @param string $id
+     * @return array
+     * @ApiDoc(
+     *   description="View Reservations for a Table",
+     *   section="Table",
+     *   parameters={
+     *     {"name"="time", "dataType"="date", "required"=false, "description"="Custom time"}
+     *   }
+     * )
+     * @View()
+     */
+    public function getTableReservationsAction(Request $request, $id)
+    {
+        /** @var DocumentManager $dm */
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $table = $dm->getRepository('RestaurantTablesBundle:Table')
+            ->find($id);
+        if (!$table)
+            throw new NotFoundHttpException();
+        $time = $request->get('time', 'now');
+        $cursor = $dm->getRepository('RestaurantTablesBundle:Reservation')
+            ->getReservationsForTableNowOn($table, new \DateTime($time));
+        $reservations = array();
+        foreach ($cursor as $reservation)
+            $reservations[] = $reservation;
+        return array('reservations' => $reservations);
     }
 
     /**
@@ -121,7 +152,7 @@ class TableController extends Controller
 
     /**
      * @param Request $request
-     * @param int $id
+     * @param string $id
      * @return mixed
      * @ApiDoc(
      *   description="Modify a Table",

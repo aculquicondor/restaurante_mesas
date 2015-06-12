@@ -43,7 +43,7 @@ class OrderControllerTest extends WebTestCase {
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals(2, count($content));
+        $this->assertEquals(2, count($content['orders']));
     }
 
     public function testGetOne()

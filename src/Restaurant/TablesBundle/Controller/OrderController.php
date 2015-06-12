@@ -49,7 +49,7 @@ class OrderController extends Controller
     }
 
     /**
-     * @return Collection Order
+     * @return array
      * @throws NotFoundHttpException
      * @View()
      */

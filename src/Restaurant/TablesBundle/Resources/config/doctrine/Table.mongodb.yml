@@ -4,6 +4,8 @@ Restaurant\TablesBundle\Document\Table:
     fields:
         id:
             id: true
+        number:
+            type: int
         available:
             type: boolean
         occupationTime:

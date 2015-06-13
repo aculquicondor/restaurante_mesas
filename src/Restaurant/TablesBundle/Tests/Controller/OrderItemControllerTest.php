@@ -15,7 +15,7 @@ use Restaurant\TablesBundle\Document\OrderItem;
 class OrderItemControllerTest extends WebTestCase
 {
     /**
-     * var LoadOrdersData
+     * @var LoadOrdersData
      */
     private $orderFixture;
 
@@ -47,6 +47,87 @@ class OrderItemControllerTest extends WebTestCase
         $this->assertEquals(1, count($content['items']));
     }
 
+    public function testGetOne()
+    {
+        $client = static::createClient();
+        /** @var $order Order */
+        /** @var $orderItem OrderItem */
+        $order = $this->orderFixture->getReference('order1');
+        $orderItem = $this->orderFixture->getReference('lomo-saltado');
+        $route = '/api/orders'.$order->getId().'/items/'.$orderItem->getId().'.json';
+        $client->request('GET', $route);
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($orderItem->getId(), count($content['id']));
+    }
 
+    public function testPost()
+    {
+        $client = static::createClient();
+        /** @var $order Order */
+        $order = $this->orderFixture->getReference('order1');
+        /** @var OrderRepository $repository */
+        $repository = $client->getContainer()->get('doctrine_mongodb')
+            ->getManager()->getRepository('RestaurantTablesBundle:Order');
+        $route = '/api/orders/' . $order->getId() . '/items';
+        $menuItem = $this->orderFixture->getReference('aji-gallina');
+        $orderItemData = array(
+            'menu_item' => $menuItem->getId(),
+            'observations' => 'Sin gallina.',
+            'delivered' => false
+        );
+        $client->request('POST', $route, $orderItemData);
+        $response = $client->getResponse();
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $orderItem = json_decode($response->getContent(), true);
+        $this->assertEquals($orderItemData['observations'], $orderItem['observations']);
+        $docOrder = $repository->find($order->getId());
+        $this->assertEquals(2, count($docOrder->getOrderItems()));
+    }
 
+    public function testDelete()
+    {
+        $client = static::createClient();
+        /** @var OrderRepository $repository */
+        $repository = $client->getContainer()->get('doctrine_mongodb')
+            ->getManager()->getRepository('RestaurantTablesBundle:Order');
+
+        /** @var $order Order */
+        $order = $this->orderFixture->getReference('order1');
+        /** @var @var $orderItem OrderItem */
+        $orderItem = $this->orderFixture->getReference('lomo-saltado');
+        $itemRoute = '/api/orders/' . $order->getId() . '/items/' . $orderItem->getId();
+        $client->request('DELETE', $itemRoute);
+        $response = $client->getResponse();
+
+        $docOrder = $repository->find($order->getId());
+        $this->assertEquals(200, $response->getStatusCode());
+        $client->request('GET', '/api/orders' . $order->getId());
+        $response = $client->getResponse();
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(0, count($content['order_items']));
+    }
+
+    public function testPatch()
+    {
+        $client = static::createClient();
+        /** @var OrderRepository $repository */
+        $repository = $client->getContainer()->get('doctrine_mongodb')
+            ->getManager()->getRepository('RestaurantTablesBundle:Order');
+
+        /** @var $order Order */
+        $order = $this->orderFixture->getReference('order1');
+        /** @var $orderItem OrderItem */
+        $orderItem = $this->orderFixture->getReference('lomo-saltado');
+        $route = '/api/orders/' . $order->getId() . '/items/' . $orderItem->getId();
+        $orderItemData = array('delivered' => false);
+        $client->request('PATCH', $route, $orderItemData);
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+    }
 }

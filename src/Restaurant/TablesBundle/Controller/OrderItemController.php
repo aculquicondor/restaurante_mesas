@@ -17,6 +17,14 @@ class OrderItemController extends Controller
      * @param $orderId
      * @param Request $request
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
+     * @ApiDoc(
+     *   description="Create an Item",
+     *   section="OrderItem",
+     *   parameters={
+     *     {"name"="menu_item", "dataType"="string", "require"=false, "description"="item id"},
+     *     {"name"="observation", "dataType"=string, "require"=false, "description"="observations about the menu_item"}
+     *   }
+     * }
      * @View()
      */
     public function postItemAction($orderId, Request $request)
@@ -53,6 +61,10 @@ class OrderItemController extends Controller
      * @param $itemId
      * @return OrderItem
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View the OrderItems",
+     *   section="OrderItem"
+     * )
      * @View()
      */
     public function getItemAction($orderId, $itemId)
@@ -79,6 +91,10 @@ class OrderItemController extends Controller
      * @param $orderId
      * @return array
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View an OrderItem",
+     *   section="OrderITem"
+     * )
      * @View()
      */
     public function getItemsAction($orderId)
@@ -96,6 +112,10 @@ class OrderItemController extends Controller
      * @param $orderId
      * @param $itemId
      * @return array()
+     * @ApiDoc(
+     *   description="Delete an OrderItem",
+     *   section="OrderItem"
+     * )
      * @View()
      * @throws NotFoundHttpException
      */
@@ -121,6 +141,14 @@ class OrderItemController extends Controller
      * @param $orderId
      * @param $itemId
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
+     * @ApiDoc(
+     *   description="Modify an OrderItem",
+     *   section="OrderItem",
+     *   parameters={
+     *     {"name"="menu_item", "dataType"="string", "require"=false, "description"="item id"},
+     *     {"name"="observation", "dataType"=string, "require"=false, "description"="observations about the menu_item"}
+     *   }
+     * )
      * @View()
      * @throws NotFoundHttpException
      */

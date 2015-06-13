@@ -12,28 +12,26 @@ use Restaurant\TablesBundle\Document\Order;
 class LoadOrdersData extends AbstractFixture implements DependentFixtureInterface
 {
 
-    private $orderItems = array();
-
     private function loadOrderItems() {
 
         $orderItem1 = new OrderItem();
         $orderItem1->setDelivered(false);
         $orderItem1->setMenuItem($this->getReference('lomo-saltado'));
         $orderItem1->setObservations('Sin cebolla.');
-        $this->orderItems['lomo-saltado'] = $orderItem1;
+        $this->addReference('orderitem1', $orderItem1);
 
         $orderItem2 = new OrderItem();
         $orderItem1->setDelivered(false);
         $orderItem2->setMenuItem($this->getReference('aji-gallina'));
         $orderItem2->setObservations('Sin gallina XD.');
-        $this->orderItems['aji-gallina'] = $orderItem2;
+        $this->addReference('orderitem2', $orderItem2);
 
         $orderItem3 = new OrderItem();
         $orderItem1->setDelivered(true);
         $orderItem2->setMenuItem($this->getReference('aji-gallina'));
         $orderItem3->setMenuItem($this->getReference('chupe-camaron'));
         $orderItem3->setObservations('Sin camaron XD.');
-        $this->orderItems['chupe-camaron'] = $orderItem3;
+        $this->addReference('orderitem3', $orderItem3);
     }
 
     public function load(ObjectManager $manager)
@@ -43,14 +41,14 @@ class LoadOrdersData extends AbstractFixture implements DependentFixtureInterfac
         $order1 = new Order();
         $order1->setDate('2015-05-06');
         $order1->setTable($this->getReference('occupied-table1'));
-        $order1->addOrderItem($this->orderItems['lomo-saltado']);
+        $order1->addOrderItem($this->getReference('orderitem1'));
         $manager->persist($order1);
 
         $order2 = new Order();
         $order2->setDate('2015-05-08');
         $order2->setTable($this->getReference('occupied-table2'));
-        $order2->addOrderItem($this->orderItems['aji-gallina']);
-        $order2->addOrderItem($this->orderItems['chupe-camaron']);
+        $order2->addOrderItem($this->getReference('orderitem2'));
+        $order2->addOrderItem($this->getReference('orderitem3'));
         $manager->persist($order2);
 
         $manager->flush();

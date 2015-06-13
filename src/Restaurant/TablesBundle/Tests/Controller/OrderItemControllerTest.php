@@ -53,14 +53,14 @@ class OrderItemControllerTest extends WebTestCase
         /** @var $order Order */
         /** @var $orderItem OrderItem */
         $order = $this->orderFixture->getReference('order1');
-        $orderItem = $this->orderFixture->getReference('lomo-saltado');
-        $route = '/api/orders'.$order->getId().'/items/'.$orderItem->getId().'.json';
+        $orderItem = $this->orderFixture->getReference('orderitem1');
+        $route = '/api/orders/'.$order->getId().'/items/'.$orderItem->getId().'.json';
         $client->request('GET', $route);
         $response = $client->getResponse();
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getContent());
         $content = json_decode($response->getContent(), true);
-        $this->assertEquals($orderItem->getId(), count($content['id']));
+        $this->assertEquals($orderItem->getId(), $content['id']);
     }
 
     public function testPost()
@@ -98,7 +98,7 @@ class OrderItemControllerTest extends WebTestCase
         /** @var $order Order */
         $order = $this->orderFixture->getReference('order1');
         /** @var @var $orderItem OrderItem */
-        $orderItem = $this->orderFixture->getReference('lomo-saltado');
+        $orderItem = $this->orderFixture->getReference('orderitem1');
         $itemRoute = '/api/orders/' . $order->getId() . '/items/' . $orderItem->getId();
         $client->request('DELETE', $itemRoute);
         $response = $client->getResponse();
@@ -121,13 +121,15 @@ class OrderItemControllerTest extends WebTestCase
         /** @var $order Order */
         $order = $this->orderFixture->getReference('order1');
         /** @var $orderItem OrderItem */
-        $orderItem = $this->orderFixture->getReference('lomo-saltado');
+        $orderItem = $this->orderFixture->getReference('orderitem1');
         $route = '/api/orders/' . $order->getId() . '/items/' . $orderItem->getId();
-        $orderItemData = array('delivered' => false);
+        $orderItemData = array('delivered' => true);
         $client->request('PATCH', $route, $orderItemData);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertJson($response->getContent());
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals($orderItemData['delivered'], $content['delivered']);
     }
 }

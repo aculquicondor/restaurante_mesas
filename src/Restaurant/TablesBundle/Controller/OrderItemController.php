@@ -18,11 +18,11 @@ class OrderItemController extends Controller
      * @param Request $request
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @ApiDoc(
-     *   description="Create an Item",
+     *   description="Create an item in the order",
      *   section="OrderItem",
      *   parameters={
      *     {"name"="menu_item", "dataType"="string", "require"=false, "description"="item id"},
-     *     {"name"="observation", "dataType"=string, "require"=false, "description"="observations about the menu_item"}
+     *     {"name"="observation", "dataType"="string", "require"=false, "description"="observations about the item of the menu in the order"}
      *   }
      * }
      * @View()
@@ -62,7 +62,7 @@ class OrderItemController extends Controller
      * @return OrderItem
      * @throws NotFoundHttpException
      * @ApiDoc(
-     *   description="View the OrderItems",
+     *   description="View an specific item of the menu in the order",
      *   section="OrderItem"
      * )
      * @View()
@@ -92,7 +92,7 @@ class OrderItemController extends Controller
      * @return array
      * @throws NotFoundHttpException
      * @ApiDoc(
-     *   description="View an OrderItem",
+     *   description="View the items of the menu in the order",
      *   section="OrderITem"
      * )
      * @View()
@@ -113,7 +113,7 @@ class OrderItemController extends Controller
      * @param $itemId
      * @return array()
      * @ApiDoc(
-     *   description="Delete an OrderItem",
+     *   description="Delete an item of the menu in the order",
      *   section="OrderItem"
      * )
      * @View()
@@ -142,11 +142,11 @@ class OrderItemController extends Controller
      * @param $itemId
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @ApiDoc(
-     *   description="Modify an OrderItem",
+     *   description="Modify the items in the order",
      *   section="OrderItem",
      *   parameters={
      *     {"name"="menu_item", "dataType"="string", "require"=false, "description"="item id"},
-     *     {"name"="observation", "dataType"=string, "require"=false, "description"="observations about the menu_item"}
+     *     {"name"="observation", "dataType"="string", "require"=false, "description"="observations about the item of the menu in the order"}
      *   }
      * )
      * @View()

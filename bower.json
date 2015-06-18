@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "angular": "~1.4.0",
-    "materialize": "~0.96.1"
+    "materialize": "~0.96.1",
+    "angular-route": "~1.4.1"
   }
 }

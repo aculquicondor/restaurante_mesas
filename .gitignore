@@ -12,3 +12,4 @@
 /.idea/
 *~
 phpunit.phar
+/src/Restaurant/TablesBundle/Resources/public/vendor/*

@@ -1,0 +1,56 @@
+<!doctype html>
+<html ng-app="restaurantApp">
+<head>
+    <script src="../app/vendor/angular/angular.min.js"></script>
+    <script src="../app/vendor/angular-route/angular-route.min.js"></script>
+    <script src="../app/js/app.js"></script>
+    <script src="../app/js/controllers.js"></script>
+
+    <link type="text/css" rel="stylesheet" href="../app/vendor/materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="../app/css/main.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+
+<body>
+
+<header>
+    <nav class="top-nav light-blue">
+        <div class="container">
+            <div class="nav-wrapper light-blue">
+                <a href="#" class="left brand-logo">Tables</a>
+                <a href="#" data-activates="slide-out" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Aldo C. <i class="mdi-action-accessibility right"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav fixed">
+        <li class="logo center-align"><a><i class=" mdi-action-aspect-ratio"></i></a></li>
+        <li class="tab"><a href="#test1">Test 1</a></li>
+        <li class="tab"><a class="active" href="#test2">Test 2</a></li>
+        <li class="tab"><a href="#test3">Test 3</a></li>
+        <li class="tab"><a href="#test4">Test 4</a></li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <h4 class="">Content here</h4>
+                    <div ng-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="../app/vendor/jquery/dist/jquery.min.js"></script>
+<script src="../app/vendor/materialize/dist/js/materialize.min.js"></script>
+<script src="../app/js/main.js"></script>
+
+
+</body>
+</html>

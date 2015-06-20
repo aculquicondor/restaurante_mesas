@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\Prefix;
 use Restaurant\TablesBundle\Form\Type\MenuItemType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
 /**

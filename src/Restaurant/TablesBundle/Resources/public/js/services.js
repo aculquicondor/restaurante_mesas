@@ -2,7 +2,7 @@ var restaurantServices = angular.module('restaurantServices', ['ngResource']);
 
 restaurantServices.factory('Table', ['$resource',
     function($resource){
-        return $resource('http://localhost/api/tables.json', {}, {
-            query: {method:'GET', params:{}, isArray:true}
+        return $resource('http://localhost:8000/api/tables.json', {}, {
+            getAll: {method: 'GET'}
         });
     }]);

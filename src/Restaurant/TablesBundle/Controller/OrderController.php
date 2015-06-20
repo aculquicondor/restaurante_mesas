@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\OrderType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class OrderController extends Controller
 {
@@ -15,6 +16,15 @@ class OrderController extends Controller
     /**
      * @param Request request
      * @return \Symfony\Component\Form\FormErrorIterator|Order
+     * @ApiDoc(
+     *   description="Create an order",
+     *   section="Order",
+     *   parameters={
+     *     {"name"="date", "dataType"="string", "required"=false, "description"="The date of the order"},
+     *     {"name"="employee", "dataType"="string", "required"=false, "description"="The employee who took the order"},
+     *     {"name"="table", "dataType"="string", "required"=false, "description"="The table where the order was taken"},
+     *     {"name"="available", "dataType"="boolean", "required"=false, "description"="If the order was delivered"}
+     * )
      * @View()
      */
 
@@ -51,6 +61,10 @@ class OrderController extends Controller
     /**
      * @return array
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View all the orders",
+     *   section="Order"
+     * )
      * @View()
      */
     public function getOrdersAction()
@@ -68,6 +82,10 @@ class OrderController extends Controller
      * @param $id
      * @return Order
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View an specific order",
+     *   section="Order"
+     * }
      * @View()
      */
     public function getOrderAction($id)
@@ -85,6 +103,10 @@ class OrderController extends Controller
      * @param $id
      * @return array()
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="Delete an order",
+     *   section="Order"
+     * }
      * @View()
      */
     public function deleteOrderAction($id)
@@ -103,6 +125,16 @@ class OrderController extends Controller
      * @param $id
      * @return \Symfony\Component\Form\FormErrorIterator|Order
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="Modify an specific order",
+     *   section="Order",
+     *   parameters={
+     *     {"name"="date", "dataType"="date", "required"=false, "description"="The date of the order"},
+     *     {"name"="orderItems", "dataType"="string", "required"=false, "description"="The items in the order"},
+     *     {"name"="employee", "dataType"="string", "required"=false, "description"="Employee id"},
+     *     {"name"="table", "dataType"="string", "required"=false, "description"="Table id"}
+     *   }
+     * )
      * @View()
      */
     public function patchOrderAction(Request $request, $id)

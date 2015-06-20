@@ -10,6 +10,7 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\OrderItemType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class OrderItemController extends Controller
 {
@@ -24,9 +25,9 @@ class OrderItemController extends Controller
      *     {"name"="menu_item", "dataType"="string", "require"=false, "description"="item id"},
      *     {"name"="observation", "dataType"="string", "require"=false, "description"="observations about the item of the menu in the order"}
      *   }
-     * }
+     * )
      * @View()
-     */
+     **/
     public function postItemAction($orderId, Request $request)
     {
         $orderItem = new OrderItem();
@@ -85,6 +86,7 @@ class OrderItemController extends Controller
                 return $item;
             }
         }
+        throw new NotFoundHttpException('Item not found');
     }
 
     /**

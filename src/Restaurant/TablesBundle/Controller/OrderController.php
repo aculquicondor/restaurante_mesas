@@ -24,6 +24,7 @@ class OrderController extends Controller
      *     {"name"="employee", "dataType"="string", "required"=false, "description"="The employee who took the order"},
      *     {"name"="table", "dataType"="string", "required"=false, "description"="The table where the order was taken"},
      *     {"name"="available", "dataType"="boolean", "required"=false, "description"="If the order was delivered"}
+     *   }
      * )
      * @View()
      */
@@ -85,7 +86,7 @@ class OrderController extends Controller
      * @ApiDoc(
      *   description="View an specific order",
      *   section="Order"
-     * }
+     * )
      * @View()
      */
     public function getOrderAction($id)
@@ -106,7 +107,7 @@ class OrderController extends Controller
      * @ApiDoc(
      *   description="Delete an order",
      *   section="Order"
-     * }
+     * )
      * @View()
      */
     public function deleteOrderAction($id)

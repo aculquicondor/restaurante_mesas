@@ -1,5 +1,5 @@
 var restaurantControllers = angular.module('restaurantControllers', []);
 
-restaurantApp.controller('ExampleCtrl', function($scope, $http) {
-    $scope.example = "Hello world!";
-});
+restaurantControllers.controller('TablesCtrl', ['$scope', 'Table', function($scope, Table) {
+    $scope.tables = Table.query()
+}]);

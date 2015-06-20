@@ -1,3 +1,8 @@
 <div>
-    <p>{{example}}</p>
+    <table>
+        <tr ng-repeat="table in tables">
+            <td>{{ table.id }}</td>
+            <td>{{ table.capacity }}</td>
+        </tr>
+    </table>
 </div>

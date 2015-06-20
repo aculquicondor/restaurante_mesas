@@ -1,16 +1,18 @@
 var restaurantApp = angular.module('restaurantApp', [
     'ngRoute',
-    'restaurantControllers'
+    'restaurantControllers',
+    'restaurantServices'
 ]);
 
 restaurantApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
-            when('/example', {
-                templateUrl: '../app/example.html',
-                controller: 'ExampleCtrl'
+            when('/tables', {
+                templateUrl: '../app/partials/example.html',
+                controller: 'TablesCtrl'
             }).
             otherwise({
                 redirectTo: '/'
             });
-    }]);
+    }
+]);

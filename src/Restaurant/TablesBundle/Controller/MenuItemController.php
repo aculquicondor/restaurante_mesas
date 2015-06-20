@@ -22,9 +22,9 @@ class MenuItemController extends Controller
      *   description="Create an item of the menu",
      *   section="MenuItem",
      *   parameters={
-     *     {"name"="name", "dataType"="string", "require"=false, "description"="The name of the item (dish) of the menu"},
-     *     {"name"="price", "dataType"="integer", "require"=false, "description"="The cost of the menu's dish"},
-     *     {"name"="available", "dataType"="boolean", "require"=false, "description"="If the item (dish) is available in the menu"}
+     *     {"name"="name", "dataType"="string", "required"=false, "description"="The name of the item (dish) of the menu"},
+     *     {"name"="price", "dataType"="integer", "required"=false, "description"="The cost of the menu's dish"},
+     *     {"name"="available", "dataType"="boolean", "required"=false, "description"="If the item (dish) is available in the menu"}
      *   }
      * )
      * @View()
@@ -129,9 +129,9 @@ class MenuItemController extends Controller
      *   description="Modify an item (dish) of the menu",
      *   section="MenuItem",
      *   parameters={
-     *     {"name"="name", "dataType"="string", "require"=false, "description"="The name of the item (dish)"},
-     *     {"name"="price", "dataType"="integer", "require"=false, "description"="The cost of the item (dish)"},
-     *     {"name"="available", "dataType"="boolean", "require"=false, "description"="If the item (dish) is available in the menu"}
+     *     {"name"="name", "dataType"="string", "required"=false, "description"="The name of the item (dish)"},
+     *     {"name"="price", "dataType"="integer", "required"=false, "description"="The cost of the item (dish)"},
+     *     {"name"="available", "dataType"="boolean", "required"=false, "description"="If the item (dish) is available in the menu"}
      *   }
      * )
      * @View()

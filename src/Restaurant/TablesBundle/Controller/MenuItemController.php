@@ -74,8 +74,11 @@ class MenuItemController extends Controller
      * @param Request $request
      * @return array
      * @ApiDoc(
-     *   description="View all the items which are available or it's going to show all the items if there isn't any available item",
-     *   section="MenuItem"
+     *   description="View all the items",
+     *   section="MenuItem",
+     *   filters={
+     *     {"name"="available", "dataType"="boolean"}
+     *   }
      * )
      * @View()
      */

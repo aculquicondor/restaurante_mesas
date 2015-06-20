@@ -101,7 +101,7 @@ class MenuItemController extends Controller
         return array('menuItems' => $menuItems);
     }
 
-    /*
+    /**
      * @param $id
      * @return array
      * @ApiDoc(
@@ -122,11 +122,11 @@ class MenuItemController extends Controller
         return array();
     }
 
-    /*
+    /**
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\Form\FormErrorIterator|MenuItem
-     * ApiDoc(
+     * @ApiDoc(
      *   description="Modify an item (dish) of the menu",
      *   section="MenuItem",
      *   parameters={

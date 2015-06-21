@@ -8,8 +8,6 @@ use Restaurant\TablesBundle\Tests\WebTestCase;
 use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadStoresData;
 use Doctrine\Common\DataFixtures\Loader;
 use Restaurant\TablesBundle\Document\Store;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-
 
 class StoreControllerTest extends WebTestCase{
 
@@ -18,8 +16,7 @@ class StoreControllerTest extends WebTestCase{
      */
     private $storeFixture;
 
-
-    public function setUp()(){
+    public function setUp(){
         parent::setUp();
         self::bootKernel();
         $dm = static::$kernel->getContainer()

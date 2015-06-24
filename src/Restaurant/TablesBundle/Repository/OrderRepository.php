@@ -8,6 +8,13 @@ use Restaurant\CashBundle\Document\Employee;
 
 class OrderRepository extends DocumentRepository
 {
+    public function findAll(Employee $waiter=null) {
+        if ($waiter != null)
+            return $this->findBy(array('employee' => $waiter));
+        else
+            return $this->findBy(array());
+    }
+
     public function getActiveOrders(Employee $waiter=null)
     {
         $queryBuilder = $this->createQueryBuilder()

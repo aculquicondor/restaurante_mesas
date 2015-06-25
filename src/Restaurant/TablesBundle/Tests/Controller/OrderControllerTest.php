@@ -4,7 +4,6 @@ namespace Restaurant\TablesBundle\Tests\Controller;
 
 use Doctrine\Common\DataFixtures\Executor\MongoDBExecutor;
 use Doctrine\Common\DataFixtures\Purger\MongoDBPurger;
-use Restaurant\CashBundle\Repository\EmployeeRepository;
 use Restaurant\TablesBundle\DataFixtures\MongoDB\LoadOrdersData;
 use Restaurant\TablesBundle\Tests\WebTestCase;
 use Doctrine\Common\DataFixtures\Loader;
@@ -37,6 +36,19 @@ class OrderControllerTest extends WebTestCase {
         $client = static::createClient();
 
         $client->request('GET', '/api/orders.json');
+        $response = $client->getResponse();
+
+        $this->assertEquals(200, $response->getStatusCode());
+        $this->assertJson($response->getContent());
+        $content = json_decode($response->getContent(), true);
+        $this->assertEquals(3, count($content['orders']));
+    }
+
+    public function testGetAllActive()
+    {
+        $client = static::createClient();
+
+        $client->request('GET', '/api/orders.json?active=1');
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
@@ -88,7 +100,7 @@ class OrderControllerTest extends WebTestCase {
         $this->assertEquals($orderData['date'], new \DateTime($order['date']));
 
         $this->assertNotNull($repository->find($order['id']));
-        $this->assertEquals(3, count($repository->findAll()));
+        $this->assertEquals(4, count($repository->findAll()));
     }
 
     public function testDelete()
@@ -105,7 +117,7 @@ class OrderControllerTest extends WebTestCase {
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(1, count($repository->findAll()));
+        $this->assertEquals(2, count($repository->findAll()));
         $this->assertNull($other = $repository->find($order->getId()));
     }
 

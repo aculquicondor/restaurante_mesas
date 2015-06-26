@@ -14,3 +14,7 @@ Restaurant\AuthBundle\Document\User:
             type: boolean
         roles:
             type: collection
+    referenceOne:
+        employee:
+            targetDocument: \Restaurant\CashBundle\Document\Employee
+            cascade: all

@@ -1,13 +1,12 @@
-login:
+restaurant_auth_login:
     path:     /login
     defaults: { _controller: RestaurantAuthBundle:Security:login }
 
-login_check:
+restaurant_auth_login_check:
     path:     /login_check
 
-logout:
+restaurant_auth_logout:
     path: /logout
-
 
 restaurant_auth_homepage:
     path:     /hello/{name}

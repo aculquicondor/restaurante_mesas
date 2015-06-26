@@ -8,13 +8,23 @@ use FOS\RestBundle\Controller\Annotations\View;
 use Restaurant\TablesBundle\Form\Type\OrderType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 class OrderController extends Controller
 {
 
     /**
-     * @param Request request
+     * @param Request $request
      * @return \Symfony\Component\Form\FormErrorIterator|Order
+     * @ApiDoc(
+     *   description="Create an order",
+     *   section="Order",
+     *   parameters={
+     *     {"name"="date", "dataType"="string", "required"=false, "description"="The date of the order"},
+     *     {"name"="employee", "dataType"="string", "required"=false, "description"="The employee who took the order"},
+     *     {"name"="table", "dataType"="string", "required"=false, "description"="The table where the order was taken"},
+     *   }
+     * )
      * @View()
      */
 
@@ -49,17 +59,33 @@ class OrderController extends Controller
     }
 
     /**
+     * @param Request $request
      * @return array
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View all the orders",
+     *   section="Order",
+     *   parameters={
+     *     {"name"="employee", "dataType"="string", "required"=false, "description"="The employee who took the order"},
+     *     {"name"="active", "dataType"="boolean", "required"=false, "description"="See only not finished orders"}
+     *   }
+     * )
      * @View()
      */
-    public function getOrdersAction()
+    public function getOrdersAction(Request $request)
     {
-        $orders = $this->get('doctrine_mongodb')
-            ->getManager()
-            ->getRepository('RestaurantTablesBundle:Order')
-            ->findAll();
-        if(!$orders)
+        $active = $request->get('active');
+        $employeeId = $request->get('employee');
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $employee = $employeeId != null ?
+            $dm->getRepository('RestaurantCashBundle:Employee')->find($employeeId) : null;
+        $orderRepository = $this->get('doctrine_mongodb')->getManager()
+            ->getRepository('RestaurantTablesBundle:Order');
+        if ($active)
+            $orders = $orderRepository->getActiveOrders()->toArray(true);
+        else
+            $orders = $orderRepository->findAll($employee);
+        if (!$orders)
             throw new NotFoundHttpException();
         return array("orders" => $orders);
     }
@@ -68,6 +94,10 @@ class OrderController extends Controller
      * @param $id
      * @return Order
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View an specific order",
+     *   section="Order"
+     * )
      * @View()
      */
     public function getOrderAction($id)
@@ -85,6 +115,10 @@ class OrderController extends Controller
      * @param $id
      * @return array()
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="Delete an order",
+     *   section="Order"
+     * )
      * @View()
      */
     public function deleteOrderAction($id)
@@ -103,6 +137,16 @@ class OrderController extends Controller
      * @param $id
      * @return \Symfony\Component\Form\FormErrorIterator|Order
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="Modify an specific order",
+     *   section="Order",
+     *   parameters={
+     *     {"name"="date", "dataType"="date", "required"=false, "description"="The date of the order"},
+     *     {"name"="employee", "dataType"="string", "required"=false, "description"="Employee id"},
+     *     {"name"="table", "dataType"="string", "required"=false, "description"="Table id"},
+     *     {"name"="active", "dataType"="boolean", "required"=false, "description"="If the order was delivered"}
+     *   }
+     * )
      * @View()
      */
     public function patchOrderAction(Request $request, $id)
@@ -119,22 +163,17 @@ class OrderController extends Controller
             $orderItems = $request->request->get('orderItems');
             $employee = $request->request->get('employee');
             $table = $request->request->get('table');
-            if(!is_null($date))
-            {
+            $active = $request->request->get('active');
+            if (!is_null($date))
                 $order->setDate($date);
-            }
-            if(!is_null($orderItems))
-            {
+            if (!is_null($orderItems))
                 $order->addOrderItem($orderItems);
-            }
-            if(!is_null($employee))
-            {
+            if (!is_null($employee))
                 $order->setEmployee($employee);
-            }
-            if(!is_null($table))
-            {
+            if (!is_null($table))
                 $order->setTable($table);
-            }
+            if (!is_null($active))
+                $order->setActive($active);
             $dm->flush();
             return $order;
         }

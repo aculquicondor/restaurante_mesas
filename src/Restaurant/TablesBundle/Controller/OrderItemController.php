@@ -20,10 +20,10 @@ class OrderItemController extends Controller
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @ApiDoc(
      *   description="Create an item in the order",
-     *   section="OrderItem",
+     *   section="Order",
      *   parameters={
-     *     {"name"="menu_item", "dataType"="string", "require"=false, "description"="item id"},
-     *     {"name"="observation", "dataType"="string", "require"=false, "description"="observations about the item of the menu in the order"}
+     *     {"name"="menu_item", "dataType"="string", "required"=false, "description"="item id"},
+     *     {"name"="observation", "dataType"="string", "required"=false, "description"="observations about the item of the menu in the order"}
      *   }
      * )
      * @View()
@@ -64,7 +64,7 @@ class OrderItemController extends Controller
      * @throws NotFoundHttpException
      * @ApiDoc(
      *   description="View an specific item of the menu in the order",
-     *   section="OrderItem"
+     *   section="Order"
      * )
      * @View()
      */
@@ -86,7 +86,7 @@ class OrderItemController extends Controller
                 return $item;
             }
         }
-        throw new NotFoundHttpException('Item not found');
+        throw new NotFoundHttpException();
     }
 
     /**
@@ -95,7 +95,7 @@ class OrderItemController extends Controller
      * @throws NotFoundHttpException
      * @ApiDoc(
      *   description="View the items of the menu in the order",
-     *   section="OrderITem"
+     *   section="Order"
      * )
      * @View()
      */
@@ -116,7 +116,7 @@ class OrderItemController extends Controller
      * @return array()
      * @ApiDoc(
      *   description="Delete an item of the menu in the order",
-     *   section="OrderItem"
+     *   section="Order"
      * )
      * @View()
      * @throws NotFoundHttpException
@@ -145,10 +145,10 @@ class OrderItemController extends Controller
      * @return \Symfony\Component\Form\FormErrorIterator|OrderItem
      * @ApiDoc(
      *   description="Modify the items in the order",
-     *   section="OrderItem",
+     *   section="Order",
      *   parameters={
-     *     {"name"="menu_item", "dataType"="string", "require"=false, "description"="item id"},
-     *     {"name"="observation", "dataType"="string", "require"=false, "description"="observations about the item of the menu in the order"}
+     *     {"name"="menu_item", "dataType"="string", "required"=false, "description"="item id"},
+     *     {"name"="observation", "dataType"="string", "required"=false, "description"="observations about the item of the menu in the order"}
      *   }
      * )
      * @View()

@@ -8,6 +8,7 @@ use FOS\RestBundle\Controller\Annotations\Prefix;
 use Restaurant\TablesBundle\Form\Type\MenuItemType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 
 /**
@@ -18,6 +19,15 @@ class MenuItemController extends Controller
     /**
      * @param Request $request
      * @return \Symfony\Component\Form\FormErrorIterator|MenuItem
+     * @ApiDoc(
+     *   description="Create an item of the menu",
+     *   section="MenuItem",
+     *   parameters={
+     *     {"name"="name", "dataType"="string", "required"=false, "description"="The name of the item (dish) of the menu"},
+     *     {"name"="price", "dataType"="integer", "required"=false, "description"="The cost of the menu's dish"},
+     *     {"name"="available", "dataType"="boolean", "required"=false, "description"="If the item (dish) is available in the menu"}
+     *   }
+     * )
      * @View()
      */
     public function postItemAction(Request $request)
@@ -44,6 +54,10 @@ class MenuItemController extends Controller
      * @param $id
      * @return MenuItem
      * @throws NotFoundHttpException
+     * @ApiDoc(
+     *   description="View an specific item (dish) of the menu",
+     *   section="MenuItem"
+     * )
      * @View()
      */
     public function getItemAction($id)
@@ -60,6 +74,13 @@ class MenuItemController extends Controller
     /**
      * @param Request $request
      * @return array
+     * @ApiDoc(
+     *   description="View all the items",
+     *   section="MenuItem",
+     *   filters={
+     *     {"name"="available", "dataType"="boolean"}
+     *   }
+     * )
      * @View()
      */
     public function getItemsAction(Request $request)
@@ -80,9 +101,13 @@ class MenuItemController extends Controller
         return array('menuItems' => $menuItems);
     }
 
-    /*
+    /**
      * @param $id
      * @return array
+     * @ApiDoc(
+     *   description="Delete an item (dish) of the menu",
+     *   section="MenuItem",
+     * )
      * @View()
      * @throws NotFoundHttpException
      */
@@ -97,10 +122,19 @@ class MenuItemController extends Controller
         return array();
     }
 
-    /*
+    /**
      * @param Request $request
      * @param $id
      * @return \Symfony\Component\Form\FormErrorIterator|MenuItem
+     * @ApiDoc(
+     *   description="Modify an item (dish) of the menu",
+     *   section="MenuItem",
+     *   parameters={
+     *     {"name"="name", "dataType"="string", "required"=false, "description"="The name of the item (dish)"},
+     *     {"name"="price", "dataType"="integer", "required"=false, "description"="The cost of the item (dish)"},
+     *     {"name"="available", "dataType"="boolean", "required"=false, "description"="If the item (dish) is available in the menu"}
+     *   }
+     * )
      * @View()
      * @throws NotFoundHttpException
      */

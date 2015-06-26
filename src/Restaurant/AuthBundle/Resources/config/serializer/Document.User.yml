@@ -1,0 +1,9 @@
+Restaurant\AuthBundle\Document\User:
+    exclusion_policy: ALL
+    properties:
+        username:
+          expose: true
+        email:
+          expose: true
+        employee:
+          expose: true

@@ -29,6 +29,7 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login_check
+                default_target_path: /api/me
             logout:
                 path: /logout
                 target: /login

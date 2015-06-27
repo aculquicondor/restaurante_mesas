@@ -13,4 +13,6 @@
 *~
 phpunit.phar
 /src/Restaurant/TablesBundle/Resources/public/vendor/*
+/src/Restaurant/TablesBundle/Resources/public/js/all.js
+/src/Restaurant/TablesBundle/Resources/public/index.html
 /node_modules

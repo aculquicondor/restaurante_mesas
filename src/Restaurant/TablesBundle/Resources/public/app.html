@@ -1,12 +1,6 @@
 <!doctype html>
 <html ng-app="restaurantApp">
 <head>
-    <script src="vendor/angular/angular.min.js"></script>
-    <script src="vendor/angular-route/angular-route.min.js"></script>
-    <script src="vendor/angular-resource/angular-resource.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="vendor/jquery/dist/jquery.min.js"></script>
-    <script src="js/all.js"></script>
     <link type="text/css" rel="stylesheet" href="vendor/materialize/dist/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -48,7 +42,31 @@
     </div>
 </main>
 
+<script src="vendor/angular/angular.min.js"></script>
+<script src="vendor/angular-route/angular-route.min.js"></script>
+<script src="vendor/angular-resource/angular-resource.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
 <script src="vendor/materialize/dist/js/materialize.min.js"></script>
+
+<script>
+<!-- @if LOCAL = 'YES' -->
+var URL = 'http://localhost:8000/';
+<!-- @endif -->
+<!-- @if LOCAL = 'NO' -->
+var URL = 'http://restaurant.net/tables/';
+<!-- @endif -->
+</script>
+
+<!-- @if UGLIFY = 'YES' -->
+<script src="js/all.js"></script>
+<!-- @endif -->
+<!-- @if UGLIFY = 'NO' -->
+<script src="js/main.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/controllers/tableCtrl.js"></script>
+<script src="js/services.js"></script>
+<script src="js/services/tableSvc.js"></script>
+<!-- @endif -->
 
 </body>
 </html>

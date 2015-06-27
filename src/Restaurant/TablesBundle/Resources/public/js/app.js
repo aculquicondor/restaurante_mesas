@@ -8,7 +8,7 @@ restaurantApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/tables', {
-                templateUrl: '../app/partials/example.html',
+                templateUrl: '../app/partials/tables/main_tables.html',
                 controller: 'TablesCtrl'
             }).
             otherwise({

@@ -1,0 +1,30 @@
+{
+    "name": "restaurante_mesas",
+    "version": "1.0.0",
+    "description": "Restaurant Tables App",
+    "main": "Gruntfile.js.js",
+    "dependencies": {
+        "grunt": "^0.4.5",
+        "grunt-env": "^0.4.1",
+        "grunt-preprocess": "^4.0.0",
+        "grunt-bower-install": "^1.6.0",
+        "grunt-contrib-uglify": "^0.9.1"
+    },
+    "devDependencies": {},
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aculquicondor/restaurante_mesas.git"
+    },
+    "keywords": [
+        "restaurant"
+    ],
+    "author": "Rudy Godoy <rudy.godoy@ucsp.edu.pe>",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/aculquicondor/restaurante_mesas/issues"
+    },
+    "homepage": "https://github.com/aculquicondor/restaurante_mesas#readme"
+}

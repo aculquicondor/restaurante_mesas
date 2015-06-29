@@ -1,11 +1,16 @@
-restaurantServices.factory('AuthSvc', ['$http', '$rootScope', '$cookies', 'baseURL',
-    function ($http, $rootScope, $cookies, baseURL) {
+restaurantServices.factory('AuthSvc', ['$http', '$rootScope', '$cookies', '$q', 'baseURL',
+    function ($http, $rootScope, $cookies, $q, baseURL) {
         var authSvc = {};
         authSvc.login = function (credentials) {
             return $http.post(baseURL + '/login_check', credentials)
-                .then(function (user) {
-                    $cookies.putObject('user', user.data);
-                    return user.data;
+                .then(function (response) {
+                    if (!response.data.username) {
+                        return $q.reject(response.data);
+                    }
+                    $cookies.putObject('user', response.data);
+                    return response.data;
+                }, function (response) {
+                    return $q.reject(response.data);
                 });
         };
         authSvc.isAuthenticated = function () {

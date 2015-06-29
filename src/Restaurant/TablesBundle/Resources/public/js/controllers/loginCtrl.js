@@ -1,5 +1,6 @@
 restaurantApp.controller('LoginCtrl',
     function ($scope, $rootScope, $location, AuthSvc) {
+        $scope.message = '';
         $scope.credentials = {
             _username: '',
             _password: ''
@@ -9,6 +10,7 @@ restaurantApp.controller('LoginCtrl',
                 $rootScope.user = user;
                 $location.path('/tables');
             }, function () {
+                $scope.credentials._password = '';
                 $scope.message = 'Invalid credentials';
             });
         }

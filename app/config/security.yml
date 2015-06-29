@@ -32,7 +32,7 @@ security:
                 default_target_path: /api/me
             logout:
                 path: /logout
-                target: /login
+                target: /app/
 
     access_control:
         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

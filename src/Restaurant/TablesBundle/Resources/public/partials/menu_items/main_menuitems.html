@@ -1,0 +1,13 @@
+<div>
+    <div class="row">
+        <div class="col s12 m4 l4">
+            <ul class="items">
+                {{items}}
+                <li ng-repeat="item in items" class="thumbnail">
+                    <a href="#/items/{{item.id}}">{{item.name}}</a>
+                    {{item.price}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

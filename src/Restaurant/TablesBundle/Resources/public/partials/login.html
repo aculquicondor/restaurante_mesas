@@ -1,0 +1,14 @@
+<div class="card-panel red darken-3 white-text" ng-show="!!message">{{ message }}</div>
+<form name="loginForm" ng-submit="login(credentials)" novalidate>
+
+  <label for="username">Username:</label>
+  <input type="text" id="username"
+         ng-model="credentials._username">
+
+  <label for="password">Password:</label>
+  <input type="password" id="password"
+         ng-model="credentials._password">
+
+  <button class="btn" type="submit"><i class="stop right"></i>Login</button>
+
+</form>

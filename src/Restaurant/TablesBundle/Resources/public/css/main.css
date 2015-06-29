@@ -10,7 +10,7 @@ main .container {
 main .container .content {
     /*height: 100%;*/
     height: auto;
-    padding: 1em;
+    padding: 2em;
     background-color: #ffffff;
 }
 
@@ -38,6 +38,22 @@ main .container .content {
 
 .side-nav > li:first-child {
     background-color: #03A9F4;
+}
+
+.available {
+    padding-top: 1em;
+    border-radius: 4px;
+    box-shadow: 0 0px 15px 0 rgba(100, 221, 23, 0.24),0 0px 22px 0 rgba(100, 221, 23, 0.64);
+}
+
+.unavailable {
+    padding-top: 1em;
+    border-radius: 4px;
+    box-shadow: 0 0px 15px 0 rgba(255, 0, 0, 0.24),0 0px 22px 0 rgba(255, 0, 0, 0.64);
+}
+
+.card .card-image img{
+    width: 50%;
 }
 
 @media only screen and (min-width: 993px) {

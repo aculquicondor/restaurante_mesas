@@ -14,13 +14,15 @@
                         <a href="#/items/{{item.id}}">{{ item.name }}</a>
                     </td>
                     <td>
-                       S/. {{ item.price }}
+                       S/. {{ item.price | round }}
                     </td>
                     <td>
-                        {{ item.available }}
+                        {{ item.available | checkmark }}
                     </td>
                 </tr>
                 </tbody>
             </table>
+        <br>
+        <a href="#" class="btn btn-floating red"><i class="material-icons">add</i></a>
     </div>
 </div>

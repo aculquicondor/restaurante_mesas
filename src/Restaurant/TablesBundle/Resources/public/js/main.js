@@ -1,7 +1,8 @@
 var restaurantApp = angular.module('restaurantApp', [
     'ngRoute',
     'restaurantControllers',
-    'restaurantServices'
+    'restaurantServices',
+    'restaurantFilters'
 ]);
 
 restaurantApp.config(['$routeProvider',

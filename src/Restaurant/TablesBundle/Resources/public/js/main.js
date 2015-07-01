@@ -13,8 +13,12 @@ restaurantApp.config(['$routeProvider',
                 controller: 'TablesCtrl'
             }).
             when('/items', {
-                templateUrl: 'partials/menu_items/main_menuitems.html',
-                controller: 'MenuItemCtrl'
+                templateUrl: 'partials/menu_items/menuitem-list.html',
+                controller: 'MenuItemListCtrl'
+            }).
+            when('/items:itemId', {
+                templateUrl: 'partials/menu_items/menuitem-detail.html',
+                controller: 'MenuItemDetailCtrl'
             }).
             otherwise({
                 redirectTo: '/'

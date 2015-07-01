@@ -14,7 +14,7 @@
                         <a href="#/items/{{item.id}}">{{ item.name }}</a>
                     </td>
                     <td>
-                       S/. {{ item.price | round }}
+                       {{ item.price | currency:"S/.":2 }}
                     </td>
                     <td>
                         {{ item.available | checkmark }}

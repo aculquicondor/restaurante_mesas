@@ -17,10 +17,12 @@ restaurantApp.config(['$routeProvider',
                 controller: 'TablesCtrl'
             }).
             when('/items', {
+                auth: true,
                 templateUrl: 'partials/menuitem-list.html',
                 controller: 'MenuItemListCtrl'
             }).
             when('/items/:itemId', {
+                auth: true,
                 templateUrl: 'partials/menuitem-detail.html',
                 controller: 'MenuItemDetailCtrl'
             }).
@@ -30,7 +32,7 @@ restaurantApp.config(['$routeProvider',
                 controller: 'LoginCtrl'
             }).
             otherwise({
-                redirectTo: '/'
+                redirectTo: '/login'
             });
     }
 ]);

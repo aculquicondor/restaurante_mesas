@@ -13,11 +13,11 @@ restaurantApp.config(['$routeProvider',
                 controller: 'TablesCtrl'
             }).
             when('/items', {
-                templateUrl: 'partials/menu_items/menuitem-list.html',
+                templateUrl: 'partials/menuitem-list.html',
                 controller: 'MenuItemListCtrl'
             }).
             when('/items:itemId', {
-                templateUrl: 'partials/menu_items/menuitem-detail.html',
+                templateUrl: 'partials/menuitem-detail.html',
                 controller: 'MenuItemDetailCtrl'
             }).
             otherwise({

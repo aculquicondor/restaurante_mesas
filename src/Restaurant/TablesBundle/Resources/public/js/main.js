@@ -13,7 +13,7 @@ restaurantApp.config(['$routeProvider',
         $routeProvider.
             when('/tables', {
                 auth: true,
-                templateUrl: 'partials/tables/main_tables.html',
+                templateUrl: 'partials/main-tables.html',
                 controller: 'TablesCtrl'
             }).
             when('/items', {

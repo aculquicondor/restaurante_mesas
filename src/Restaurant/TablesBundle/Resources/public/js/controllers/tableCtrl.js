@@ -1,8 +1,5 @@
-restaurantControllers.controller('TablesCtrl', ['$scope', '$rootScope', '$location', 'Table', 'AuthSvc',
+restaurantControllers.controller('TablesCtrl', ['$scope', '$rootScope', '$location', 'Table',
     function ($scope, $rootScope, $location, Table) {
-        if (!$rootScope.user) {
-            $location.path('/login');
-        }
         Table.getAll().$promise.then(function(tables) {
             $scope.tables = tables.tables;
         }, function (errResponse) {

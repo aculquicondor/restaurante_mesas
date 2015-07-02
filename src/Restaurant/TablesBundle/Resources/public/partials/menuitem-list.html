@@ -1,0 +1,28 @@
+<div>
+    <div class="row">
+            <table class="striped">
+                <thead>
+                <tr>
+                    <th data-field="name">Nombre</th>
+                    <th data-field="price">Precio</th>
+                    <th data-field="available">Disponible</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in items.menuItems | orderBy:orderProp">
+                    <td>
+                        <a href="#/items/{{item.id}}">{{ item.name }}</a>
+                    </td>
+                    <td>
+                       {{ item.price | currency:"S/.":2 }}
+                    </td>
+                    <td class="center-align">
+                        {{ item.available | checkmark }}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        <br>
+        <a href="#" class="btn btn-floating red"><i class="material-icons">add</i></a>
+    </div>
+</div>

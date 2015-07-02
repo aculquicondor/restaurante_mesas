@@ -1,0 +1,26 @@
+<div>
+    <div class="row">
+        <form class="col s12">
+            <div class="row">
+                <div class="input-field col">
+                    <input value="{{ item.name }}" id="name" type="text" class="validate">
+                    <label for="name" class="active">Nombre</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input value="{{ item.price }}" id="price" type="text" class="validate">
+                    <label for="price" class="active">Precio</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col">
+                    <input value="{{ item.available }}" id="available" type="checkbox" checked="{{ item.available }}" class="validate">
+                    <label for="available" class="active">Disponible</label>
+                </div>
+            </div>
+        </form>
+        <br>
+        <a href="#/items" class="btn">Regresar</a>
+    </div>
+</div>

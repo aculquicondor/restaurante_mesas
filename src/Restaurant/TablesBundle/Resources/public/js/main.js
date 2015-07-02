@@ -2,18 +2,29 @@ var restaurantApp = angular.module('restaurantApp', [
     'ngRoute',
     'ngCookies',
     'restaurantControllers',
-    'restaurantServices'
+    'restaurantServices',
+    'restaurantFilters'
 ]);
 
 restaurantApp.value('baseURL', URL);
 
 restaurantApp.config(['$routeProvider',
-    function ($routeProvider) {
+    function($routeProvider) {
         $routeProvider.
             when('/tables', {
                 auth: true,
                 templateUrl: 'partials/tables/main_tables.html',
                 controller: 'TablesCtrl'
+            }).
+            when('/items', {
+                auth: true,
+                templateUrl: 'partials/menuitem-list.html',
+                controller: 'MenuItemListCtrl'
+            }).
+            when('/items/:itemId', {
+                auth: true,
+                templateUrl: 'partials/menuitem-detail.html',
+                controller: 'MenuItemDetailCtrl'
             }).
             when('/login', {
                 auth: false,

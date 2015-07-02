@@ -14,8 +14,9 @@
             <div class="nav-wrapper light-blue">
                 <a href="#" class="left brand-logo">Tables</a>
                 <a href="#" data-activates="slide-out" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
-                <ul class="right hide-on-med-and-down">
-                    <li><a href="#">Aldo C. <i class="mdi-action-accessibility right"></i></a></li>
+                <ul class="right hide-on-med-and-down" ng-show="user !== null">
+                    <li><a href="#">{{ user.username }}<i class="mdi-action-accessibility right"></i></a></li>
+                    <li><a href="{{ baseURL + '/logout' }}" ng-click="logout()"><i class="mdi-content-undo"></i></a></li>
                 </ul>
             </div>
         </div>
@@ -44,16 +45,17 @@
 
 <script src="vendor/angular/angular.min.js"></script>
 <script src="vendor/angular-route/angular-route.min.js"></script>
+<script src="vendor/angular-cookies/angular-cookies.min.js"></script>
 <script src="vendor/angular-resource/angular-resource.min.js"></script>
 <script src="vendor/jquery/dist/jquery.min.js"></script>
 <script src="vendor/materialize/dist/js/materialize.min.js"></script>
 
 <script>
 <!-- @if LOCAL = 'YES' -->
-var URL = 'http://localhost:8000/';
+var URL = 'http://localhost:8000';
 <!-- @endif -->
 <!-- @if LOCAL = 'NO' -->
-var URL = 'http://restaurant.net/tables/';
+var URL = 'http://restaurant.net/tables';
 <!-- @endif -->
 </script>
 
@@ -63,8 +65,10 @@ var URL = 'http://restaurant.net/tables/';
 <!-- @if UGLIFY = 'NO' -->
 <script src="js/main.js"></script>
 <script src="js/controllers.js"></script>
+<script src="js/controllers/loginCtrl.js"></script>
 <script src="js/controllers/tableCtrl.js"></script>
 <script src="js/services.js"></script>
+<script src="js/services/AuthSvc.js"></script>
 <script src="js/services/tableSvc.js"></script>
 <!-- @endif -->
 

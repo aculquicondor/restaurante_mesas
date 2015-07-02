@@ -23,7 +23,8 @@ module.exports = function(grunt) {
                         'web/app/js/controllers.js',
                         'web/app/js/controllers/*.js',
                         'web/app/js/services.js',
-                        'web/app/js/services/*.js'
+                        'web/app/js/services/*.js',
+                        'web/app/js/filters.js'
                     ]
                 }
             }

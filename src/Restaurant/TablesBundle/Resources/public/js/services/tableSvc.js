@@ -1,6 +1,6 @@
-restaurantServices.factory('Table', ['$resource', 'baseURL',
-    function ($resource, baseURL) {
+restaurantServices.factory('Tables', ['$resource', 'baseURL',
+    function($resource, baseURL) {
         return $resource(baseURL + '/api/tables.json', {}, {
-            getAll: {method: 'GET'}
+            query: {method: 'GET', isArray: false}
         });
     }]);

@@ -23,11 +23,16 @@ main .container .content {
 }
 
 .side-nav > li:hover {
-    background-color: #F3F3F3;
+    background-color: transparent;
 }
 
 .side-nav > li.active {
-    background-color: #E1F5FE;
+    background-color: #03A9F4;
+    color: white;
+}
+
+.side-nav > li.active > a{
+    color: white;
 }
 
 .side-nav > li.logo a{
@@ -41,6 +46,23 @@ main .container .content {
 
 .side-nav > li:first-child {
     background-color: #03A9F4;
+}
+
+.active-tab {
+    background-color: #03A9F4;
+    color: white;
+}
+
+.side-nav.fixed .active-tab:hover {
+    background-color: #03A9F4;
+}
+
+.side-nav.fixed .active-tab > a{
+    color: white;
+}
+
+.brand-logo {
+    cursor: default;
 }
 
 @media only screen and (min-width: 993px) {
@@ -88,11 +110,4 @@ main .container .content {
     width: 50%;
 }
 
-.available {
-
-}
-
-.unavailable {
-
-}
 

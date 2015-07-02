@@ -54,4 +54,8 @@ restaurantApp.run(['$rootScope', '$location', 'AuthSvc', 'baseURL',
 
 $(document).ready(function(){
     $(".button-collapse").sideNav();
+    $(".tab").click(function() {
+        $(".tab").removeClass("active");
+        $(this).addClass("active");
+    });
 });

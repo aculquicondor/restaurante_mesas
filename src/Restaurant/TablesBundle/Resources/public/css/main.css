@@ -1,3 +1,6 @@
+body {
+    color: rgba(0, 0, 0, 0.71);
+}
 main .container {
     position: absolute;
     /*height: calc(100% - 64px);*/
@@ -20,7 +23,7 @@ main .container .content {
 }
 
 .side-nav > li:hover {
-    background-color: transparent;
+    background-color: #F3F3F3;
 }
 
 .side-nav > li.active {
@@ -40,22 +43,6 @@ main .container .content {
     background-color: #03A9F4;
 }
 
-.available {
-    padding-top: 1em;
-    border-radius: 4px;
-    box-shadow: 0 0px 15px 0 rgba(100, 221, 23, 0.24),0 0px 22px 0 rgba(100, 221, 23, 0.64);
-}
-
-.unavailable {
-    padding-top: 1em;
-    border-radius: 4px;
-    box-shadow: 0 0px 15px 0 rgba(255, 0, 0, 0.24),0 0px 22px 0 rgba(255, 0, 0, 0.64);
-}
-
-.card .card-image img{
-    width: 50%;
-}
-
 @media only screen and (min-width: 993px) {
     header{
         padding-left: 240px;
@@ -69,3 +56,43 @@ main .container .content {
         padding-left: calc(240px + 4em);
     }
 }
+
+/* Tables */
+
+.card {
+    padding-top: 1em;
+}
+
+.card:hover {
+    background-color: rgba(221, 221, 221, 0.18)
+}
+
+.table-number {
+    color: white;
+    background-color: lightblue;
+    padding-left: 9px;
+    padding-right: 9px;
+    border-radius: 14px;
+}
+
+.card-content i {
+    cursor: default;
+    margin-top: 20px;
+}
+
+.card-content span, b {
+    cursor: default;
+}
+
+.card .card-image img {
+    width: 50%;
+}
+
+.available {
+
+}
+
+.unavailable {
+
+}
+

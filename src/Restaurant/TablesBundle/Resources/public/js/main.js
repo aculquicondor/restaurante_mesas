@@ -12,28 +12,28 @@ restaurantApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/tables', {
-                auth: true,
                 templateUrl: 'partials/tables/main_tables.html',
                 controller: 'TablesCtrl'
             }).
             when('/items', {
-                auth: true,
                 templateUrl: 'partials/menuitem-list.html',
                 controller: 'MenuItemListCtrl'
             }).
             when('/items/:itemId', {
-                auth: true,
                 templateUrl: 'partials/menuitem-detail.html',
                 controller: 'MenuItemDetailCtrl'
             }).
+            when('/orders', {
+                templateUrl: 'partials/order-list.html',
+                controller: 'OrderListCtrl'
+            }).
             when('/login', {
-                auth: false,
                 templateUrl: 'partials/login.html',
                 controller: 'LoginCtrl'
             }).
             otherwise({
                 redirectTo: '/login'
-            });
+            })
     }
 ]);
 

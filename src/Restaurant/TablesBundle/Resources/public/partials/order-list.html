@@ -1,0 +1,64 @@
+<form action="">
+  <div class="row">
+    <div class="input-field col s3 offset-s6">
+      <input id="only-mine" type="checkbox" ng-model="params.employee" ng-change="doQuery()"/>
+      <label for="only-mine">Only my orders</label>
+    </div>
+    <div class="input-field col s3">
+      <input id="only-active" type="checkbox" ng-model="params.active" ng-change="doQuery()"/>
+      <label for="only-active">Only active orders</label>
+    </div>
+  </div>
+</form>
+<table>
+  <thead>
+  <tr>
+    <th data-field="date">
+      <a href="" ng-click="orderProperty='date'; orderReverse=!orderReverse">
+        When
+        <span ng-show="orderProperty==='date'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="table">
+      <a href="" ng-click="orderProperty='table.number'; orderReverse=!orderReverse">
+        Table
+        <span ng-show="orderProperty==='table.number'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="waiter">
+      <a href="" ng-click="orderProperty='employee.name'; orderReverse=!orderReverse">
+        Waiter
+        <span ng-show="orderProperty==='employee.name'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="active">
+      <a href="" ng-click="orderProperty='active'; orderReverse=!orderReverse">
+        Active
+        <span ng-show="orderProperty==='active'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th>Details</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="order in orders.orders | orderBy: orderProperty : orderReverse">
+    <td>{{ order.date | date : "yy-MMM-dd hh:mm a" : "-05" }}</td>
+    <td>{{ order.table.number }}</td>
+    <td>{{ order.employee.name }}</td>
+    <td><i ng-class="{ 'mdi-action-done': order.active, 'mdi-content-clear': !order.active }"></i></td>
+    <td><a href="#/orders/{{ order.id }}"></a></td>
+  </tr>
+  </tbody>
+</table>

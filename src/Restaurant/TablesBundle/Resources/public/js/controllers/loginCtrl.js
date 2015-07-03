@@ -1,4 +1,4 @@
-restaurantApp.controller('LoginCtrl',
+restaurantApp.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthSvc',
     function ($scope, $rootScope, $location, AuthSvc) {
         $scope.message = '';
         $scope.credentials = {
@@ -14,4 +14,4 @@ restaurantApp.controller('LoginCtrl',
                 $scope.message = 'Invalid credentials';
             });
         }
-    });
+    }]);

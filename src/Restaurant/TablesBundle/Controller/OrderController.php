@@ -82,7 +82,7 @@ class OrderController extends Controller
         $orderRepository = $this->get('doctrine_mongodb')->getManager()
             ->getRepository('RestaurantTablesBundle:Order');
         if ($active)
-            $orders = $orderRepository->getActiveOrders()->toArray(true);
+            $orders = $orderRepository->getActiveOrders($employee)->toArray(true);
         else
             $orders = $orderRepository->findAll($employee);
         if (!$orders)

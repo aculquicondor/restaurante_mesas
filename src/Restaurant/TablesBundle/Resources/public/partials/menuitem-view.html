@@ -1,6 +1,5 @@
 <div>
     <div class="row">
-        <form class="col s12">
             <div class="row">
                 <div class="input-field col">
                     <input value="{{ item.name }}" id="name" type="text" class="validate">
@@ -25,8 +24,7 @@
                     <button class="btn"><i class="material-icons">delete</i></button>
                 </div>
             </div>
-        </form>
         <br>
-        <a href="#/items">Regresar</a>
+        <a class="btn" ui-sref="editMenuItem({id:item._id})">Modificarr</a>
     </div>
 </div>

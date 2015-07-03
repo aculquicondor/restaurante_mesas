@@ -9,15 +9,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr ng-repeat="item in items.menuItems | orderBy:orderProp">
+                <tr ng-repeat="item in items">
                     <td>
-                        <a href="#/items/{{item.id}}">{{ item.name }}</a>
+                        {{ item.name }}
                     </td>
                     <td>
                        {{ item.price | currency:"S/.":2 }}
                     </td>
                     <td class="center-align">
                         {{ item.available | checkmark }}
+                    </td>
+                    <td>
+                        <a class="btn" ui-sref="viewMenuItem('{id:_id})">Ver</a>
+                        <a class="btn red" ng-click="deleteMenuItem(item)">Eliminar</a>
                     </td>
                 </tr>
                 </tbody>

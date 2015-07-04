@@ -35,7 +35,7 @@ class OrderController extends Controller
         $form -> submit($request->request->all());
         if($form->isValid())
         {
-            $date = $request->request->get('date');
+            $date = $request->request->get('date', 'now');
             $employee = $request->request->get('employee');
             $table = $request->request->get('table');
             $dm = $this->get('doctrine_mongodb')->getManager();
@@ -161,17 +161,11 @@ class OrderController extends Controller
         {
             $date = $request->request->get('date');
             $orderItems = $request->request->get('orderItems');
-            $employee = $request->request->get('employee');
-            $table = $request->request->get('table');
             $active = $request->request->get('active');
             if (!is_null($date))
                 $order->setDate($date);
             if (!is_null($orderItems))
                 $order->addOrderItem($orderItems);
-            if (!is_null($employee))
-                $order->setEmployee($employee);
-            if (!is_null($table))
-                $order->setTable($table);
             if (!is_null($active))
                 $order->setActive($active);
             $dm->flush();

@@ -1,0 +1,71 @@
+<div class="row">
+  <div class="col s11">
+    <div class="row">
+      <div class="col s6">
+        <label for="order-date">Date</label>
+        <input disabled type="text" id="order-date" value="{{ order.date | date : 'yy-MMM-dd' }}"/>
+      </div>
+      <div class="col s6">
+        <label for="order-table">Table</label>
+        <input disabled type="text" id="order-table" value="{{ order.table.number }}"/>
+      </div>
+      <div class="col s6">
+        <label for="order-time">Time</label>
+        <input disabled type="text" id="order-time" value="{{ order.date | date : 'hh:mm a' }}"/>
+      </div>
+      <div class="col s6">
+        <label for="order-waiter">Waiter</label>
+        <input disabled type="text" id="order-waiter" value="{{ order.employee.name }}"/>
+      </div>
+    </div>
+  </div>
+  <div class="col s1">
+    <p>
+      <button class="btn-floating" ng-show="order.active"><i class="mdi-action-done"></i> Close</button>
+    </p>
+    <p>
+      <button class="btn-floating red" ng-click="deleteOrder()"><i class="mdi-action-delete"></i> Delete</button>
+    </p>
+  </div>
+</div>
+
+<br/>
+
+<table class="striped">
+  <thead>
+  <tr>
+    <th data-field="item-delivered">
+      <a href="" ng-click="orderProperty='delivered'; orderReverse=!orderReverse">
+        Delivered
+        <span ng-show="orderProperty==='delivered'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="item-menu">
+      <a href="" ng-click="orderProperty='menu_item.name'; orderReverse=!orderReverse">
+        Item
+        <span ng-show="orderProperty==='menu_item.name'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="observations">
+      Observations
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="item in orderItems.items | orderBy: orderProperty : orderReverse">
+    <td><input id="{{ item.id }}-delivered" type="checkbox" ng-model="item.delivered"
+               ng-change="itemChange(item)"/><label for="{{ item.id }}-delivered"></label></td>
+    <td>{{ item.menu_item.name }}</td>
+    <td>{{ item.observations }}</td>
+    <td><button class="btn-floating red" ng-click="itemDelete(item.id)">
+      <i class="mdi-action-delete"></i> Delete</button></td>
+  </tr>
+  </tbody>
+</table>

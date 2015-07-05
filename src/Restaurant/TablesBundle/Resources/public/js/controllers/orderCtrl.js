@@ -5,7 +5,7 @@ restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Table', 
         }
 
         $scope.orders = Orders.query();
-        $scope.orderProperty = 'active';
+        $scope.orderProperty = 'date';
         $scope.orderReverse = true;
         $scope.getParams = {
             active: false,
@@ -15,7 +15,7 @@ restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Table', 
             employee: AuthSvc.getUser().employee.id,
             table: null
         };
-        $scope.tables = Table.getAll({ available: true });
+        $scope.tables = Table.query({ available: true });
 
         $scope.doQuery = function () {
             var params = {
@@ -39,9 +39,42 @@ restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Table', 
                 return;
             }
             Orders.save({}, $scope.postParams, function (order) {
-                // TODO go to order
-                console.log(order);
+                $('#new-order-modal').closeModal();
+                $location.path('/orders/' + order.id);
             });
-        }
+        };
 
     }]);
+
+
+restaurantControllers.controller('OrderDetailCtrl',
+    ['$scope', '$routeParams', 'Order', 'OrderItems', 'OrderItem', '$location', 'AuthSvc',
+        function ($scope, $routeParams, Order, OrderItems, OrderItem, $location, AuthSvc) {
+            if (!AuthSvc.isAuthenticated()) {
+                $location.path('/login');
+            }
+
+            $scope.order = Order.get({orderId: $routeParams.orderId});
+            $scope.orderItems = OrderItems.query({orderId: $routeParams.orderId});
+
+            $scope.orderProperty = 'delivered';
+            $scope.orderReverse = false;
+
+            $scope.deleteOrder = function () {
+                Order.delete({orderId: $scope.order.id}, {}, function () {
+                    $location.path('/orders');
+                });
+            };
+
+            $scope.itemChange = function (item) {
+                OrderItem.update({orderId: $scope.order.id, itemId: item.id},
+                    {delivered: item.delivered});
+            };
+
+            $scope.itemDelete = function (itemId) {
+                OrderItem.delete({orderId: $scope.order.id, itemId: itemId}, function () {
+                    $scope.orderItems = OrderItems.query({orderId: $routeParams.orderId});
+                });
+            }
+
+        }]);

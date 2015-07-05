@@ -27,6 +27,10 @@ restaurantApp.config(['$routeProvider',
                 templateUrl: 'partials/order-list.html',
                 controller: 'OrderListCtrl'
             }).
+            when('/orders/:orderId', {
+                templateUrl: 'partials/order-detail.html',
+                controller: 'OrderDetailCtrl'
+            }).
             when('/login', {
                 templateUrl: 'partials/login.html',
                 controller: 'LoginCtrl'

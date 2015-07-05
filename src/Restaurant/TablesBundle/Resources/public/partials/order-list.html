@@ -11,7 +11,6 @@
 <table class="striped">
   <thead>
   <tr>
-    <th></th>
     <th data-field="date">
       <a href="" ng-click="orderProperty='date'; orderReverse=!orderReverse">
         When
@@ -48,15 +47,18 @@
         </span>
       </a>
     </th>
+    <th></th>
   </tr>
   </thead>
   <tbody>
   <tr ng-repeat="order in orders.orders | orderBy: orderProperty : orderReverse">
-    <td><a href="#/orders/{{ order.id }}"><i class="mdi-editor-mode-edit"></i></a></td>
     <td>{{ order.date | date : "yy-MMM-dd hh:mm a" : "-05" }}</td>
     <td>{{ order.table.number }}</td>
     <td>{{ order.employee.name }}</td>
     <td><i ng-class="{ 'mdi-action-done': order.active, 'mdi-content-clear': !order.active }"></i></td>
+    <td>
+      <a href="#/orders/{{ order.id }}" class="btn-floating blue"><i class="mdi-editor-mode-edit"></i></a>
+    </td>
   </tr>
   </tbody>
 </table>

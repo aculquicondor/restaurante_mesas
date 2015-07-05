@@ -48,8 +48,8 @@ restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Table', 
 
 
 restaurantControllers.controller('OrderDetailCtrl',
-    ['$scope', '$routeParams', 'Order', 'OrderItems', 'OrderItem', '$location', 'AuthSvc',
-        function ($scope, $routeParams, Order, OrderItems, OrderItem, $location, AuthSvc) {
+    ['$scope', '$routeParams', 'Order', 'OrderItems', 'OrderItem', 'MenuItems', '$location', 'AuthSvc',
+        function ($scope, $routeParams, Order, OrderItems, OrderItem, MenuItems, $location, AuthSvc) {
             if (!AuthSvc.isAuthenticated()) {
                 $location.path('/login');
             }
@@ -60,9 +60,17 @@ restaurantControllers.controller('OrderDetailCtrl',
             $scope.orderProperty = 'delivered';
             $scope.orderReverse = false;
 
+            $scope.menuItems = MenuItems.query({available: true});
+
             $scope.deleteOrder = function () {
                 Order.delete({orderId: $scope.order.id}, {}, function () {
                     $location.path('/orders');
+                });
+            };
+
+            $scope.closeOrder = function () {
+                Order.update({orderId: $scope.order.id}, {active: false}, function () {
+                    $scope.order.active = false;
                 });
             };
 
@@ -75,6 +83,35 @@ restaurantControllers.controller('OrderDetailCtrl',
                 OrderItem.delete({orderId: $scope.order.id, itemId: itemId}, function () {
                     $scope.orderItems = OrderItems.query({orderId: $routeParams.orderId});
                 });
+            };
+
+            $scope.openNewItemModal = function () {
+                $('#new-item-modal').openModal();
+            };
+
+            $scope.itemParams = {
+                menu_item: null,
+                observations: ''
+            };
+
+            $scope.closeNewItemModal = function () {
+                $scope.itemParams.menu_item = null;
+                $scope.itemParams.observations = '';
+                $('#new-item-modal').closeModal();
+            };
+
+            $scope.newItem = function () {
+                if ($scope.itemParams.menu_item === null) {
+                    $('#item-menu-item').focus();
+                    return;
+                }
+                OrderItems.save({orderId: $scope.order.id}, $scope.itemParams,
+                    function (orderItem) {
+                        $scope.orderItems.items.push(orderItem);
+                        $scope.itemParams.menu_item = null;
+                        $scope.itemParams.observations = '';
+                        $('#new-item-modal').closeModal();
+                    });
             }
 
         }]);

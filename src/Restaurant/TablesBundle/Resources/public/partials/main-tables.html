@@ -9,8 +9,15 @@
                     <span class="card-title activator grey-text text-darken-4">
                         <b class="table-id-out waves-effect waves-blue">{{ table.number }}</b>
                         <i class="material-icons grey-text text-darken-2">perm_identity</i><span class="grey-text text-darken-2">{{ table.capacity }}</span>
-                        <i class="material-icons right" ng-class="{true: 'green-text', false:'red-text'}[table.available]">album</i>
                         <i class="material-icons blue-text inf right">info_outline</i>
+                        <div class="switch center" ng-init="availableSwitch = table.available; index=0">
+                            <label>
+                                <span ng-class="{true: '', false: 'red-text'}[availableSwitch]">Unavaiable</span>
+                                <input type="checkbox" ng-model="availableSwitch" ng-change="update(table.id, availableSwitch)">
+                                <span class="lever"></span>
+                                <span ng-class="{true: 'green-text', false: ''}[availableSwitch]">Available</span>
+                            </label>
+                        </div>
                     </span>
                 </div>
                 <div class="card-reveal">

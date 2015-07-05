@@ -89,12 +89,23 @@ main .container .content {
     background-color: rgba(221, 221, 221, 0.18)
 }
 
-.table-number {
+.table-id-in {
     color: white;
     background-color: lightblue;
     padding-left: 9px;
     padding-right: 9px;
     border-radius: 14px;
+}
+
+.table-id-out {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    color: white;
+    background-color: rgb(3, 169, 244);
+    padding: 13px 31px 15px 30px;
+    border-radius: 57px;
+    cursor: default;
 }
 
 .card-content i {
@@ -106,8 +117,16 @@ main .container .content {
     cursor: default;
 }
 
+.card .card-image {
+    z-index: 0;
+}
+
 .card .card-image img {
     width: 50%;
+}
+
+i.inf {
+    cursor: pointer;
 }
 
 

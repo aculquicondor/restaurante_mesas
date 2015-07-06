@@ -1,0 +1,41 @@
+<div>
+    <div class="row" ng-controller="TablesCtrl">
+        <div class="col s12 m4 l4" ng-repeat="table in tables.tables">
+            <div class="card tables" ng-class="{true: 'available', false:'unavailable'}[table.available]">
+                <div class="center card-image waves-effect waves-block waves-light">
+                    <img class="img-responsive activator" src="images/tables/table.png">
+                </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">
+                        <b class="table-id-out waves-effect waves-blue">{{ table.number }}</b>
+                        <i class="material-icons grey-text text-darken-2">perm_identity</i><span class="grey-text text-darken-2">{{ table.capacity }}</span>
+                        <i class="material-icons blue-text inf right">info_outline</i>
+                        <div class="switch center" ng-init="availableSwitch = table.available; index=0">
+                            <label>
+                                <span ng-class="{true: '', false: 'red-text'}[availableSwitch]">Unavaiable</span>
+                                <input type="checkbox" ng-model="availableSwitch" ng-change="update(table.id, availableSwitch)">
+                                <span class="lever"></span>
+                                <span ng-class="{true: 'green-text', false: ''}[availableSwitch]">Available</span>
+                            </label>
+                        </div>
+                    </span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><i class="material-icons">info_outline</i> Information<i class="mdi-navigation-close right"></i></span>
+                    <p class="grey-text text-darken-2">
+                        Table ID
+                        <span class="table-id-in right">{{ table.number }}</span>
+                    </p>
+                    <p class="grey-text text-darken-2">
+                        {{ table.available === true ? "Available" : "Unavailable" }}
+                        <i class="material-icons right" ng-class="{true: 'green-text', false:'red-text'}[table.available]">album</i>
+                    </p>
+                    <p class="grey-text text-darken-2">
+                        Capacidad
+                        <span class="grey-text text-darken-2 right">{{ table.capacity }}<i class="material-icons">perm_identity</i></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

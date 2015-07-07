@@ -146,6 +146,7 @@ class StoreController extends Controller
                     $store->setManager($employee);
             }
             $dm->flush();
+            return $store;
         }
         return $form->getErrors();
     }

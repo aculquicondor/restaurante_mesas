@@ -1,5 +1,7 @@
 restaurantApp.controller('LoginCtrl', ['$scope', '$rootScope', '$location', 'AuthSvc',
     function ($scope, $rootScope, $location, AuthSvc) {
+        $rootScope.section = 'Login';
+
         $scope.message = '';
         $scope.credentials = {
             _username: '',

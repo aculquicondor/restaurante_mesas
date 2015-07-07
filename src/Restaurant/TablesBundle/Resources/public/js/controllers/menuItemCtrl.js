@@ -1,8 +1,14 @@
-restaurantControllers.controller('MenuItemListCtrl', ['$scope', 'MenuItems', function($scope, MenuItems) {
-    $scope.items = MenuItems.query();
-    $scope.orderProp = 'available';
-}]);
+restaurantControllers.controller('MenuItemListCtrl', ['$scope', '$rootScope', 'MenuItems',
+    function($scope, $rootScope, MenuItems) {
+        $rootScope.section = 'Menu';
 
-restaurantControllers.controller('MenuItemDetailCtrl', ['$scope', '$routeParams', 'MenuItem', function($scope, $routeParams, MenuItem) {
-    $scope.item = MenuItem.query({itemId: $routeParams.itemId});
-}]);
+        $scope.items = MenuItems.query();
+        $scope.orderProp = 'available';
+    }]);
+
+restaurantControllers.controller('MenuItemDetailCtrl', ['$scope', '$rootScope', '$routeParams', 'MenuItem',
+    function($scope, $rootScope, $routeParams, MenuItem) {
+        $rootScope.section = 'Menu';
+
+        $scope.item = MenuItem.query({itemId: $routeParams.itemId});
+    }]);

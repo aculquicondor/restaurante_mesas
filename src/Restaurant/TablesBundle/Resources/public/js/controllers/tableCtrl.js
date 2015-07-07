@@ -7,17 +7,10 @@ restaurantControllers.controller('TablesCtrl', ['$scope', '$rootScope', 'Tables'
 
         $scope.tables = Tables.query();
         $scope.availableSwitch = false;
-        $scope.hideTables = function (option) {
-            if (option === 'availables') {
-                $('.available').hide();
-                $('.unavailable').show();
-
-            } else if (option === 'unavailables') {
-                $('.unavailable').hide();
-                $('.available').show();
-            } else {
-                $('.available, .unavailable').show();
-            }
+        $scope.available = false;
+        $scope.doQuery = function () {
+            var available = $scope.available ? 1 : 0;
+            $scope.tables = Tables.query({ available: available });
         };
         $scope.update = function (tableId, availableSwitch) {
             Table.update({tableId: tableId}, {available: availableSwitch}, function (table) {

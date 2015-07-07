@@ -12,7 +12,7 @@ restaurantApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/tables', {
-                templateUrl: 'partials/tables/main_tables.html',
+                templateUrl: 'partials/main-tables.html',
                 controller: 'TablesCtrl'
             }).
             when('/items', {
@@ -37,7 +37,7 @@ restaurantApp.config(['$routeProvider',
             }).
             otherwise({
                 redirectTo: '/login'
-            })
+            });
     }
 ]);
 
@@ -58,4 +58,8 @@ restaurantApp.run(['$rootScope', '$location', 'AuthSvc', 'baseURL',
 
 $(document).ready(function(){
     $(".button-collapse").sideNav();
+    $(".tab").click(function() {
+        $(".tab").removeClass("active");
+        $(this).addClass("active");
+    });
 });

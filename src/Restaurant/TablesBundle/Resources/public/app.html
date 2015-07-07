@@ -13,7 +13,7 @@
     <nav class="top-nav light-blue">
         <div class="container">
             <div class="nav-wrapper light-blue">
-                <a href="#" class="left brand-logo">Tables</a>
+                <a class="left brand-logo">{{ section }}</a>
                 <a href="#" data-activates="slide-out" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
                 <ul class="right hide-on-med-and-down" ng-show="user !== null">
                     <li><a href="#">{{ user.username }}<i class="mdi-action-accessibility right"></i></a></li>
@@ -24,10 +24,10 @@
     </nav>
     <ul id="slide-out" class="side-nav fixed">
         <li class="logo center-align"><a><i class=" mdi-action-aspect-ratio"></i></a></li>
-        <li class="tab"><a href="#/tables">Tables</a></li>
-        <li class="tab"><a class="active" href="#/orders">Orders</a></li>
-        <li class="tab"><a href="#/items">Menu Items</a></li>
-        <li class="tab"><a href="#/reservations">Reservations</a></li>
+        <li class="tab" ng-click="section='Tables'"><a class="waves-effect waves-teal" href="#/tables">Tables</a></li>
+        <li class="tab" ng-click="section='Orders'"><a class="waves-effect waves-teal" href="#/orders">Orders</a></li>
+        <li class="tab" ng-click="section='Menu Items'"><a class="waves-effect waves-teal" href="#/items">Menu Items</a></li>
+        <li class="tab" ng-click="section='Reservations'"><a class="waves-effect waves-teal" href="#/reservations">Reservations</a></li>
     </ul>
 </header>
 
@@ -36,7 +36,6 @@
         <div class="content">
             <div class="row">
                 <div class="col s12 m12 l12">
-                    <h4 class="">Content here</h4>
                     <div ng-view></div>
                 </div>
             </div>

@@ -1,0 +1,81 @@
+<!doctype html>
+<html ng-app="restaurantApp">
+<head>
+    <link type="text/css" rel="stylesheet" href="vendor/materialize/dist/css/materialize.min.css"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+
+<body>
+
+<header>
+    <nav class="top-nav light-blue">
+        <div class="container">
+            <div class="nav-wrapper light-blue">
+                <a class="left brand-logo">{{ section }}</a>
+                <a href="#" data-activates="slide-out" class="button-collapse top-nav full"><i class="mdi-navigation-menu"></i></a>
+                <ul class="right hide-on-med-and-down" ng-show="user !== null">
+                    <li><a href="#">{{ user.username }}<i class="mdi-action-accessibility right"></i></a></li>
+                    <li><a href="{{ baseURL + '/logout' }}" ng-click="logout()"><i class="mdi-content-undo"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <ul id="slide-out" class="side-nav fixed">
+        <li class="logo center-align"><a><i class=" mdi-action-aspect-ratio"></i></a></li>
+        <li class="tab" ng-class="{active: section === 'Tables'}"><a class="waves-effect waves-teal" href="#/tables">Tables</a></li>
+        <li class="tab" ng-class="{active: section === 'Orders'}"><a class="waves-effect waves-teal" href="#/orders">Orders</a></li>
+        <li class="tab" ng-class="{active: section === 'Menu'}"><a class="waves-effect waves-teal" href="#/menu">Menu</a></li>
+        <li class="tab" ng-class="{active: section === 'Reservations'}"><a class="waves-effect waves-teal" href="#/reservations">Reservations</a></li>
+    </ul>
+</header>
+
+<main>
+    <div class="container">
+        <div class="content">
+            <div class="row">
+                <div class="col s12 m12 l12">
+                    <div ng-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script src="vendor/angular/angular.min.js"></script>
+<script src="vendor/angular-route/angular-route.min.js"></script>
+<script src="vendor/angular-cookies/angular-cookies.min.js"></script>
+<script src="vendor/angular-resource/angular-resource.min.js"></script>
+<script src="vendor/jquery/dist/jquery.min.js"></script>
+<script src="vendor/materialize/dist/js/materialize.min.js"></script>
+
+<script>
+<!-- @if LOCAL = 'YES' -->
+var URL = 'http://localhost:8000';
+<!-- @endif -->
+<!-- @if LOCAL = 'NO' -->
+var URL = 'http://restaurant.net/tables';
+<!-- @endif -->
+</script>
+
+<!-- @if UGLIFY = 'YES' -->
+<script src="js/all.js"></script>
+<!-- @endif -->
+<!-- @if UGLIFY = 'NO' -->
+<script src="js/main.js"></script>
+<script src="js/controllers.js"></script>
+<script src="js/controllers/loginCtrl.js"></script>
+<script src="js/controllers/tableCtrl.js"></script>
+<script src="js/controllers/menuItemCtrl.js"></script>
+<script src="js/controllers/orderCtrl.js"></script>
+<script src="js/services.js"></script>
+<script src="js/services/AuthSvc.js"></script>
+<script src="js/services/tableSvc.js"></script>
+<script src="js/services/menuItemSvc.js"></script>
+<script src="js/services/orderSvc.js"></script>
+<script src="js/filters.js"></script>
+<!-- @endif -->
+
+</body>
+</html>

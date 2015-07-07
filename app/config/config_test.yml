@@ -24,3 +24,9 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+
+security:
+    firewalls:
+        default:
+            provider: in_memory
+            http_basic: ~

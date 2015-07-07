@@ -3,6 +3,7 @@
 namespace Restaurant\AuthBundle\Document;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Restaurant\CashBundle\Document\Employee;
 
 
 class User implements UserInterface, \Serializable
@@ -15,6 +16,7 @@ class User implements UserInterface, \Serializable
     private $salt;
     private $isActive;
     private $roles;
+    private $employee;
 
     public function __construct()
     {
@@ -32,8 +34,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->salt,
-            $this->roles
+            $this->salt
         ));
     }
 
@@ -46,8 +47,7 @@ class User implements UserInterface, \Serializable
             $this->id,
             $this->username,
             $this->password,
-            $this->salt,
-            $this->roles
+            $this->salt
         ) = unserialize($serialized);
     }
 
@@ -213,5 +213,27 @@ class User implements UserInterface, \Serializable
     {
         $this->roles = array_diff($this->roles, array($role));
         return $this;
+    }
+
+    /**
+     * Set employee
+     *
+     * @param Employee $employee
+     * @return self
+     */
+    public function setEmployee(Employee $employee)
+    {
+        $this->employee = $employee;
+        return $this;
+    }
+
+    /**
+     * Get employee
+     *
+     * @return Employee $employee
+     */
+    public function getEmployee()
+    {
+        return $this->employee;
     }
 }

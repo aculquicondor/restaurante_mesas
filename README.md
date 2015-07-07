@@ -27,6 +27,17 @@ Módulo de Mesas de Restaurante
         cp app/config/parameters.yml.dist app/config/parameters.yml
         vi app/config/parameters.yml
         
+5. Configurar frontend
+
+        php app/console assets:install --symlink
+        npm install
+        bower install
+        grunt
+        
+    Si se quiere desplegar los archivos `js`:
+    
+        grunt debug
+        
         
 ## Ejecución de Pruebas
 

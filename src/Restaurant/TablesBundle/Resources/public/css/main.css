@@ -1,0 +1,132 @@
+body {
+    color: rgba(0, 0, 0, 0.71);
+}
+main .container {
+    position: absolute;
+    /*height: calc(100% - 64px);*/
+    height: auto;
+    width: 100%;
+    background-color: #EEEEEE;
+    padding: 2em 2em 2em 2em;
+    max-width: 100%;
+}
+main .container .content {
+    /*height: 100%;*/
+    height: auto;
+    padding: 2em;
+    background-color: #ffffff;
+}
+
+.container{
+    width: 100%;
+    max-width: 100%;
+}
+
+.side-nav > li:hover {
+    background-color: transparent;
+}
+
+.side-nav > li.active {
+    background-color: #03A9F4;
+    color: white;
+}
+
+.side-nav > li.active > a{
+    color: white;
+}
+
+.side-nav > li.logo a{
+    color: white;
+    font-size: 3rem;
+
+}
+.side-nav.fixed a {
+    color: #01579b;
+}
+
+.side-nav > li:first-child {
+    background-color: #03A9F4;
+}
+
+.active-tab {
+    background-color: #03A9F4;
+    color: white;
+}
+
+.side-nav.fixed .active-tab:hover {
+    background-color: #03A9F4;
+}
+
+.side-nav.fixed .active-tab > a{
+    color: white;
+}
+
+.brand-logo {
+    cursor: default;
+}
+
+@media only screen and (min-width: 993px) {
+    header{
+        padding-left: 240px;
+    }
+    header .container {
+        padding-left: 5em;
+        padding-right: 5em;
+    }
+    main .container {
+        padding: 4em 4em 4em 4em;
+        padding-left: calc(240px + 4em);
+    }
+}
+
+/* Tables */
+
+.card {
+    padding-top: 1em;
+}
+
+.card:hover {
+    background-color: rgba(221, 221, 221, 0.18)
+}
+
+.table-id-in {
+    color: white;
+    background-color: lightblue;
+    padding-left: 9px;
+    padding-right: 9px;
+    border-radius: 14px;
+}
+
+.table-id-out {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    color: white;
+    background-color: rgb(3, 169, 244);
+    padding: 13px 31px 15px 30px;
+    border-radius: 57px;
+    cursor: default;
+}
+
+.card-content i {
+    cursor: default;
+    margin-top: 20px;
+}
+
+.card-content span, b {
+    cursor: default;
+}
+
+.card .card-image {
+    z-index: 0;
+}
+
+.card .card-image img {
+    width: 50%;
+}
+
+i.inf {
+    cursor: pointer;
+}
+
+

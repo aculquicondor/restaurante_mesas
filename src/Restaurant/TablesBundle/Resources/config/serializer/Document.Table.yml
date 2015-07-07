@@ -7,3 +7,10 @@ Restaurant\TablesBundle\Document\Table:
                 parameters:
                     id: expr(object.getId())
                 absolute: true
+        -
+            rel: reservations
+            href:
+                route: get_table_reservations
+                parameters:
+                    id: expr(object.getId())
+                absolute: true

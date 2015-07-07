@@ -35,6 +35,7 @@ class TableTest extends KernelTestCase {
     public function setUp()
     {
         $this->table = new Table();
+        $this->table->setNumber(1);
         $this->table->setOccupationTime("2015-05-13 20:00:00");
         $this->table->setCapacity(2);
         $this->table->setAvailable(true);
@@ -45,6 +46,20 @@ class TableTest extends KernelTestCase {
         self::$dm->persist($this->table);
         self::$dm->flush();
         $this->assertNotNull($this->table->getId());
+    }
+
+    public function testUpdateNumber()
+    {
+        $oldNumber = $this->table->getNumber();
+        $newNumber = 2;
+
+        self::$dm->persist($this->table);
+        self::$dm->flush();
+
+        $this->table->setNumber($newNumber);
+        $docTable = self::$dm->getRepository("RestaurantTablesBundle:Table")
+            ->find($this->table->getId());
+        $this->assertNotEquals($oldNumber, $docTable->getCapacity());
     }
 
     public function testUpdateCapacity()

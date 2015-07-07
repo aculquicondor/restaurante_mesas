@@ -22,4 +22,20 @@ abstract class WebTestCase extends BaseWebTestCase {
         $db_connection->dropDatabase($test_db_name);
     }
 
+    /**
+     * @inheritDoc
+     */
+    protected static function createClient(array $options = array(), array $server = array())
+    {
+        $server['PHP_AUTH_USER'] = 'admin';
+        $server['PHP_AUTH_PW'] = 'password';
+
+        static::bootKernel($options);
+
+        $client = static::$kernel->getContainer()->get('test.client');
+        $client->setServerParameters($server);
+
+        return $client;
+    }
+
 }

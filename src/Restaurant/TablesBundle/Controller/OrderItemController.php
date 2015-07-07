@@ -23,7 +23,7 @@ class OrderItemController extends Controller
      *   section="Order",
      *   parameters={
      *     {"name"="menu_item", "dataType"="string", "required"=false, "description"="item id"},
-     *     {"name"="observation", "dataType"="string", "required"=false, "description"="observations about the item of the menu in the order"}
+     *     {"name"="observations", "dataType"="string", "required"=false, "description"="observations about the item of the menu in the order"}
      *   }
      * )
      * @View()

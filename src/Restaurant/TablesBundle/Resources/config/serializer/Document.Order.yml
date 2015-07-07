@@ -9,6 +9,8 @@ Restaurant\TablesBundle\Document\Order:
           expose: true
         active:
           expose: true
+        employee:
+          expose: true
     relations:
         -
             rel: self

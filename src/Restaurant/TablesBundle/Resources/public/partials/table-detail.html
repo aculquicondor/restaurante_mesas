@@ -1,0 +1,24 @@
+<div class="row">
+    <div class="col s11">
+        <div class="row">
+            <div class="col s6">
+                <label for="table-number">Number</label>
+                <input value="{{ table.number }}" id="table-number" type="text" ng-model="table.number" ng-change="changeTable(table)" class="validate"/>
+            </div>
+            <div class="col s6">
+                <label for="table-capacity">Capacity</label>
+                <input value="{{ table.capacity }}" id="table-capacity" type="number" ng-model="table.capacity" ng-change="changeTable(table)" class="validate"/>
+            </div>
+            <div class="col s6">
+                <input id="{{table.id}}-available" type="checkbox" ng-model="table.available" ng-change="changeTable(table)" class="validate"/>
+                <label for="{{table.id}}-available">Available</label>
+            </div>
+        </div>
+    </div>
+    <div class="col s1">
+        <p>
+            <button class="btn-floating red" ng-click="deleteTable()"><i class="mdi-action-delete"></i> Delete</button>
+        </p>
+    </div>
+    <a href="#/tables/" class="btn">Back to Menu</a>
+</div>

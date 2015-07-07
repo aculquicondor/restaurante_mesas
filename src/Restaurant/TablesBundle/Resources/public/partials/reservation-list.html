@@ -1,0 +1,16 @@
+<table class="striped">
+    <thead>
+    <tr>
+        <th data-field="number">No.</th>
+        <th data-field="time">Date</th>
+        <th data-field="detail">Detail</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="reservation in reservations.reservations">
+        <td>{{ $index + 1 }}</td>
+        <td class="red-text text-darken-2">{{reservation.estimated_arrival_time | date:'medium'}}</td>
+        <td><a href="#/reservations/{{ reservation.id }}"><i class="material-icons">call_made</i></a></td>
+    </tr>
+    </tbody>
+</table>

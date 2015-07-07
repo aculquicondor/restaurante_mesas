@@ -69,6 +69,7 @@ restaurantControllers.controller('MenuItemDetailCtrl', ['$scope', '$rootScope', 
             MenuItem.update({itemId: $scope.item.id},
                 {
                     available: item.available,
+                    name: item.name,
                     price: item.price
                 });
         };

@@ -1,9 +1,24 @@
 Restaurant\TablesBundle\Document\Reservation:
+    exclusion_policy: ALL
+    properties:
+        id:
+          expose: true
+        estimatedArrivalTime:
+          expose: true
+        client:
+          expose: true
     relations:
         -
             rel: self
             href:
                 route: get_reservation
+                parameters:
+                    id: expr(object.getId())
+                absolute: true
+        -
+            rel: tables
+            href:
+                route: get_reservation_tables
                 parameters:
                     id: expr(object.getId())
                 absolute: true

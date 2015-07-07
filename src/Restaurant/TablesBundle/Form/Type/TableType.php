@@ -10,8 +10,9 @@ class TableType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $builder->add('number');
         $builder->add('available');
-        $builder->add('occupationTime');
+        $builder->add('occupation_time');
         $builder->add('capacity');
     }
 

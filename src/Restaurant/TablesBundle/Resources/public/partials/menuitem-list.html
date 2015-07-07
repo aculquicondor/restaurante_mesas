@@ -1,0 +1,84 @@
+<div class="row">
+    <div class="input-field col s3 offset-s6">
+        <input id="only-available" type="checkbox" ng-model="getParams.available" ng-change="doQuery()"/>
+        <label for="only-available">Only available items</label>
+    </div>
+</div>
+
+<table class="striped">
+    <thead>
+    <tr>
+        <th data-field="name">
+            <a href="" ng-click="orderProperty='name'; orderReverse=!orderReverse">
+                Name
+                <span ng-show="orderProperty==='name'">
+                    <span ng-show="!orderReverse">▾</span>
+                    <span ng-show="orderReverse">▴</span>
+                </span>
+            </a>
+        </th>
+        <th data-field="price">
+            <a href="" ng-click="orderProperty='price'; orderReverse=!orderReverse">
+                Price
+                <span ng-show="orderProperty==='price'">
+                    <span ng-show="!orderReverse">▾</span>
+                    <span ng-show="orderReverse">▴</span>
+                </span>
+            </a>
+        </th>
+        <th data-field="available">
+            <a href="" ng-click="orderProperty='available'; orderReverse=!orderReverse">
+                Available
+                <span ng-show="orderProperty==='available'">
+                  <span ng-show="!orderReverse">▾</span>
+                  <span ng-show="orderReverse">▴</span>
+                </span>
+            </a>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in items.menuItems | orderBy: orderProperty : orderReverse">
+        <td>
+            {{ item.name }}
+        </td>
+        <td>
+            {{ item.price | currency:"S/.":2 }}
+        </td>
+        <td>
+            <i ng-class="{ 'mdi-action-done': item.available, 'mdi-content-clear': !item.available }"></i>
+        </td>
+        <td>
+            <a href="#/menu/{{ item.id }}" class="btn-floating blue"><i class="mdi-editor-mode-edit"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col s6">
+        <button class="btn modal-trigger" ng-click="openNewMenuItemModal()">New Item</button>
+    </div>
+</div>
+
+<div id="new-menuitem-modal" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+            <input id="item-name" ng-model="postParams.name" type="text" class="validate">
+            <label for="item-name" class="active">Name</label>
+        </div>
+        <div class="input-field">
+            <input ng-model="postParams.price" id="item-price" type="number" class="validate">
+            <label for="item-price" class="active">Price</label>
+        </div>
+        <div class="input-field">
+            <input id="item-available" type="checkbox" ng-model="postParams.available" checked="checked" class="validate">
+            <label for="item-available" class="active">Available</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="" class="btn waves-effect waves-green" ng-click="newMenuItem()">Create</a>
+        <a href="" class="btn-flat waves-effect waves-green" ng-click="closeNewMenuItemModal()">Cancel</a>
+    </div>
+</div>

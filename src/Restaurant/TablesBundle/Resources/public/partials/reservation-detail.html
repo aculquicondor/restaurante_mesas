@@ -1,0 +1,14 @@
+<table class="striped">
+    <thead>
+    <tr>
+        <th data-field="number">Table Number</th>
+        <th data-field="capacity">Capacity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="table in reservationTables.tables">
+        <td><span class="table-id-in" style="font-size: 24px">{{ table.number }}</span></td>
+        <td class="blue-text text-darken-2">{{ table.capacity }}<i class="material-icons">perm_identity</i></td>
+    </tr>
+    </tbody>
+</table>

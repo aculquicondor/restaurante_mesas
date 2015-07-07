@@ -26,6 +26,16 @@ restaurantApp.config(['$routeProvider',
                 templateUrl: 'partials/menuitem-detail.html',
                 controller: 'MenuItemDetailCtrl'
             }).
+            when('/reservations', {
+                auth: true,
+                templateUrl: 'partials/reservation-list.html',
+                controller: 'ReservationCtrl'
+            }).
+            when('/reservations/:reservationId', {
+                auth: true,
+                templateUrl: 'partials/reservation-detail.html',
+                controller: 'ReservationDetailCtrl'
+            }).
             when('/login', {
                 auth: false,
                 templateUrl: 'partials/login.html',

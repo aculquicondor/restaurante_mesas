@@ -1,5 +1,5 @@
-restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Table', '$location', 'AuthSvc',
-    function($scope, Orders, Table, $location, AuthSvc) {
+restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Tables', '$location', 'AuthSvc',
+    function($scope, Orders, Tables, $location, AuthSvc) {
         if (!AuthSvc.isAuthenticated()) {
             $location.path('/login');
         }
@@ -15,7 +15,7 @@ restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Table', 
             employee: AuthSvc.getUser().employee.id,
             table: null
         };
-        $scope.tables = Table.query({ available: true });
+        $scope.tables = Tables.query({ available: true });
 
         $scope.doQuery = function () {
             var params = {

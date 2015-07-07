@@ -14,7 +14,7 @@ restaurantControllers.controller('MenuItemListCtrl', ['$scope', '$rootScope', 'M
         $scope.postParams = {
             available: true,
             name: null,
-            price: null
+            price: 0
         };
 
         $scope.doQuery = function () {
@@ -38,6 +38,11 @@ restaurantControllers.controller('MenuItemListCtrl', ['$scope', '$rootScope', 'M
                 $('#item-name').focus();
                 return;
             }
+            if ($scope.postParams.price < 0){
+                $('#item-price').focus();
+                return;
+            }
+
             MenuItems.save({}, $scope.postParams, function (item) {
                     $('new-menuitem-modal').closeModal();
                     $location.path('/menu/' + item.id);

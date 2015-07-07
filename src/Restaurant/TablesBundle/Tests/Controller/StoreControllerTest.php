@@ -60,13 +60,13 @@ class StoreControllerTest extends WebTestCase{
             ->getManager()->getRepository('RestaurantTablesBundle:Store');
 
         /** @var $store Store */
-        $store = $this->storeFixture->getReference('Calle Pizarro 213, Cercado.');
+        $store = $this->storeFixture->getReference('store1');
         $route = '/api/stores/' . $store->getId() . '.json';
         $client->request('DELETE', $route);
         $response = $client->getResponse();
 
         $this->assertEquals(200, $response->getStatusCode());
-        $this->assertEquals(3, count($repository->findAll()));
+        $this->assertEquals(2, count($repository->findAll()));
         $this->assertNull($other = $repository->find($store->getId()));
     }
 
@@ -78,9 +78,9 @@ class StoreControllerTest extends WebTestCase{
             ->getManager()->getRepository('RestaurantTablesBundle:Store');
 
         /** @var $store Store */
-        $store = $this->storeFixture->getReference('Calle Pizarro 213, Cercado.');
-        $route = '/api/tables/' . $store->getId() . '.json';
-        $storeData = array('address' => 'Calle Ramon Castilla 105, Cerro Colorado.');
+        $store = $this->storeFixture->getReference('store1');
+        $route = '/api/stores/' . $store->getId() . '.json';
+        $storeData = array('address' => 'Calle Ramón Castilla 105, Cerro Colorado.');
         $client->request('PATCH', $route, $storeData);
         $response = $client->getResponse();
 

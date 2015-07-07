@@ -12,7 +12,7 @@
                         <i class="material-icons blue-text inf right">info_outline</i>
                         <div class="switch center" ng-init="availableSwitch = table.available; index=0">
                             <label>
-                                <span ng-class="{true: '', false: 'red-text'}[availableSwitch]">Unavaiable</span>
+                                <span ng-class="{true: '', false: 'red-text'}[availableSwitch]">Unavailable</span>
                                 <input type="checkbox" ng-model="availableSwitch" ng-change="update(table.id, availableSwitch)">
                                 <span class="lever"></span>
                                 <span ng-class="{true: 'green-text', false: ''}[availableSwitch]">Available</span>
@@ -23,7 +23,7 @@
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4"><i class="material-icons">info_outline</i> Information<i class="mdi-navigation-close right"></i></span>
                     <p class="grey-text text-darken-2">
-                        Table ID
+                        Table number
                         <span class="table-id-in right">{{ table.number }}</span>
                     </p>
                     <p class="grey-text text-darken-2">
@@ -31,7 +31,7 @@
                         <i class="material-icons right" ng-class="{true: 'green-text', false:'red-text'}[table.available]">album</i>
                     </p>
                     <p class="grey-text text-darken-2">
-                        Capacidad
+                        Capacity
                         <span class="grey-text text-darken-2 right">{{ table.capacity }}<i class="material-icons">perm_identity</i></span>
                     </p>
                 </div>

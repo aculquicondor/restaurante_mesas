@@ -12,17 +12,14 @@ restaurantApp.config(['$routeProvider',
     function($routeProvider) {
         $routeProvider.
             when('/tables', {
-                auth: true,
                 templateUrl: 'partials/main-tables.html',
                 controller: 'TablesCtrl'
             }).
-            when('/items', {
-                auth: true,
+            when('/menu', {
                 templateUrl: 'partials/menuitem-list.html',
                 controller: 'MenuItemListCtrl'
             }).
-            when('/items/:itemId', {
-                auth: true,
+            when('/menu/:itemId', {
                 templateUrl: 'partials/menuitem-detail.html',
                 controller: 'MenuItemDetailCtrl'
             }).
@@ -36,8 +33,15 @@ restaurantApp.config(['$routeProvider',
                 templateUrl: 'partials/reservation-detail.html',
                 controller: 'ReservationDetailCtrl'
             }).
+            when('/orders', {
+                templateUrl: 'partials/order-list.html',
+                controller: 'OrderListCtrl'
+            }).
+            when('/orders/:orderId', {
+                templateUrl: 'partials/order-detail.html',
+                controller: 'OrderDetailCtrl'
+            }).
             when('/login', {
-                auth: false,
                 templateUrl: 'partials/login.html',
                 controller: 'LoginCtrl'
             }).
@@ -64,8 +68,4 @@ restaurantApp.run(['$rootScope', '$location', 'AuthSvc', 'baseURL',
 
 $(document).ready(function(){
     $(".button-collapse").sideNav();
-    $(".tab").click(function() {
-        $(".tab").removeClass("active");
-        $(this).addClass("active");
-    });
 });

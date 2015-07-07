@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="input-field col s3 offset-s6">
+    <input id="only-mine" type="checkbox" ng-model="getParams.employee" ng-change="doQuery()"/>
+    <label for="only-mine">Only my orders</label>
+  </div>
+  <div class="input-field col s3">
+    <input id="only-active" type="checkbox" ng-model="getParams.active" ng-change="doQuery()"/>
+    <label for="only-active">Only active orders</label>
+  </div>
+</div>
+<table class="striped">
+  <thead>
+  <tr>
+    <th data-field="date">
+      <a href="" ng-click="orderProperty='date'; orderReverse=!orderReverse">
+        When
+        <span ng-show="orderProperty==='date'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="table">
+      <a href="" ng-click="orderProperty='table.number'; orderReverse=!orderReverse">
+        Table
+        <span ng-show="orderProperty==='table.number'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="waiter">
+      <a href="" ng-click="orderProperty='employee.name'; orderReverse=!orderReverse">
+        Waiter
+        <span ng-show="orderProperty==='employee.name'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th data-field="active">
+      <a href="" ng-click="orderProperty='active'; orderReverse=!orderReverse">
+        Active
+        <span ng-show="orderProperty==='active'">
+          <span ng-show="!orderReverse">▾</span>
+          <span ng-show="orderReverse">▴</span>
+        </span>
+      </a>
+    </th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="order in orders.orders | orderBy: orderProperty : orderReverse">
+    <td>{{ order.date | date : "yy-MMM-dd hh:mm a" : "-05" }}</td>
+    <td>{{ order.table.number }}</td>
+    <td>{{ order.employee.name }}</td>
+    <td><i ng-class="{ 'mdi-action-done': order.active, 'mdi-content-clear': !order.active }"></i></td>
+    <td>
+      <a href="#/orders/{{ order.id }}" class="btn-floating blue"><i class="mdi-editor-mode-edit"></i></a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<br/>
+
+<div class="row">
+  <div class="col s6">
+    <button class="btn modal-trigger" ng-click="openNewOrderModal()">New Order</button>
+  </div>
+</div>
+<div id="new-order-modal" class="modal">
+  <div class="modal-content">
+    <label for="table-number">Table Number</label>
+    <select id="table-number" class="browser-default" ng-model="postParams.table">
+      <option ng-repeat="table in tables.tables" value="{{ table.id }}">{{ table.number }}</option>
+    </select>
+  </div>
+  <div class="modal-footer">
+    <a href="" class="btn waves-effect waves-green" ng-click="newOrder()">Create</a>
+    <a href="" class="btn-flat waves-effect waves-green" ng-click="closeNewOrderModal()">Cancel</a>
+  </div>
+</div>

@@ -1,8 +1,10 @@
-restaurantControllers.controller('TablesCtrl', ['$scope', 'Tables', 'Table', 'AuthSvc', '$location',
-    function ($scope, Tables, Table, AuthSvc, $location) {
+restaurantControllers.controller('TablesCtrl', ['$scope', '$rootScope', 'Tables', 'Table', 'AuthSvc', '$location',
+    function ($scope, $rootScope, Tables, Table, AuthSvc, $location) {
         if (!AuthSvc.isAuthenticated()) {
             $location.path('/login');
         }
+        $rootScope.section = 'Tables';
+
         $scope.tables = Tables.query();
         $scope.availableSwitch = false;
         $scope.hideTables = function (option) {

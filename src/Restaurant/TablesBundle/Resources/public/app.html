@@ -3,6 +3,7 @@
 <head>
     <link type="text/css" rel="stylesheet" href="vendor/materialize/dist/css/materialize.min.css"  media="screen,projection"/>
     <link type="text/css" rel="stylesheet" href="css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 </head>
 
@@ -23,10 +24,10 @@
     </nav>
     <ul id="slide-out" class="side-nav fixed">
         <li class="logo center-align"><a><i class=" mdi-action-aspect-ratio"></i></a></li>
-        <li class="tab" ng-click="section='Tables'"><a class="waves-effect waves-teal" href="#/tables">Tables</a></li>
-        <li class="tab" ng-click="section='Orders'"><a class="waves-effect waves-teal" href="#/orders">Orders</a></li>
-        <li class="tab" ng-click="section='Menu Items'"><a class="waves-effect waves-teal" href="#/items">Menu Items</a></li>
-        <li class="tab" ng-click="section='Reservations'"><a class="waves-effect waves-teal" href="#/reservations">Reservations</a></li>
+        <li class="tab" ng-class="{active: section === 'Tables'}"><a class="waves-effect waves-teal" href="#/tables">Tables</a></li>
+        <li class="tab" ng-class="{active: section === 'Orders'}"><a class="waves-effect waves-teal" href="#/orders">Orders</a></li>
+        <li class="tab" ng-class="{active: section === 'Menu'}"><a class="waves-effect waves-teal" href="#/menu">Menu</a></li>
+        <li class="tab" ng-click="{active: section === 'Reservations'}"><a class="waves-effect waves-teal" href="#/reservations">Reservations</a></li>
     </ul>
 </header>
 
@@ -49,8 +50,6 @@
 <script src="vendor/jquery/dist/jquery.min.js"></script>
 <script src="vendor/materialize/dist/js/materialize.min.js"></script>
 
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
 <script>
 <!-- @if LOCAL = 'YES' -->
 var URL = 'http://localhost:8000';
@@ -69,10 +68,12 @@ var URL = 'http://restaurant.net/tables';
 <script src="js/controllers/loginCtrl.js"></script>
 <script src="js/controllers/tableCtrl.js"></script>
 <script src="js/controllers/menuItemCtrl.js"></script>
+<script src="js/controllers/orderCtrl.js"></script>
 <script src="js/services.js"></script>
 <script src="js/services/AuthSvc.js"></script>
 <script src="js/services/tableSvc.js"></script>
 <script src="js/services/menuItemSvc.js"></script>
+<script src="js/services/orderSvc.js"></script>
 <script src="js/filters.js"></script>
 <!-- @endif -->
 

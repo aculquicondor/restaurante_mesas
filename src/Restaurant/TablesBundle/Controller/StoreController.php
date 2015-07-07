@@ -137,6 +137,7 @@ class StoreController extends Controller
         if($form->isValid())
         {
             $address = $request->request->get('address');
+            $manager = $request->request->get('manager');
             if ($address)
                 $store->setAddress($address);
             if(!is_null($manager)) {
@@ -145,6 +146,7 @@ class StoreController extends Controller
                     $store->setManager($employee);
             }
             $dm->flush();
+            return $store;
         }
         return $form->getErrors();
     }

@@ -15,6 +15,10 @@ restaurantApp.config(['$routeProvider',
                 templateUrl: 'partials/main-tables.html',
                 controller: 'TablesCtrl'
             }).
+            when('/tables/:tableId', {
+                templateUrl: 'partials/table-detail.html',
+                controller: 'TableDetailCtrl'
+            }).
             when('/menu', {
                 templateUrl: 'partials/menuitem-list.html',
                 controller: 'MenuItemListCtrl'
@@ -22,6 +26,16 @@ restaurantApp.config(['$routeProvider',
             when('/menu/:itemId', {
                 templateUrl: 'partials/menuitem-detail.html',
                 controller: 'MenuItemDetailCtrl'
+            }).
+            when('/reservations', {
+                auth: true,
+                templateUrl: 'partials/reservation-list.html',
+                controller: 'ReservationCtrl'
+            }).
+            when('/reservations/:reservationId', {
+                auth: true,
+                templateUrl: 'partials/reservation-detail.html',
+                controller: 'ReservationDetailCtrl'
             }).
             when('/orders', {
                 templateUrl: 'partials/order-list.html',

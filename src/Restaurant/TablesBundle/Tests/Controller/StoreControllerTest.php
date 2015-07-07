@@ -33,13 +33,15 @@ class StoreControllerTest extends WebTestCase{
     public function testPost()
     {
         $client = static::createClient();
-        /** @var TableRepository $repository */
+        /** @var StoreRepository $repository */
         $repository = $client->getContainer()->get('doctrine_mongodb')
             ->getManager()->getRepository('RestaurantTablesBundle:Store');
         $url = '/api/stores.json';
-        /** @var $order Order */
 
-        $storeData = array('address' => 'Calle Ramon Castilla 213, Cerro Colorado.');
+        $manager = $this->storeFixture->getReference('scarlet-johanson');
+        $storeData = array('address' => 'Calle Ramon Castilla 213, Cerro Colorado.',
+            'manager' => $manager->getId()
+        );
         $client->request('POST', $url, $storeData);
         $response = $client->getResponse();
 

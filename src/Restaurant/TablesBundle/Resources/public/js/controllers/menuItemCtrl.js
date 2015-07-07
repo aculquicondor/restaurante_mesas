@@ -11,19 +11,43 @@ restaurantControllers.controller('MenuItemListCtrl', ['$scope', '$rootScope', 'M
         $scope.getParams = {
             available: false
         };
+        $scope.postParams = {
+            available: true,
+            name: null,
+            price: null
+        };
 
         $scope.doQuery = function () {
             var params = {
                 available: $scope.getParams.available ? 1 : 0
             };
             $scope.items = MenuItems.query(params);
-        }
+        };
 
+
+        $scope.closeNewMenuItemModal = function () {
+            $('#new-menuitem-modal').closeModal();
+        };
+
+        $scope.openNewMenuItemModal = function () {
+            $('#new-menuitem-modal').openModal();
+        };
+
+        $scope.newMenuItem = function () {
+            if ($scope.postParams.name === null){
+                $('#item-name').focus();
+                return;
+            }
+            MenuItems.save({}, $scope.postParams, function (item) {
+                    $('new-menuitem-modal').closeModal();
+                    $location.path('/menu/' + item.id);
+                });
+        }
     }]);
 
 restaurantControllers.controller('MenuItemDetailCtrl', ['$scope', '$rootScope', '$routeParams', 'MenuItem', '$location', 'AuthSvc',
     function($scope, $rootScope, $routeParams, MenuItem, $location, AuthSvc) {
-        if (!AuthSv.isAuthenticated()){
+        if (!AuthSvc.isAuthenticated()){
             $location.path('/login');
         }
         $rootScope.section = 'Menu';
@@ -36,7 +60,11 @@ restaurantControllers.controller('MenuItemDetailCtrl', ['$scope', '$rootScope', 
             });
         };
 
-        $scope.itemChange = function (item) {
-            MenuItem.update({itemId: $scope.item.id})
+        $scope.changeMenuItem = function (item) {
+            MenuItem.update({itemId: $scope.item.id},
+                {
+                    available: item.available,
+                    price: item.price
+                })
         };
     }]);

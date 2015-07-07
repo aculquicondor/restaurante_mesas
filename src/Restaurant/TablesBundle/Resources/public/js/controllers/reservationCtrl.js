@@ -1,20 +1,17 @@
-restaurantControllers.controller('ReservationCtrl', ['$scope', 'Reservations', 'ReservationTables', 'AuthSvc', '$location',
-    function ($scope, Reservations, ReservationTables, AuthSvc, $location) {
+restaurantControllers.controller('ReservationCtrl', ['$scope', '$rootScope', 'Reservations', 'ReservationTables', 'AuthSvc', '$location',
+    function ($scope, $rootScope, Reservations, ReservationTables, AuthSvc, $location) {
         if (!AuthSvc.isAuthenticated()) {
             $location.path('/login');
         }
+        $rootScope.section = 'Reservations';
         $scope.reservations = Reservations.query();
-        $scope.reservationTables = function (reservationId) {
-            ReservationTables.get({reservationId: reservationId}, {}, function (reservation) {
-                console.log(reservation);
-            });
-        }
     }]);
 
-restaurantControllers.controller('ReservationDetailCtrl', ['$scope', '$routeParams', 'ReservationTables', 'AuthSvc', '$location',
-    function ($scope, $routeParams, ReservationTables, AuthSvc, $location) {
+restaurantControllers.controller('ReservationDetailCtrl', ['$scope', '$routeParams', 'Reservation', 'ReservationTables', 'AuthSvc', '$location',
+    function ($scope, $routeParams, Reservation, ReservationTables, AuthSvc, $location) {
         if (!AuthSvc.isAuthenticated()) {
             $location.path('/login');
         }
+        $scope.currentReservation = Reservation.get({reservationId: $routeParams.reservationId});
         $scope.reservationTables = ReservationTables.get({reservationId: $routeParams.reservationId});
     }]);

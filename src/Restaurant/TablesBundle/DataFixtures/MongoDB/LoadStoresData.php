@@ -3,11 +3,12 @@
 namespace Restaurant\TablesBundle\DataFixtures\MongoDB;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Restaurant\TablesBundle\Document\Store;
 
 
-class LoadStoresData extends AbstractFixture
+class LoadStoresData extends AbstractFixture implements DependentFixtureInterface
 {
 
     /**

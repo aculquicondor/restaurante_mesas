@@ -16,6 +16,12 @@ module.exports = function(grunt) {
             }
         },
         uglify: {
+            /* Useful options for debugging uglified file
+            options: {
+                compress: false,
+                beautify: true
+            },
+            */
             all_js: {
                 files: {
                     'web/app/js/all.js': [
@@ -23,7 +29,8 @@ module.exports = function(grunt) {
                         'web/app/js/controllers.js',
                         'web/app/js/controllers/*.js',
                         'web/app/js/services.js',
-                        'web/app/js/services/*.js'
+                        'web/app/js/services/*.js',
+                        'web/app/js/filters.js'
                     ]
                 }
             }

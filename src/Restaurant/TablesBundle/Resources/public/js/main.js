@@ -13,7 +13,7 @@ restaurantApp.config(['$routeProvider',
         $routeProvider.
             when('/tables', {
                 auth: true,
-                templateUrl: 'partials/tables/main_tables.html',
+                templateUrl: 'partials/main-tables.html',
                 controller: 'TablesCtrl'
             }).
             when('/items', {
@@ -54,4 +54,8 @@ restaurantApp.run(['$rootScope', '$location', 'AuthSvc', 'baseURL',
 
 $(document).ready(function(){
     $(".button-collapse").sideNav();
+    $(".tab").click(function() {
+        $(".tab").removeClass("active");
+        $(this).addClass("active");
+    });
 });

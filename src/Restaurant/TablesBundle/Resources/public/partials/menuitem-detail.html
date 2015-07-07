@@ -10,8 +10,8 @@
                 <input value="{{ item.price }}" id="item-price" type="number" ng-model="item.price" ng-change="changeMenuItem(item)" class="validate"/>
             </div>
             <div class="col s6">
-                <label for="{{item.id}}-available">Available</label>
                 <input id="{{item.id}}-available" type="checkbox" ng-model="item.available" ng-change="changeMenuItem(item)" class="validate"/>
+                <label for="{{item.id}}-available">Available</label>
             </div>
         </div>
     </div>

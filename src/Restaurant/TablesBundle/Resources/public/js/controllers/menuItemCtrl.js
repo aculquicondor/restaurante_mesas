@@ -65,6 +65,6 @@ restaurantControllers.controller('MenuItemDetailCtrl', ['$scope', '$rootScope', 
                 {
                     available: item.available,
                     price: item.price
-                })
+                });
         };
     }]);

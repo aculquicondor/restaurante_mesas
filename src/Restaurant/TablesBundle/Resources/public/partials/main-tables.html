@@ -16,6 +16,7 @@
                         <b class="table-id-out waves-effect waves-blue">{{ table.number }}</b>
                         <i class="material-icons grey-text text-darken-2">perm_identity</i><span class="grey-text text-darken-2">{{ table.capacity }}</span>
                         <i class="material-icons blue-text inf right">info_outline</i>
+                        <a class="right" style="margin-top: 9px" href="#/tables/{{ table.id }}"><i style="cursor: pointer" class="mdi-editor-mode-edit"></i></a>
                         <div class="switch center" ng-init="availableSwitch = table.available; index=0">
                             <label>
                                 <span ng-class="{true: '', false: 'red-text'}[availableSwitch]">Unavailable</span>
@@ -43,5 +44,32 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col s6">
+        <button class="btn modal-trigger" ng-click="openNewTableModal()">New Table</button>
+    </div>
+</div>
+
+<div id="new-table-modal" class="modal">
+    <div class="modal-content">
+        <div class="input-field">
+            <input id="table-number" ng-model="postParams.number" type="text" class="validate">
+            <label for="table-number" class="active">Number</label>
+        </div>
+        <div class="input-field">
+            <input ng-model="postParams.capacity" id="table-capacity" type="number" class="validate">
+            <label for="table-capacity" class="active">Capacity</label>
+        </div>
+        <div class="input-field">
+            <input id="table-available" type="checkbox" ng-model="postParams.available" class="validate">
+            <label for="table-available" class="active">Available</label>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="" class="btn waves-effect waves-green" ng-click="newTable()">Create</a>
+        <a href="" class="btn-flat waves-effect waves-green" ng-click="closeNewTableModal()">Cancel</a>
     </div>
 </div>

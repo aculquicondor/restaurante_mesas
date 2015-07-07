@@ -15,6 +15,10 @@ restaurantApp.config(['$routeProvider',
                 templateUrl: 'partials/main-tables.html',
                 controller: 'TablesCtrl'
             }).
+            when('/tables/:tableId', {
+                templateUrl: 'partials/table-detail.html',
+                controller: 'TableDetailCtrl'
+            }).
             when('/menu', {
                 templateUrl: 'partials/menuitem-list.html',
                 controller: 'MenuItemListCtrl'

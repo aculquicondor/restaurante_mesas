@@ -1,32 +1,57 @@
-<div>
-    <div class="row">
-            <table class="striped">
-                <thead>
-                <tr>
-                    <th data-field="name">Nombre</th>
-                    <th data-field="price">Precio</th>
-                    <th data-field="available">Disponible</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr ng-repeat="item in items">
-                    <td>
-                        {{ item.name }}
-                    </td>
-                    <td>
-                       {{ item.price | currency:"S/.":2 }}
-                    </td>
-                    <td class="center-align">
-                        {{ item.available | checkmark }}
-                    </td>
-                    <td>
-                        <a class="btn" ui-sref="viewMenuItem('{id:_id})">Ver</a>
-                        <a class="btn red" ng-click="deleteMenuItem(item)">Eliminar</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        <br>
-        <a href="#" class="btn btn-floating red"><i class="material-icons">add</i></a>
+<div class="row">
+    <div class="input-field col s3 offset-s6">
+        <input id="only-available" type="checkbox" ng-model="getParams.available" ng-change="doQuery()"/>
+        <label for="only-available">Only available items</label>
     </div>
 </div>
+
+<table class="striped">
+    <thead>
+    <tr>
+        <th data-field="name">
+            <a href="" ng-click="orderProperty='name'; orderReverse=!orderReverse">
+                Name
+                <span ng-show="orderProperty==='name'">
+                    <span ng-show="!orderReverse">▾</span>
+                    <span ng-show="orderReverse">▴</span>
+                </span>
+            </a>
+        </th>
+        <th data-field="price">
+            <a href="" ng-click="orderProperty='price'; orderReverse=!orderReverse">
+                Price
+                <span ng-show="orderProperty==='price'">
+                    <span ng-show="!orderReverse">▾</span>
+                    <span ng-show="orderReverse">▴</span>
+                </span>
+            </a>
+        </th>
+        <th data-field="available">
+            <a href="" ng-click="orderProperty='available'; orderReverse=!orderReverse">
+                Available
+                <span ng-show="orderProperty==='available'">
+                  <span ng-show="!orderReverse">▾</span>
+                  <span ng-show="orderReverse">▴</span>
+                </span>
+            </a>
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="item in items.menuItems | orderBy: orderProperty : orderReverse">
+        <td>
+            {{ item.name }}
+        </td>
+        <td>
+            {{ item.price | currency:"S/.":2 }}
+        </td>
+        <td>
+            <i ng-class="{ 'mdi-action-done': item.available, 'mdi-content-clear': !item.available }"></i>
+        </td>
+        <td>
+            <a href="#/menu/{{ item.id }}" class="btn-floating blue"><i class="mdi-editor-mode-edit"></i></a>
+        </td>
+    </tr>
+    </tbody>
+</table>

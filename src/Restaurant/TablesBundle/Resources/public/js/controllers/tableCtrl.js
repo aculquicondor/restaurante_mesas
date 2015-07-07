@@ -29,3 +29,4 @@ restaurantControllers.controller('TablesCtrl', ['$scope', '$rootScope', 'Tables'
         };
         init();
     }]);
+

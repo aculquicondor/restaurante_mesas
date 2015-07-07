@@ -1,9 +1,10 @@
-restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Tables', '$location', 'AuthSvc',
-    function($scope, Orders, Tables, $location, AuthSvc) {
+restaurantControllers.controller('OrderListCtrl', ['$scope', '$rootScope', 'Orders', 'Tables', '$location', 'AuthSvc',
+    function($scope, $rootScope, Orders, Tables, $location, AuthSvc) {
         if (!AuthSvc.isAuthenticated()) {
             $location.path('/login');
         }
 
+        $rootScope.section = 'Orders';
         $scope.orders = Orders.query();
         $scope.orderProperty = 'date';
         $scope.orderReverse = true;
@@ -48,11 +49,12 @@ restaurantControllers.controller('OrderListCtrl', ['$scope', 'Orders', 'Tables',
 
 
 restaurantControllers.controller('OrderDetailCtrl',
-    ['$scope', '$routeParams', 'Order', 'OrderItems', 'OrderItem', 'MenuItems', '$location', 'AuthSvc',
-        function ($scope, $routeParams, Order, OrderItems, OrderItem, MenuItems, $location, AuthSvc) {
+    ['$scope', '$rootScope', '$routeParams', 'Order', 'OrderItems', 'OrderItem', 'MenuItems', '$location', 'AuthSvc',
+        function ($scope, $rootScope, $routeParams, Order, OrderItems, OrderItem, MenuItems, $location, AuthSvc) {
             if (!AuthSvc.isAuthenticated()) {
                 $location.path('/login');
             }
+            $rootScope.section = 'Orders';
 
             $scope.order = Order.get({orderId: $routeParams.orderId});
             $scope.orderItems = OrderItems.query({orderId: $routeParams.orderId});
